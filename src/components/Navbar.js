@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
-import {
-    
-    Container,List,Col
-} from 'reactstrap';
+import { Link } from 'react-router-dom';
+import {Container,List,Col} from 'reactstrap';
+import styled from "styled-components";
+
+const NavS = styled.header`
+  
+  .brand{
+    font-size:22px;
+    font-weight:500;
+  }
+
+  a{
+    font-size:18px;
+    font-weight:300;
+    color:#000000;
+  }
+`;
 
 function Example(args) {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,24 +25,22 @@ function Example(args) {
     return (
         <div>
             <Container>
-                <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <NavS className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                     <Col md="3" className="mb-2 mb-md-0 text-start">
-                        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                        <Link to="/" class="d-inline-flex link-body-emphasis text-decoration-none brand">
                             Acteo
-                        </a>
+                        </Link>
                     </Col>
 
                     <List className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="#" class="nav-link px-2 link-secondary">Lien 1</a></li>
-                        <li><a href="#" class="nav-link px-2">Lien 2</a></li>
-                        <li><a href="#" class="nav-link px-2">Vous êtes agent immobilier ?</a></li>
+                        <li><Link to="/home" className="nav-link px-2">home</Link></li>
+                        <li><Link to="/agent-immobilier"  className="nav-link px-2">Agent immobilier</Link></li>
                     </List>
 
                     <Col md="3" className="text-end">
-                        <button type="button" class="btn btn-outline-primary me-2">Connexion</button>
-                        <button type="button" class="btn btn-primary">Inscription</button>
+                    <Link to="/home" className="nav-link px-2">Inscription</Link>
                     </Col>
-                </header>
+                </NavS>
             </Container>
         </div>
     );

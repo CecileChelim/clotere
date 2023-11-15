@@ -1,19 +1,32 @@
 import React  from 'react';
+import {
+  BrowserRouter as Router, Route, Routes
+} from "react-router-dom";
+//page
+import Home from './Home';
+import HomeAgent from './HomeAgent';
 //components
 import Navbar  from './components/Navbar';
+import Header from './components/Header';
 
 //style
-import logo from './logo.svg';
-import './App.css';
-import { Button } from 'reactstrap';
-import { ButtonPrimary } from "./style/Buttons"
 
-function App() {
+
+const App = () => {
   return (
-    <div className="App">
+    <> <Router>
+    
+   
+      <Routes>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/agent-immobilier" component={HomeAgent} />
+      </Routes>
       <Navbar/>
-    </div>
+      
+      <Header/>
+    </Router>
+    </>
   );
-}
+};
 
 export default App;
