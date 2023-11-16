@@ -3,8 +3,9 @@ import {
   BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
 //page
-import HomePage from './Home';
-import HomeAgentPage from './HomeAgent';
+import Home from './Home';
+import HomeAgent from './HomeAgent';
+import Layout from './app/Layout';
 //components
 import Navbar  from './components/Navbar';
 
@@ -17,8 +18,9 @@ const App = () => {
     <> <Router>
       <Navbar/>
       <Routes>
-      <Route index element={<HomePage />} />
-      <Route path="agent-immobilier" element={<HomeAgentPage />} />
+      <Route index element={<Home />} />
+      <Route path="agent-immobilier" element={<HomeAgent />} />
+      <Route path="app" element={<Layout />} />
       </Routes>
       
       
@@ -28,20 +30,6 @@ const App = () => {
   );
 };
 
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
 
-function HomeAgent() {
-  return (
-    <div>
-      <h2>HomeAgent</h2>
-    </div>
-  );
-}
 
 export default App;

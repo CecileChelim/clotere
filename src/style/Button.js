@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "reactstrap";
+import { Button,Dropdown } from "reactstrap";
 
 export const ButtonPrimary = styled(Button)`
   background-color: #006855;
@@ -34,6 +34,15 @@ export const LinkS = styled.a`
       transition: all 0.5s ease;
       transform: translateX(10px);
     }
+  }
+`;
+
+export const DropdownPrimary = styled(Dropdown)`
+  button.dropdown-toggle{
+    background-color: #006855;
+border:0;
+font-size:18px;
+color:#fff;font-weight:600;
   }
 `;
 

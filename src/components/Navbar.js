@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {Container,List,Col} from 'reactstrap';
+import {List,Col} from 'reactstrap';
 import styled from "styled-components";
 
 const NavS = styled.div`
@@ -18,14 +18,9 @@ const NavS = styled.div`
 `;
 
 function Example(args) {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggle = () => setIsOpen(!isOpen);
-
     return (
         <div>
-            <Container>
-                <NavS className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <NavS className="p-5  fixed-top d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                     <Col md="3" className="mb-2 mb-md-0 text-start">
                         <Link to="/" class="d-inline-flex link-body-emphasis text-decoration-none brand">
                             Acteo
@@ -41,7 +36,6 @@ function Example(args) {
                     <Link to="/home" className="nav-link px-2">Inscription</Link>
                     </Col>
                 </NavS>
-            </Container>
         </div>
     );
 }
