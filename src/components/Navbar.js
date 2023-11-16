@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {Container,List,Col} from 'reactstrap';
 import styled from "styled-components";
 
-const NavS = styled.header`
+const NavS = styled.div`
   
   .brand{
     font-size:22px;
@@ -33,7 +33,7 @@ function Example(args) {
                     </Col>
 
                     <List className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link to="/home" className="nav-link px-2">home</Link></li>
+                        <li><Link to="/" className="nav-link px-2">home</Link></li>
                         <li><Link to="/agent-immobilier"  className="nav-link px-2">Agent immobilier</Link></li>
                     </List>
 
