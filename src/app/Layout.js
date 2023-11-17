@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane} from 'reactstrap';
 import styled from "styled-components";
 import classnames from 'classnames';
 import Dashboard from './Dashboard'
@@ -15,6 +15,7 @@ const LayoutS = styled.div`
 
 const ColMenu = styled(Col)`
   background-color:#FFF;
+  min-height:100vh;
   ul{
     padding:2rem;
     li.nav-item{   
@@ -105,7 +106,7 @@ function Layout(args) {
                         <TabPane tabId="1">
                             <Row>
                                 <Col sm="12">
-                                    <Dashboard/>
+                                    <Dashboard />
                                 </Col>
                             </Row>
                         </TabPane>
