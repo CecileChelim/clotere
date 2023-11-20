@@ -1,6 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useMemberstack } from "@memberstack/react";
+import { useMemberstackModal } from "@memberstack/react";
 import { Link } from 'react-router-dom';
-import { List, Col,Button } from 'reactstrap';
+import { List, Col, Button } from 'reactstrap';
+import { Navigate,useNavigate } from 'react-router-dom';
+import classnames from 'classnames';
 import styled from "styled-components";
 
 const NavS = styled.div`
@@ -17,7 +21,19 @@ const NavS = styled.div`
   }
 `;
 
-function Example(args,props) {
+function Navigation(args, props) {
+  const memberstack = useMemberstack();
+  const { openModal, hideModal } = useMemberstackModal();
+  const [member, setMember] = useState(null);
+  const navigate = useNavigate();
+
+  
+useEffect(() => {
+    if (member === null) {
+      memberstack.getCurrentMember()
+        .then(({ data: member }) => setMember(member))
+    }
+  }, []);
 
   return (
     <div>
@@ -34,12 +50,58 @@ function Example(args,props) {
         </List>
 
         <Col md="3" className="text-end">
-          <Link to="/onboard" className="nav-link px-2">Inscription</Link>
+          {member && (
+            <>
+              <a className="nav-link"
+                href="#"
+                onClick={() =>
+                  memberstack.logout()
+                    .then(({ data, type }) => {
+                      window.location.replace('/');
+                    })}
+              >
+                Deconnexion
+              </a>
+              <a
+                outline
+                className="mr-2 cta"
+                type="button"
+                href="/admin"
+              >
+                {member.auth.email}
+              </a>
+            </>
+          )}
+          {!member && (
+            <>
+            <Link 
+          className="nav-link px-2"
+          onClick={() =>
+            openModal({
+                type: "SIGNUP"
+            }).then(({ data, type }) => {
+                console.log('data', data);
+                console.log('type: ', type);
+                if (type === "LOGIN"){
+                  console.log("login");
+                  hideModal();
+                  navigate("/app");
+                }else if(type === "REGISTER"){
+                  console.log("REGISTER");
+                  hideModal();
+                  navigate("/onboard");
+                }
+                hideModal();
+            })
+        }>Inscription</Link>
+        </>
+          )}
           
+
         </Col>
       </NavS>
     </div>
   );
 }
 
-export default Example;
+export default Navigation;

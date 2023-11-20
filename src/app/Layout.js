@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext }  from 'react';
 import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane} from 'reactstrap';
+import { useMemberstack,useAuth } from "@memberstack/react";
+import { userInfoContext } from "../App";
 import styled from "styled-components";
 import classnames from 'classnames';
 import Dashboard from './Dashboard'
@@ -40,95 +42,109 @@ const ColContent = styled(Col)`
 `;
 
 
-function Layout(args) {
+function Layout(args,props) {
+    const memberstack = useMemberstack();
+    const [member, setMember] = useState(null);
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
-
     const toggle = tab => {
         if (currentActiveTab !== tab) setCurrentActiveTab(tab);
     }
+    useEffect(() => {
+        if (member === null) {
+          memberstack.getCurrentMember()
+            .then(({ data: member }) => setMember(member))
+        }
+      }, []);
 
-    return (
-        <LayoutS>
-            <Row>
-                <ColMenu md="3">
-                    <Nav vertical>
-                        <NavItem>
-                            <NavLink
-                                className={classnames({
+    if(member !== null){
+        return (
+            <LayoutS>
+                <Row>
+                    <ColMenu md="3">
+                        <Nav vertical>
+                            <NavItem>
+                                <NavLink
+                                    className={classnames({
+                                        active:
+                                            currentActiveTab === '1'
+                                    })}
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord {member.auth.email}
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink className={classnames({
                                     active:
-                                        currentActiveTab === '1'
+                                        currentActiveTab === '2'
                                 })}
-                                onClick={() => { toggle('1'); }}
-                            >
-                                <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink className={classnames({
-                                active:
-                                    currentActiveTab === '2'
-                            })}
-                                onClick={() => { toggle('2'); }} >
-                                <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink className={classnames({
-                                active:
-                                    currentActiveTab === '2'
-                            })}
-                                onClick={() => { toggle('2'); }} >
-                                <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink className={classnames({
-                                active:
-                                    currentActiveTab === '2'
-                            })}
-                                onClick={() => { toggle('2'); }} >
-                                <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink className={classnames({
-                                active:
-                                    currentActiveTab === '2'
-                            })}
-                                onClick={() => { toggle('2'); }} >
-                                <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
-                            </NavLink>
-                        </NavItem>
-                    </Nav>
-                </ColMenu>
-                <ColContent md="9">
-                    <TabContent activeTab={currentActiveTab}>
-                        <TabPane tabId="1">
-                            <Row>
-                                <Col sm="12">
-                                    <Dashboard />
-                                </Col>
-                            </Row>
-                        </TabPane>
-                        <TabPane tabId="2">
-                            <Row>
-                                <Col sm="12">
-                                    <h5>Sample Tab 2 Content</h5>
-                                </Col>
-                            </Row>
-                        </TabPane>
-                        <TabPane tabId="3">
-                            <Row>
-                                <Col sm="12">
-                                    <h5>Sample Tab 3 Content</h5>
-                                </Col>
-                            </Row>
-                        </TabPane>
-                    </TabContent>
-                </ColContent>
-            </Row>
-        </LayoutS>
-    );
+                                    onClick={() => { toggle('2'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink className={classnames({
+                                    active:
+                                        currentActiveTab === '2'
+                                })}
+                                    onClick={() => { toggle('2'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink className={classnames({
+                                    active:
+                                        currentActiveTab === '2'
+                                })}
+                                    onClick={() => { toggle('2'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink className={classnames({
+                                    active:
+                                        currentActiveTab === '2'
+                                })}
+                                    onClick={() => { toggle('2'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                </NavLink>
+                            </NavItem>
+                        </Nav>
+                    </ColMenu>
+                    <ColContent md="9">
+                        <TabContent activeTab={currentActiveTab}>
+                            <TabPane tabId="1">
+                                <Row>
+                                    <Col sm="12">
+                                        <Dashboard />
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tabId="2">
+                                <Row>
+                                    <Col sm="12">
+                                        <h5>Sample Tab 2 Content</h5>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tabId="3">
+                                <Row>
+                                    <Col sm="12">
+                                        <h5>Sample Tab 3 Content</h5>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                        </TabContent>
+                    </ColContent>
+                </Row>
+            </LayoutS>
+        );
+    }
+    return(<>loading</>)
+        
+    
+    
+    
 }
 
 export default Layout;

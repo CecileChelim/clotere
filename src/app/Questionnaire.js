@@ -19,7 +19,7 @@ function Questionnaire(args,props) {
     <Container className="grey-bg mt-5 pt-5">
         <Row>
             <Col md="12" xs="0">
-            <WidgetTypeform id="JM2MTsDD"  className="my-form" />
+            <WidgetTypeform id="JM2MTsDD"  className="" />
             </Col>
         </Row>
     </Container>
