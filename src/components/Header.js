@@ -28,7 +28,7 @@ a{
 
 function Header() {
     return (
-        <Container className="grey-bg mt-5">
+        <Container className="grey-bg mt-5 pt-5">
             <Row className="d-flex align-items-center">
                 <Col md="6">
                     <Title>Réinventons la signature de l’acte de vente</Title>
