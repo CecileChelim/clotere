@@ -1,7 +1,8 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState, useContext  } from 'react';
 import {
   BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
+
 //page
 import Home from './Home';
 import HomeAgent from './HomeAgent';
@@ -11,8 +12,10 @@ import Questionnaire from './app/Questionnaire';
 import Navbar from './components/Navbar';
 
 export const userInfoContext = createContext();
+
 const App = () => {
   const [userInfo, setUserInfo] = useState(null);
+  
   return (
     <>
 

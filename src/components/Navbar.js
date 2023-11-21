@@ -78,7 +78,7 @@ useEffect(() => {
           className="nav-link px-2"
           onClick={() =>
             openModal({
-                type: "SIGNUP"
+                type: "LOGIN"
             }).then(({ data, type }) => {
                 console.log('data', data);
                 console.log('type: ', type);
@@ -93,7 +93,7 @@ useEffect(() => {
                 }
                 hideModal();
             })
-        }>Inscription</Link>
+        }>Connexion</Link>
         </>
           )}
           

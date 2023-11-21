@@ -6,8 +6,10 @@ import {
     DropdownItem,
     Offcanvas
 } from "reactstrap";
-import { TitlePage } from "../style/Layout";
+import { TitlePage,TitlePageBig } from "../style/Layout";
 import { DropdownPrimary } from "../style/Button";
+import TimelineListItem from "../components/TimelineListItem";
+import CardHelp from "../components/CardHelp";
 
 
 
@@ -22,11 +24,13 @@ function Dashboard(args) {
     return (
         <>
             <Container>
-                <Row className="d-flex align-items-center">
-                    <Col md="6">
+                <Row className="d-flex align-self-start">
+                <Col md="12"><TitlePageBig className="mb-4">Bonjour Cécile <span role="img" aria-label="hello">👋</span></TitlePageBig></Col>
+                    <Col md="7">
                         <TitlePage>Dernières activités de votre dossier</TitlePage>
+                        
                     </Col>
-                    <Col md="6" className="text-end">
+                    <Col md="5" className="text-end">
                         <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
                             <DropdownToggle caret>Actions rapides</DropdownToggle>
                             <DropdownMenu >
@@ -35,6 +39,14 @@ function Dashboard(args) {
                                 <DropdownItem>Quo Action</DropdownItem>
                             </DropdownMenu>
                         </DropdownPrimary>
+
+                        
+                    </Col>
+                    <Col md="7" className="mt-3">
+                    <TimelineListItem/>
+                    </Col>
+                    <Col md="5" className="mt-3">
+                    <CardHelp/>
                     </Col>
 
                 </Row>

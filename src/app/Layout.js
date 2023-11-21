@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useContext }  from 'react';
-import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane} from 'reactstrap';
-import { useMemberstack,useAuth } from "@memberstack/react";
+import React, { useEffect, useState, useContext } from 'react';
+import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { useMemberstack, useAuth } from "@memberstack/react";
 import { userInfoContext } from "../App";
+import axios from "axios";
 import styled from "styled-components";
 import classnames from 'classnames';
 import Dashboard from './Dashboard'
+import Bien from './Bien'
 
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,7 +21,7 @@ const ColMenu = styled(Col)`
   background-color:#FFF;
   min-height:100vh;
   ul{
-    padding:2rem;
+    padding:.5rem;
     li.nav-item{   
     }
   }
@@ -42,25 +44,38 @@ const ColContent = styled(Col)`
 `;
 
 
-function Layout(args,props) {
+function Layout(args, props) {
     const memberstack = useMemberstack();
     const [member, setMember] = useState(null);
+    const [loading, setLoading] = useState(false);
+    console.log("member", member);
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => {
         if (currentActiveTab !== tab) setCurrentActiveTab(tab);
     }
-    useEffect(() => {
-        if (member === null) {
-          memberstack.getCurrentMember()
-            .then(({ data: member }) => setMember(member))
-        }
-      }, []);
 
-    if(member !== null){
+
+
+    useEffect(() => {
+        fetchDataUser();
+    }, []);
+
+    const fetchDataUser = () => {
+        setLoading(true);
+        memberstack.getCurrentMember()
+            .then(({ data: member }) => setMember(member))
+            .then((data) => { setLoading(false); })
+            .catch((error) => {
+                console.log(error); setLoading(false);
+            });
+    };
+
+
+    if (member !== null) {
         return (
             <LayoutS>
                 <Row>
-                    <ColMenu md="3">
+                    <ColMenu md="2">
                         <Nav vertical>
                             <NavItem>
                                 <NavLink
@@ -70,7 +85,7 @@ function Layout(args,props) {
                                     })}
                                     onClick={() => { toggle('1'); }}
                                 >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord {member.auth.email}
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -94,24 +109,24 @@ function Layout(args,props) {
                             <NavItem>
                                 <NavLink className={classnames({
                                     active:
-                                        currentActiveTab === '2'
+                                        currentActiveTab === '3'
                                 })}
-                                    onClick={() => { toggle('2'); }} >
+                                    onClick={() => { toggle('3'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
                                 </NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink className={classnames({
                                     active:
-                                        currentActiveTab === '2'
+                                        currentActiveTab === '4'
                                 })}
-                                    onClick={() => { toggle('2'); }} >
+                                    onClick={() => { toggle('4'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
                                 </NavLink>
                             </NavItem>
                         </Nav>
                     </ColMenu>
-                    <ColContent md="9">
+                    <ColContent md="10">
                         <TabContent activeTab={currentActiveTab}>
                             <TabPane tabId="1">
                                 <Row>
@@ -123,7 +138,7 @@ function Layout(args,props) {
                             <TabPane tabId="2">
                                 <Row>
                                     <Col sm="12">
-                                        <h5>Sample Tab 2 Content</h5>
+                                        <Bien />
                                     </Col>
                                 </Row>
                             </TabPane>
@@ -140,11 +155,12 @@ function Layout(args,props) {
             </LayoutS>
         );
     }
-    return(<>loading</>)
-        
-    
-    
-    
+    return (
+        <>
+            Document loading
+        </>
+    )
+
 }
 
 export default Layout;

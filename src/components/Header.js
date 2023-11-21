@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { ButtonPrimary, LinkS } from "../style/Button";
 
+
 const Title = styled.h1`
 font-size: 70px;
 `;
@@ -34,8 +35,8 @@ function Header() {
                     <Title>Réinventons la signature de l’acte de vente</Title>
                     <SubTitle>Acteo, vous accompagne pour signer votre acte de vente <span className="main-text">plus rapidement</span> avec <span className="main-text">moins de frais de notaire</span> !</SubTitle>
                     <BlocButton>
-                        <Link to="/test">
-                            <ButtonPrimary>Inscription par email</ButtonPrimary>
+                        <Link to="/onboard">
+                            <ButtonPrimary>Ouvrez votre dossier de vente</ButtonPrimary>
                         </Link>
                         <Link to="/test">
                             <LinkS>Comment ça marche ?</LinkS>
@@ -45,6 +46,10 @@ function Header() {
                 </Col>
                 <Col md="6" className="text-end">
                     <Image width="80%" src="https://imgdrop.imgix.net/2023-07-1689178592438-35057.jpg" alt="#" />
+                </Col>
+                <br/><br/><br/><br/>
+                <Col md="5">
+                
                 </Col>
             </Row>
         </Container>

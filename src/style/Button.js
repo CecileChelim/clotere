@@ -36,6 +36,14 @@ export const LinkS = styled.a`
     }
   }
 `;
+export const LinkCard = styled.a`
+  font-size:16px;
+  color:#006855;
+  transition: all 200ms ease-in-out;
+  line-height: 100%;
+  font-weight: 400;
+  margin-right:.8rem;
+`;
 
 export const DropdownPrimary = styled(Dropdown)`
   button.dropdown-toggle{
