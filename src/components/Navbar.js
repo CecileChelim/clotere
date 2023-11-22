@@ -85,6 +85,7 @@ useEffect(() => {
                 if (type === "LOGIN"){
                   console.log("login");
                   hideModal();
+                  setMember(member);
                   navigate("/app");
                 }else if(type === "REGISTER"){
                   console.log("REGISTER");

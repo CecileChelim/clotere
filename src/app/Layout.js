@@ -5,8 +5,9 @@ import { userInfoContext } from "../App";
 import axios from "axios";
 import styled from "styled-components";
 import classnames from 'classnames';
-import Dashboard from './Dashboard'
-import Bien from './Bien'
+import Dashboard from './Dashboard';
+import Bien from './Bien';
+import {urlAxiosUser} from "../functions/Functions";
 
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -47,6 +48,7 @@ const ColContent = styled(Col)`
 function Layout(args, props) {
     const memberstack = useMemberstack();
     const [member, setMember] = useState(null);
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     console.log("member", member);
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
@@ -54,21 +56,55 @@ function Layout(args, props) {
         if (currentActiveTab !== tab) setCurrentActiveTab(tab);
     }
 
-
-
     useEffect(() => {
         fetchDataUser();
     }, []);
+
+    if (member !== null & loading === false) {
+        const URL = 'https://airtable.com/v0/appD48APNaGA4GN0B/user';
+        const query = '?filterByFormula=';
+        const filterBy = `SEARCH("${member.metaData.airtable_id}",{airtable_id})`;
+        const link = `${URL}${query}${filterBy}`;
+      
+        return axios({
+          method: "get",
+          url: link,
+          timeout: 1000 * 5,
+          headers: {
+            Authorization: "Bearer keyOJASKOIpyF1ACT",
+            "Content-Type": "application/json"
+          }
+        })
+        .then((records) => {
+            console.log("info airtable user", records.data.records[0]);
+            const infoUser = records.data.records[0];
+            setUser(infoUser);
+            return infoUser;
+          })
+            .catch((error) => {
+                console.log(error.response)
+                setLoading(false);
+            });
+    }
+
+   
 
     const fetchDataUser = () => {
         setLoading(true);
         memberstack.getCurrentMember()
             .then(({ data: member }) => setMember(member))
-            .then((data) => { setLoading(false); })
+            .then((data) => { 
+                setLoading(false);
+            })
             .catch((error) => {
-                console.log(error); setLoading(false);
+                console.log(error); 
+                setLoading(false);
             });
     };
+
+
+
+    
 
 
     if (member !== null) {
