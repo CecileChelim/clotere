@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
-import { useMemberstack, useAuth } from "@memberstack/react";
-import { userInfoContext } from "../App";
-import axios from "axios";
+import { useMemberstack} from "@memberstack/react";
 import styled from "styled-components";
 import classnames from 'classnames';
 import Dashboard from './Dashboard';
 import Bien from './Bien';
-import {urlAxiosUser} from "../functions/Functions";
+import Interlocuteurs from './Interlocuteurs';
+import Loading from '../components/Loading';
 
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/fontawesome-free-solid'
+
 
 const LayoutS = styled.div`
   background-color:#F6F5F4;
@@ -49,47 +49,78 @@ function Layout(args, props) {
     const memberstack = useMemberstack();
     const [member, setMember] = useState(null);
     const [user, setUser] = useState(null);
+    const [transaction, setTransaction] = useState(null);
     const [loading, setLoading] = useState(false);
-    console.log("member", member);
+    const [loadingAirtable, setLoadingAirtable] = useState(true);
+    
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => {
         if (currentActiveTab !== tab) setCurrentActiveTab(tab);
     }
 
     useEffect(() => {
-        fetchDataUser();
+        fetchDataMemberstack();
     }, []);
 
-    if (member !== null & loading === false) {
-        const URL = 'https://airtable.com/v0/appD48APNaGA4GN0B/user';
-        const query = '?filterByFormula=';
-        const filterBy = `SEARCH("${member.metaData.airtable_id}",{airtable_id})`;
-        const link = `${URL}${query}${filterBy}`;
-      
-        return axios({
-          method: "get",
-          url: link,
-          timeout: 1000 * 5,
-          headers: {
-            Authorization: "Bearer keyOJASKOIpyF1ACT",
-            "Content-Type": "application/json"
-          }
-        })
-        .then((records) => {
-            console.log("info airtable user", records.data.records[0]);
-            const infoUser = records.data.records[0];
-            setUser(infoUser);
-            return infoUser;
-          })
-            .catch((error) => {
-                console.log(error.response)
-                setLoading(false);
-            });
-    }
+    useEffect(() => {
+        //avec les info memberstack on recupere les info user airtable
+        //console.log("seulement si member est update");
+        if(member !== null){
+        const URL= `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${member.metaData.airtable_id}`;
 
-   
+        return fetch(
+            URL,
+            {
+              method: "GET",
+              headers: {
+                Authorization: "Bearer keyOJASKOIpyF1ACT",
+                'content-type': 'application/x-www-form-urlencoded',
+                "Accept":"application/json, text/plain, /"
+              },
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log("this user info",res);
+                setUser(res.fields);
+                setLoadingAirtable(false);
+            })
+            .catch((error) => console.log(error),setLoadingAirtable(false));
+        }
+    }, [loading]);
 
-    const fetchDataUser = () => {
+
+
+    useEffect(() => {
+        //aon recupere toutes les informations du dossier
+        if(user !== null){
+            //La transaction
+        const URL= `https://api.airtable.com/v0/appD48APNaGA4GN0B/transaction/${user.transaction_id}`;
+
+        fetch(
+            URL,
+            {
+              method: "GET",
+              headers: {
+                Authorization: "Bearer keyOJASKOIpyF1ACT",
+                'content-type': 'application/x-www-form-urlencoded',
+                "Accept":"application/json, text/plain, /"
+              },
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log("transaction info",res);
+                setTransaction(res.fields);
+            })
+            .catch((error) => console.log("transaction info error",error),);
+        }
+        
+    }, [user]);
+
+    console.log("member", member);
+    console.log("user", user);
+    console.log("transaction", transaction);
+
+    const fetchDataMemberstack = () => {
         setLoading(true);
         memberstack.getCurrentMember()
             .then(({ data: member }) => setMember(member))
@@ -103,11 +134,7 @@ function Layout(args, props) {
     };
 
 
-
-    
-
-
-    if (member !== null) {
+    if (user !== null & transaction !== null) {
         return (
             <LayoutS>
                 <Row>
@@ -136,19 +163,10 @@ function Layout(args, props) {
                             <NavItem>
                                 <NavLink className={classnames({
                                     active:
-                                        currentActiveTab === '2'
-                                })}
-                                    onClick={() => { toggle('2'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink className={classnames({
-                                    active:
                                         currentActiveTab === '3'
                                 })}
                                     onClick={() => { toggle('3'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -157,6 +175,15 @@ function Layout(args, props) {
                                         currentActiveTab === '4'
                                 })}
                                     onClick={() => { toggle('4'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink className={classnames({
+                                    active:
+                                        currentActiveTab === '5'
+                                })}
+                                    onClick={() => { toggle('5'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
                                 </NavLink>
                             </NavItem>
@@ -167,21 +194,35 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard />
+                                        <Dashboard  user={user} />
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="2">
                                 <Row>
                                     <Col sm="12">
-                                        <Bien />
+                                        <Bien  user={user} />
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="3">
                                 <Row>
                                     <Col sm="12">
-                                        <h5>Sample Tab 3 Content</h5>
+                                       <Interlocuteurs user={user} transaction={transaction} />
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tabId="4">
+                                <Row>
+                                    <Col sm="12">
+                                        <h5>Documents</h5>
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            <TabPane tabId="5">
+                                <Row>
+                                    <Col sm="12">
+                                        <h5>Transactions</h5>
                                     </Col>
                                 </Row>
                             </TabPane>
@@ -193,7 +234,7 @@ function Layout(args, props) {
     }
     return (
         <>
-            Document loading
+           <Loading/>
         </>
     )
 

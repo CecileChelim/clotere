@@ -39,8 +39,6 @@ function Dashboard(args) {
                                 <DropdownItem>Quo Action</DropdownItem>
                             </DropdownMenu>
                         </DropdownPrimary>
-
-                        
                     </Col>
                     <Col md="7" className="mt-3">
                     <TimelineListItem/>
