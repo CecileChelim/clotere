@@ -27,7 +27,7 @@ function Dashboard(args) {
                 <Row className="d-flex align-self-start">
                 <Col md="12"><TitlePageBig className="mb-4">Bonjour Cécile <span role="img" aria-label="hello">👋</span></TitlePageBig></Col>
                     <Col md="7">
-                        <TitlePage>Dernières activités de votre dossier</TitlePage>
+                        <TitlePage>Voici l'avancement de votre dossier </TitlePage>
                         
                     </Col>
                     <Col md="5" className="text-end">
@@ -41,7 +41,7 @@ function Dashboard(args) {
                         </DropdownPrimary>
                     </Col>
                     <Col md="7" className="mt-3">
-                    <TimelineListItem/>
+                    <TimelineListItem etat="pas fait" type={"Offre d'achat"} message={"L’offre d’achat est acceptée ! 🥳"} contenu={"Signée le 16 janvier 2023"} />
                     </Col>
                     <Col md="5" className="mt-3">
                     <CardHelp/>
