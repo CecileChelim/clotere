@@ -61,9 +61,7 @@ padding: 1rem 0!important;
 `;
 
 
-
-
-function CardBien() {
+function CardBien(args) {
     return (
         <ListGroupS>
             <ListGroupItem>
@@ -73,7 +71,7 @@ function CardBien() {
                     <FontAwesomeIcon icon={faMapMarked} className='mr-3' />
                 </Icon>
                 <Content>
-                    <h4>2 mail Ciboulette 93300 Aubervilliers</h4>
+                    <h4> {args.bien.adresse} {" "} {args.bien.code_postal}{" "} {args.bien.ville}</h4>
 
                 </Content>
                 <Details>
@@ -86,13 +84,13 @@ function CardBien() {
                     <Col md="12">
                         <ListGroup horizontal>
                             <ListGroupItemCarac>
-                                <p><small>Superficie</small> 65m2</p>
+                                <p><small>Superficie</small> {args.bien.superficie} m2</p>
                             </ListGroupItemCarac>
                             <ListGroupItemCarac>
-                                <p><small>Prix de vente</small> 355 000€</p>
+                                <p><small>Prix de vente</small>  {args.bien.prix} €</p>
                             </ListGroupItemCarac>
                             <ListGroupItemCarac>
-                                <p><small>Nombre de lot</small> 3</p>
+                                <p><small>Nombre de lot</small> {!args.bien.nb_lot ? (<>non renseigné</>) : (<>{args.bien.nb_lot}</> )}</p>
                             </ListGroupItemCarac>
                         </ListGroup>
                     </Col>

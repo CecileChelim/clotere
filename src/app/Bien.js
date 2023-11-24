@@ -10,8 +10,8 @@ import CardInfoManquante from "../components/CardInfoManquante";
 
 
 function Bien(args) {
+    console.log("arg  bien",args.bien)
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
     const [canvas, setCanvas] = useState(false);
 
     const toggle2 = () => setCanvas(!canvas);
@@ -22,7 +22,7 @@ function Bien(args) {
                 <Row className="d-flex align-self-start">
                     <Col md="12"><TitlePageBig className="mb-4">Votre bien</TitlePageBig></Col>
                     <Col md="7">
-                        <CardBien />
+                        <CardBien bien={args.bien} />
                     </Col>
                     <Col md="5">
                         <CardInfoManquante />

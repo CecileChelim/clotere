@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
-import { useMemberstack} from "@memberstack/react";
+import { useMemberstack } from "@memberstack/react";
 import styled from "styled-components";
 import classnames from 'classnames';
 import Dashboard from './Dashboard';
@@ -50,9 +50,10 @@ function Layout(args, props) {
     const [member, setMember] = useState(null);
     const [user, setUser] = useState(null);
     const [transaction, setTransaction] = useState(null);
+    const [bien, setBien] = useState(null);
     const [loading, setLoading] = useState(false);
     const [loadingAirtable, setLoadingAirtable] = useState(true);
-    
+
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => {
         if (currentActiveTab !== tab) setCurrentActiveTab(tab);
@@ -65,76 +66,100 @@ function Layout(args, props) {
     useEffect(() => {
         //avec les info memberstack on recupere les info user airtable
         //console.log("seulement si member est update");
-        if(member !== null){
-        const URL= `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${member.metaData.airtable_id}`;
+        if (member !== null) {
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${member.metaData.airtable_id}`;
 
-        return fetch(
-            URL,
-            {
-              method: "GET",
-              headers: {
-                Authorization: "Bearer keyOJASKOIpyF1ACT",
-                'content-type': 'application/x-www-form-urlencoded',
-                "Accept":"application/json, text/plain, /"
-              },
-            })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log("this user info",res);
-                setUser(res.fields);
-                setLoadingAirtable(false);
-            })
-            .catch((error) => console.log(error),setLoadingAirtable(false));
+            return fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    //console.log("this user info", res);
+                    setUser(res.fields);
+                    setLoadingAirtable(false);
+                })
+                .catch((error) => console.log(error), setLoadingAirtable(false));
         }
     }, [loading]);
 
+    useEffect(() => {
+        //on recupere toutes les informations du dossier
+        if (user !== null) {
+            //La transaction
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/transaction/${user.transaction_id}`;
+            fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    //console.log("transaction info", res);
+                    setTransaction(res.fields);
+                })
+                .catch((error) => console.log("transaction info error", error),);
+        }
 
+    }, [user]);
 
     useEffect(() => {
-        //aon recupere toutes les informations du dossier
-        if(user !== null){
-            //La transaction
-        const URL= `https://api.airtable.com/v0/appD48APNaGA4GN0B/transaction/${user.transaction_id}`;
-
-        fetch(
-            URL,
-            {
-              method: "GET",
-              headers: {
-                Authorization: "Bearer keyOJASKOIpyF1ACT",
-                'content-type': 'application/x-www-form-urlencoded',
-                "Accept":"application/json, text/plain, /"
-              },
-            })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log("transaction info",res);
-                setTransaction(res.fields);
-            })
-            .catch((error) => console.log("transaction info error",error),);
+        //on recupere toutes les informations du dossier
+        if (transaction !== null) {
+            //Le bien
+            console.log("test")
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/bien/${transaction.bien}`;
+            fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    //console.log("bien info", res);
+                    setBien(res.fields);
+                })
+                .catch((error) => console.log("bien info error", error),);
         }
-        
-    }, [user]);
+
+    }, [transaction]);
 
     console.log("member", member);
     console.log("user", user);
     console.log("transaction", transaction);
+    console.log("bien", bien);
 
     const fetchDataMemberstack = () => {
         setLoading(true);
         memberstack.getCurrentMember()
             .then(({ data: member }) => setMember(member))
-            .then((data) => { 
+            .then((data) => {
                 setLoading(false);
             })
             .catch((error) => {
-                console.log(error); 
+                console.log(error);
                 setLoading(false);
             });
     };
 
 
-    if (user !== null & transaction !== null) {
+    if (user !== null & transaction !== null & bien !== null) {
         return (
             <LayoutS>
                 <Row>
@@ -194,21 +219,21 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard  user={user} />
+                                        <Dashboard user={user} />
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="2">
                                 <Row>
                                     <Col sm="12">
-                                        <Bien  user={user} />
+                                        <Bien user={user} bien={bien} />
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="3">
                                 <Row>
                                     <Col sm="12">
-                                       <Interlocuteurs user={user} transaction={transaction} />
+                                        <Interlocuteurs user={user} transaction={transaction} />
                                     </Col>
                                 </Row>
                             </TabPane>
@@ -234,7 +259,7 @@ function Layout(args, props) {
     }
     return (
         <>
-           <Loading/>
+            <Loading />
         </>
     )
 

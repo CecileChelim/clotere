@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroupItem,Row,Col, CardBody,Card, Badge } from "reactstrap";
+import { ListGroupItem, Row, Col, CardBody, Card, Badge } from "reactstrap";
 import styled from "styled-components";
 import imginterloc from "../img/rond-interlocuteurs.png";
 
@@ -32,39 +32,32 @@ const ListGroupItemCarac = styled(ListGroupItem)`
   }
 `;
 
-
-
-
 function CardInterlocuteurs(args) {
     return (
-            <CardS className={args.className}>
-                    <CardBody>
-                        <Row>
-                            <Col md='12'>
-                                <h4>{args.prenom} {" "} {args.nom}</h4>
-                               <Badge color="primary">{args.role}</Badge>
-                            </Col>
-                            <Col md='12' className="pt-3">
+        <CardS className={args.className}>
+            <CardBody>
+                <Row>
+                    <Col md='12'>
+                        <h4>{args.prenom} {" "} {args.nom}</h4>
+                        <Badge color="primary">{args.role}</Badge>
+                    </Col>
+                    <Col md='12' className="pt-3">
 
-                            <ul>
+                        <ul>
                             <ListGroupItemCarac>
                                 <p><small>Telephone</small>
-                                {!args.tel ? (
-                                    <>non renseigné</>
-                                    ) : (
-                                        <>{args.tel}</>
-                                    )}
-                                    </p>
+                                    {!args.tel ? (<>non renseigné</>) : (<>{args.tel}</> )}
+                                </p>
                             </ListGroupItemCarac>
                             <ListGroupItemCarac>
                                 <p><small>Email</small> {args.email}</p>
                             </ListGroupItemCarac>
                         </ul>
-                            </Col>
-                            </Row>
-                    </CardBody>
-                </CardS>
-                
+                    </Col>
+                </Row>
+            </CardBody>
+        </CardS>
+
     );
 }
 
