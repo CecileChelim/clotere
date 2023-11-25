@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
     Container, Row, Col,
     Offcanvas
 } from "reactstrap";
 import { TitlePageBig } from "../style/Layout";
-import { ButtonPrimary, LinkS } from "../style/Button";
+import { ButtonPrimary } from "../style/Button";
 import CardInterlocuteurs from "../components/CardInterlocuteurs";
 
 
 function Interlocuteurs(args) {
-    console.log("arg interloc", args.user.transaction[0]);
-    const userInfoAirtable = args.user;
+    //console.log("arg interloc", args.user.transaction[0]);
     const transacInfo = args.transaction;
     const [canvas, setCanvas] = useState(false);
 

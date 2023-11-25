@@ -10,8 +10,7 @@ import CardInfoManquante from "../components/CardInfoManquante";
 
 
 function Bien(args) {
-    console.log("arg  bien",args.bien)
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    //console.log("arg  bien",args.bien)
     const [canvas, setCanvas] = useState(false);
 
     const toggle2 = () => setCanvas(!canvas);

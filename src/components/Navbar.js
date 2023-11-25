@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useMemberstack } from "@memberstack/react";
 import { useMemberstackModal } from "@memberstack/react";
 import { Link } from 'react-router-dom';
-import { List, Col, Button } from 'reactstrap';
-import { Navigate,useNavigate } from 'react-router-dom';
-import classnames from 'classnames';
+import { List, Col } from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 const NavS = styled.div`

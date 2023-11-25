@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button,Dropdown } from "reactstrap";
+import { Button, Dropdown } from "reactstrap";
 
 export const ButtonPrimary = styled(Button)`
   background-color: #006855;
@@ -19,6 +19,11 @@ export const ButtonPrimary = styled(Button)`
       transform: translateX(10px);
     }
   }
+`;
+
+export const ButtonPrimarySmall = styled(ButtonPrimary)`
+  font-size:16px;
+  padding: 10px 18px;
 `;
 export const LinkS = styled.a`
   font-size:18px;

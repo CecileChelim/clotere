@@ -1,11 +1,6 @@
 import React from "react";
 import { ListGroupItem, Row, Col, CardBody, Card, Badge } from "reactstrap";
 import styled from "styled-components";
-import imginterloc from "../img/rond-interlocuteurs.png";
-
-//style & icone
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarked } from "@fortawesome/free-solid-svg-icons";
 
 
 const CardS = styled(Card)`

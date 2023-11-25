@@ -51,18 +51,19 @@ function Layout(args, props) {
     const [user, setUser] = useState(null);
     const [transaction, setTransaction] = useState(null);
     const [bien, setBien] = useState(null);
+    const [evenement,setEvenement] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [loadingAirtable, setLoadingAirtable] = useState(true);
 
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => {
         if (currentActiveTab !== tab) setCurrentActiveTab(tab);
     }
-
+//get info memberstack
     useEffect(() => {
         fetchDataMemberstack();
     }, []);
 
+    //get info user airtable
     useEffect(() => {
         //avec les info memberstack on recupere les info user airtable
         //console.log("seulement si member est update");
@@ -83,12 +84,12 @@ function Layout(args, props) {
                 .then((res) => {
                     //console.log("this user info", res);
                     setUser(res.fields);
-                    setLoadingAirtable(false);
                 })
-                .catch((error) => console.log(error), setLoadingAirtable(false));
+                .catch((error) => console.log(error));
         }
     }, [loading]);
 
+    //get info transaction
     useEffect(() => {
         //on recupere toutes les informations du dossier
         if (user !== null) {
@@ -113,12 +114,12 @@ function Layout(args, props) {
         }
 
     }, [user]);
-
+    
+    //get info bien
     useEffect(() => {
         //on recupere toutes les informations du dossier
         if (transaction !== null) {
             //Le bien
-            console.log("test")
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/bien/${transaction.bien}`;
             fetch(
                 URL,
@@ -140,10 +141,35 @@ function Layout(args, props) {
 
     }, [transaction]);
 
-    console.log("member", member);
-    console.log("user", user);
-    console.log("transaction", transaction);
-    console.log("bien", bien);
+    //get info event
+    useEffect(() => {
+        //on recupere les event de la transaction
+        if (transaction !== null) {
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/event?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
+    
+            return fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log("all event transaction", res.records);
+                    setEvenement(res.records);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [transaction]);
+
+    //console.log("member", member);
+    //console.log("user", user);
+    //console.log("transaction", transaction);
+    //console.log("bien", bien);
 
     const fetchDataMemberstack = () => {
         setLoading(true);
@@ -159,7 +185,7 @@ function Layout(args, props) {
     };
 
 
-    if (user !== null & transaction !== null & bien !== null) {
+    if (user !== null & transaction !== null & bien !== null & evenement !== null) {
         return (
             <LayoutS>
                 <Row>
@@ -219,7 +245,7 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard user={user} />
+                                        <Dashboard user={user} evenement={evenement} />
                                     </Col>
                                 </Row>
                             </TabPane>
