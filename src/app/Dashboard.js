@@ -39,16 +39,16 @@ function Dashboard(args) {
                     <Col md="7" className="mt-3">
                         {/* Composant offre d'achat */}
                         {args.evenement[0].fields.etat === "fait" ? (
-                        <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger"  lienDoc="#"  />
+                        <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger"  lienDoc={args.evenement[0].fields.document_from_document[0].url}  />
                         ) : (<>{" "}</>)}
                         {args.evenement[0].fields.etat === "en cours" ? (
                         <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ajouterDoc" />
                         ) : (<>{" "}</>)}
-                        <br /><br />
+                        <br />
 
                         {/* Composant compromis de vente */}
                         {args.evenement[1].fields.etat === "pas fait" ? (
-                        <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="ajouterDoc" />
+                        <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="ensavoirplusCompromis" />
                         ) : (<>{" "}</>)}
 
                         {/* 2 états pour en cours, un sans action et l'autre avec action "Voir et signer" + lien de signature A DÉTERMINER*/}
@@ -61,9 +61,18 @@ function Dashboard(args) {
                         ) : (<>{" "}</>)}
 
                         {args.evenement[1].fields.etat === "fait" ? (
-                        <TimelineListItem  etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc="#" />
+                        <TimelineListItem  etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger"  lienDoc={args.evenement[1].fields.document_from_document[0].url} />
                         ) : (<>{" "}</>)}
-                        <br/><br/>
+                        <br/>
+                        {/* Composant acte de vente */}
+                        {args.evenement[2].fields.etat === "pas fait" ? (
+                        <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="ensavoirplusActe" />
+                        ) : (<>{" "}</>)}
+
+                        {/* 2 états pour en cours, un sans action et l'autre avec action "Indiquez vos dispo" + lien doodle*/}
+                        {args.evenement[2].fields.etat === "en cours" ? (
+                        <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="rdvActe" lienDoodle={args.evenement[2].fields.lien_doodle} />
+                        ) : (<>{" "}</>)}
                     </Col>
                     <Col md="5" className="mt-3">
                         <CardHelp />

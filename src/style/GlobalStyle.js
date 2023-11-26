@@ -12,8 +12,6 @@ export const GlobalStyle = createGlobalStyle`
     left: 0;
     right: 0;
   }
-  
-  
   .loading {
     display: flex;
     min-height: 500px;
@@ -21,7 +19,9 @@ export const GlobalStyle = createGlobalStyle`
     justify-content: center;
   }
 
- 
+ .offcanvas{
+  padding:2rem;
+ }
 
   `;
 
