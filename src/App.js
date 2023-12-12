@@ -1,7 +1,11 @@
 import React, { createContext, useState } from 'react';
 import {
-  BrowserRouter as Router, Route, Routes
+  BrowserRouter as Router, Route, Routes,useLocation
 } from "react-router-dom";
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
 
 //page
 import Home from './Home';
@@ -21,7 +25,9 @@ const App = () => {
 
       <Router>
         <userInfoContext.Provider value={{ userInfo, setUserInfo }}>
-          <Navbar user={userInfo} />
+        
+                {window.location.pathname === "/app" ? "" : <Navbar user={userInfo} />}
+          
           <Routes>
             <Route index element={<Home />} user={userInfo} />
             <Route path="agent-immobilier" element={<HomeAgent />} user={userInfo} />
@@ -34,6 +40,8 @@ const App = () => {
     </>
   );
 };
+
+
 
 
 
