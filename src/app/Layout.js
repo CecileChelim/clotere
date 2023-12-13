@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Navbar, NavbarBrand, Collapse, NavbarToggler } from 'reactstrap';
 import { useMemberstack } from "@memberstack/react";
 import styled from "styled-components";
 import classnames from 'classnames';
@@ -12,10 +12,8 @@ import Loading from '../components/Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/fontawesome-free-solid'
 
-
 const LayoutS = styled.div`
   background-color:#F6F5F4;
-  padding-top:5rem;
 `;
 
 const ColMenu = styled(Col)`
@@ -23,7 +21,9 @@ const ColMenu = styled(Col)`
   min-height:100vh;
   ul{
     padding:.5rem;
-    li.nav-item{   
+    li.brand{
+        margin: 2rem 0rem;
+        background-color: transparent;  
     }
   }
   a.nav-link{
@@ -31,17 +31,18 @@ const ColMenu = styled(Col)`
     font-size:18px;
     transition:all ease .5s;
     cursor: pointer;
-    svg{
-        margin-right:16px;
-    }
-        &:hover,&.active{
-            background-color:#F7F3EF;
-        }
+    svg{margin-right:16px;}
+    &:hover,&.active{background-color:#F7F3EF;}
   }
+  .navbar{display:none;}
+  @media all and (max-width: 768px) {
+    ul.menuSidebar{ display:none;}
+    .navbar{display:block}
+    min-height:auto!important;
 `;
 
 const ColContent = styled(Col)`
-  padding:2rem;
+    padding : 3rem 2rem;
 `;
 
 
@@ -51,14 +52,14 @@ function Layout(args, props) {
     const [user, setUser] = useState(null);
     const [transaction, setTransaction] = useState(null);
     const [bien, setBien] = useState(null);
-    const [evenement,setEvenement] = useState(null);
+    const [evenement, setEvenement] = useState(null);
     const [loading, setLoading] = useState(false);
-
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
-    const toggle = tab => {
-        if (currentActiveTab !== tab) setCurrentActiveTab(tab);
-    }
-//get info memberstack
+    const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
+    const [collapsed, setCollapsed] = useState(true);
+
+    const toggleNavbar = () => setCollapsed(!collapsed);
+    //get info memberstack
     useEffect(() => {
         fetchDataMemberstack();
     }, []);
@@ -114,7 +115,7 @@ function Layout(args, props) {
         }
 
     }, [user]);
-    
+
     //get info bien
     useEffect(() => {
         //on recupere toutes les informations du dossier
@@ -146,7 +147,7 @@ function Layout(args, props) {
         //on recupere les event de la transaction
         if (transaction !== null) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/event?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
-    
+
             return fetch(
                 URL,
                 {
@@ -190,7 +191,73 @@ function Layout(args, props) {
             <LayoutS>
                 <Row>
                     <ColMenu md="2">
-                        <Nav vertical>
+                        {/** Navbar mobile **/}
+                        <Navbar color="faded" light>
+                            <NavbarBrand href="/" className="me-auto">
+                                <b>Clotere</b>
+                            </NavbarBrand>
+                            <NavbarToggler onClick={toggleNavbar} className="me-2" />
+                            <Collapse isOpen={!collapsed} navbar>
+                                <Nav navbar>
+                                    <NavItem>
+                                        <NavLink
+                                            className={classnames({
+                                                active:
+                                                    currentActiveTab === '1'
+                                            })}
+                                            onClick={() => { toggle('1'); }}
+                                        >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={classnames({
+                                            active:
+                                                currentActiveTab === '2'
+                                        })}
+                                            onClick={() => { toggle('2'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={classnames({
+                                            active:
+                                                currentActiveTab === '3'
+                                        })}
+                                            onClick={() => { toggle('3'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={classnames({
+                                            active:
+                                                currentActiveTab === '4'
+                                        })}
+                                            onClick={() => { toggle('4'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={classnames({
+                                            active:
+                                                currentActiveTab === '5'
+                                        })}
+                                            onClick={() => { toggle('5'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                        </NavLink>
+                                    </NavItem>
+                                </Nav>
+                            </Collapse>
+                        </Navbar>
+                        {/** Navbar desktop **/}
+                        <Nav vertical className='menuSidebar'>
+                            <NavItem className='brand'>
+                                <NavLink
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <b>Clotere</b>
+                                </NavLink>
+                            </NavItem>
                             <NavItem>
                                 <NavLink
                                     className={classnames({
