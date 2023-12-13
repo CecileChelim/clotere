@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Navbar, NavbarBrand, Collapse, NavbarToggler } from 'reactstrap';
 import { useMemberstack } from "@memberstack/react";
 import styled from "styled-components";
-import classnames from 'classnames';
 import Dashboard from './Dashboard';
 import Bien from './Bien';
 import Interlocuteurs from './Interlocuteurs';
 import Documents from './Documents';
 import Loading from '../components/Loading';
+import { Link } from 'react-router-dom';
 
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -61,6 +61,25 @@ function Layout(args, props) {
     const [collapsed, setCollapsed] = useState(true);
 
     const toggleNavbar = () => setCollapsed(!collapsed);
+
+    //active tabs with route
+    useEffect(() => {
+        if(window.location.pathname === "/app/dashboard"){
+            setCurrentActiveTab("1")
+        }else if(window.location.pathname === "/app/bien"){
+            setCurrentActiveTab("2")
+        }else if(window.location.pathname === "/app/interlocuteurs"){
+            setCurrentActiveTab("3")
+        }else if(window.location.pathname === "/app/documents"){
+            setCurrentActiveTab("4")
+        }
+        else if(window.location.pathname === "/app/profil"){
+            setCurrentActiveTab("5")
+        }else{
+            setCurrentActiveTab("1")
+        }
+    }, []);
+
     //get info memberstack
     useEffect(() => {
         fetchDataMemberstack();
@@ -205,53 +224,56 @@ function Layout(args, props) {
                             <NavbarToggler onClick={toggleNavbar} className="me-2" />
                             <Collapse isOpen={!collapsed} navbar>
                                 <Nav navbar>
-                                    <NavItem>
-                                        <NavLink
-                                            className={classnames({
-                                                active:
-                                                    currentActiveTab === '1'
-                                            })}
-                                            onClick={() => { toggle('1'); }}
-                                        >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className={classnames({
-                                            active:
-                                                currentActiveTab === '2'
-                                        })}
-                                            onClick={() => { toggle('2'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className={classnames({
-                                            active:
-                                                currentActiveTab === '3'
-                                        })}
-                                            onClick={() => { toggle('3'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className={classnames({
-                                            active:
-                                                currentActiveTab === '4'
-                                        })}
-                                            onClick={() => { toggle('4'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className={classnames({
-                                            active:
-                                                currentActiveTab === '5'
-                                        })}
-                                            onClick={() => { toggle('5'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
-                                        </NavLink>
-                                    </NavItem>
+                                <NavItem className='brand'>
+                                <NavLink
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <b>Clotere</b>
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <Link
+                                    to="/app/dashboard"
+                                    
+                                    className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/bien"
+                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                    onClick={() => { toggle('2'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/interlocuteurs"
+                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                    onClick={() => { toggle('3'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/documents"
+                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                    onClick={() => { toggle('4'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/transaction"
+                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                    onClick={() => { toggle('5'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                </Link>
+                            </NavItem>
                                 </Nav>
                             </Collapse>
                         </Navbar>
@@ -265,51 +287,47 @@ function Layout(args, props) {
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink
-                                    className={classnames({
-                                        active:
-                                            currentActiveTab === '1'
-                                    })}
+                                <Link
+                                    to="/app/dashboard"
+                                    
+                                    className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+
                                     onClick={() => { toggle('1'); }}
                                 >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
-                                </NavLink>
+                                </Link>
                             </NavItem>
                             <NavItem>
-                                <NavLink className={classnames({
-                                    active:
-                                        currentActiveTab === '2'
-                                })}
+                                <Link 
+                                to="/app/bien"
+                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
                                     onClick={() => { toggle('2'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
-                                </NavLink>
+                                </Link>
                             </NavItem>
                             <NavItem>
-                                <NavLink className={classnames({
-                                    active:
-                                        currentActiveTab === '3'
-                                })}
+                                <Link 
+                                to="/app/interlocuteurs"
+                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
                                     onClick={() => { toggle('3'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
-                                </NavLink>
+                                </Link>
                             </NavItem>
                             <NavItem>
-                                <NavLink className={classnames({
-                                    active:
-                                        currentActiveTab === '4'
-                                })}
+                                <Link 
+                                to="/app/documents"
+                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
                                     onClick={() => { toggle('4'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
-                                </NavLink>
+                                </Link>
                             </NavItem>
                             <NavItem>
-                                <NavLink className={classnames({
-                                    active:
-                                        currentActiveTab === '5'
-                                })}
+                                <Link 
+                                to="/app/transaction"
+                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
                                     onClick={() => { toggle('5'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
-                                </NavLink>
+                                </Link>
                             </NavItem>
                         </Nav>
                     </ColMenu>

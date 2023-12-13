@@ -38,7 +38,7 @@ function CardInterlocuteurs(args) {
                 <Row>
                     <Col md='12'>
                         <h4>{args.prenom} {" "} {args.nom}</h4>
-                        <Badge color="primary">{args.role}</Badge>
+                        <Badge color="primary">{args.roles}</Badge>
                     </Col>
                     <Col md='12' className="pt-3">
 

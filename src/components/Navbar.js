@@ -38,8 +38,8 @@ useEffect(() => {
     <div>
       <NavS className="p-5  fixed-top d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <Col md="3" className="mb-2 mb-md-0 text-start">
-          <Link to="/" class="d-inline-flex link-body-emphasis text-decoration-none brand">
-            Acteo
+          <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
+            Clotere
           </Link>
         </Col>
 

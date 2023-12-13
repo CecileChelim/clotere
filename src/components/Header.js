@@ -33,7 +33,7 @@ function Header() {
             <Row className="d-flex align-items-center">
                 <Col md="6">
                     <Title>Réinventons la signature de l’acte de vente</Title>
-                    <SubTitle>Acteo, vous accompagne pour signer votre acte de vente <span className="main-text">plus rapidement</span> avec <span className="main-text">moins de frais de notaire</span> !</SubTitle>
+                    <SubTitle>Clotere, vous accompagne pour signer votre acte de vente <span className="main-text">plus rapidement</span> avec <span className="main-text">moins de frais de notaire</span> !</SubTitle>
                     <BlocButton>
                         <Link to="/onboard">
                             <ButtonPrimary>Ouvrez votre dossier de vente</ButtonPrimary>
