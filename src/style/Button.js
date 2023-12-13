@@ -8,7 +8,7 @@ export const ButtonPrimary = styled(Button)`
   color:#fff;
   transition: background-color 200ms ease-in-out;
   color: #fff;
-  padding: 18px 22px;
+  padding: 14px 18px;
   border-radius: 8px;
   line-height: 100%;
   font-weight: 600;

@@ -12,6 +12,10 @@ p{ margin-bottom:0;}
   &.acheteur{.badge{background-color:#faba00a8!important}}
   &.vendeur{.badge{background-color:#00fab7a1!important}}
   &.agent{.badge{background-color:#d100fa94!important}}
+
+  @media all and (max-width: 768px) {
+    margin-bottom:2rem;
+  }
 `;
 
 const ListGroupItemCarac = styled(ListGroupItem)`

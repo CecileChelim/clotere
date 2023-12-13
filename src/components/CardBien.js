@@ -16,6 +16,10 @@ const ListGroupS = styled(ListGroup)`
     border:0;
     margin-bottom:16px;
 }
+@media all and (max-width: 768px) {
+  .colTitre{display:block!important;}
+  list-group-horizontal{flex-direction:column;}
+}
 `;
 const Icon = styled.div`
 margin-right:-10rem;
@@ -42,6 +46,9 @@ const Details = styled.div`
     font-size:14px;
   font-weight:400;
   }
+  @media all and (max-width: 768px) {
+    text-align:right;
+  }
 `;
 const ListGroupItemCarac = styled(ListGroupItem)`
 padding: 1rem 0!important;
@@ -66,7 +73,7 @@ function CardBien(args) {
         <ListGroupS>
             <ListGroupItem>
                 <Row>
-                <Col md="12" className="d-flex justify-content-between align-items-center p0">
+                <Col md="12" className="d-flex justify-content-between align-items-center p0 colTitre">
                 <Icon>
                     <FontAwesomeIcon icon={faMapMarked} className='mr-3' />
                 </Icon>

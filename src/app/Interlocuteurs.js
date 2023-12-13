@@ -3,7 +3,7 @@ import {
     Container, Row, Col,
     Offcanvas
 } from "reactstrap";
-import { TitlePageBig } from "../style/Layout";
+import { TitlePageBig,TitlePageApp } from "../style/Layout";
 import { ButtonPrimary } from "../style/Button";
 import CardInterlocuteurs from "../components/CardInterlocuteurs";
 
@@ -21,10 +21,12 @@ function Interlocuteurs(args) {
         <>
             <Container>
                 <Row className="d-flex align-self-start">
-                    <Col md="7"><TitlePageBig className="mb-4">Vos interlocuteurs</TitlePageBig></Col>
-                    <Col md="5" className="text-end">
-                        <ButtonPrimary>+ Ajouter un utilisateur</ButtonPrimary>
-                    </Col>
+                    <TitlePageApp>
+                        <Col  md="7"><TitlePageBig className="mb-4">Vos interlocuteurs</TitlePageBig></Col>
+                        <Col md="5"  className="text-end">
+                            <ButtonPrimary>+ Ajouter un utilisateur</ButtonPrimary>
+                        </Col>
+                    </TitlePageApp>
                     <Row>
                         <Col md="4"><CardInterlocuteurs className="acheteur" role="acheteur" prenom={transacInfo.prenom_from_acheteur} nom={transacInfo.nom_from_acheteur} email={transacInfo.email_from_acheteur} tel={transacInfo.telephone_from_acheteur} /></Col>
                         <Col md="4"><CardInterlocuteurs className="vendeur" role="vendeur" prenom={transacInfo.prenom_from_vendeur} nom={transacInfo.nom_from_vendeur} email={transacInfo.email_from_vendeur} tel={transacInfo.telephone_from_vendeur} /></Col>

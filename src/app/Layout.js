@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import Dashboard from './Dashboard';
 import Bien from './Bien';
 import Interlocuteurs from './Interlocuteurs';
+import Documents from './Documents';
 import Loading from '../components/Loading';
 
 //style & icone
@@ -39,6 +40,7 @@ const ColMenu = styled(Col)`
     ul.menuSidebar{ display:none;}
     .navbar{display:block}
     min-height:auto!important;
+  }
 `;
 
 const ColContent = styled(Col)`
@@ -193,8 +195,12 @@ function Layout(args, props) {
                     <ColMenu md="2">
                         {/** Navbar mobile **/}
                         <Navbar color="faded" light>
-                            <NavbarBrand href="/" className="me-auto">
-                                <b>Clotere</b>
+                            <NavbarBrand className="me-auto">
+                            <NavLink
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <b>Clotere</b>
+                                </NavLink>
                             </NavbarBrand>
                             <NavbarToggler onClick={toggleNavbar} className="me-2" />
                             <Collapse isOpen={!collapsed} navbar>
@@ -333,7 +339,7 @@ function Layout(args, props) {
                             <TabPane tabId="4">
                                 <Row>
                                     <Col sm="12">
-                                        <h5>Documents</h5>
+                                    <Documents user={user} />
                                     </Col>
                                 </Row>
                             </TabPane>

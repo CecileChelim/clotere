@@ -6,7 +6,7 @@ import {
     DropdownItem,
     Offcanvas
 } from "reactstrap";
-import { TitlePage} from "../style/Layout";
+import { TitlePage,TitlePageApp} from "../style/Layout";
 import { DropdownPrimary } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import CardHelp from "../components/CardHelp";
@@ -23,19 +23,21 @@ function Dashboard(args) {
         <>
             <Container>
                 <Row className="d-flex align-self-start">
-                    <Col md="7">
-                        <TitlePage>Voici l'avancement de votre dossier <span role="img" aria-label="bottom">👇</span> </TitlePage>
-                    </Col>
-                    <Col md="5" className="text-end">
-                        <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
-                            <DropdownToggle caret>Actions rapides</DropdownToggle>
-                            <DropdownMenu >
-                                <DropdownItem onClick={toggle2}>+ Ajouter un document</DropdownItem>
-                                <DropdownItem>Posez une question</DropdownItem>
-                                <DropdownItem>Quo Action</DropdownItem>
-                            </DropdownMenu>
-                        </DropdownPrimary>
-                    </Col>
+                    <TitlePageApp>
+                        <Col md="7">
+                            <TitlePage>Voici l'avancement de votre dossier <span role="img" aria-label="bottom">👇</span> </TitlePage>
+                        </Col>
+                        <Col md="5" className="text-end">
+                            <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
+                                <DropdownToggle caret>Actions rapides</DropdownToggle>
+                                <DropdownMenu >
+                                    <DropdownItem onClick={toggle2}>+ Ajouter un document</DropdownItem>
+                                    <DropdownItem>Posez une question</DropdownItem>
+                                    <DropdownItem>Quo Action</DropdownItem>
+                                </DropdownMenu>
+                            </DropdownPrimary>
+                        </Col>
+                    </TitlePageApp>
                     <Col md="7" className="mt-3">
                         {/* Composant offre d'achat */}
                         {args.evenement[0].fields.etat === "fait" ? (
