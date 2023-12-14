@@ -26,7 +26,7 @@ function CardInfoManquante() {
                     className="mb-2 text-muted"
                     tag="h6"
                 >
-                    Un information est manquante ou fausse ? N’hésitez pas à nous avertir dans le chat nous ferons la modifications
+                    Un information est manquante ou fausse ? N’hésitez pas à nous avertir dans le chat nous ferons la modification
                 </CardSubtitle>
             </CardBody>
         </CardS>

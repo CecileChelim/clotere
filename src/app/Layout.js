@@ -215,9 +215,7 @@ function Layout(args, props) {
                         {/** Navbar mobile **/}
                         <Navbar color="faded" light>
                             <NavbarBrand className="me-auto">
-                            <NavLink
-                                    onClick={() => { toggle('1'); }}
-                                >
+                            <NavLink onClick={() => { toggle('1'); }}>
                                     <b>Clotere</b>
                                 </NavLink>
                             </NavbarBrand>

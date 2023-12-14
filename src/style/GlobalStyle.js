@@ -22,7 +22,24 @@ export const GlobalStyle = createGlobalStyle`
  .offcanvas{
   padding:2rem;
  }
+  
 
-  `;
+   /** tabs **/
+   .nav-pills .nav-link{
+    color:black;
+    cursor:pointer;
+    &.active{
+      background-color:#dee2e6;
+      color:black;
+      font-weight:bold;
+    }
+   }
+    `
+  
+  
+  
+  ;
+
+ 
 
   

@@ -13,7 +13,7 @@ export const ButtonPrimary = styled(Button)`
   line-height: 100%;
   font-weight: 600;
   &:hover {
-    background-color: #3260d9;
+    background-color: #0d493e;
     svg {
       transition: all 0.5s ease;
       transform: translateX(10px);
