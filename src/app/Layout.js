@@ -55,6 +55,7 @@ function Layout(args, props) {
     const [transaction, setTransaction] = useState(null);
     const [bien, setBien] = useState(null);
     const [evenement, setEvenement] = useState(null);
+    const [activite, setActivite] = useState(null);
     const [loading, setLoading] = useState(false);
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
@@ -188,10 +189,36 @@ function Layout(args, props) {
         }
     }, [transaction]);
 
+    //get info activite
+    useEffect(() => {
+        //on recupere les activite de la transaction
+        if (transaction !== null) {
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/activite?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
+
+            return fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log("all event transaction", res.records);
+                    setActivite(res.records);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [transaction]);
+
     //console.log("member", member);
     //console.log("user", user);
     //console.log("transaction", transaction);
     //console.log("bien", bien);
+    console.log("activite", activite);
 
     const fetchDataMemberstack = () => {
         setLoading(true);
@@ -207,7 +234,7 @@ function Layout(args, props) {
     };
 
 
-    if (user !== null & transaction !== null & bien !== null & evenement !== null) {
+    if (user !== null & transaction !== null & bien !== null & evenement !== null & activite !== null) {
         return (
             <LayoutS>
                 <Row>
@@ -334,7 +361,7 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard user={user} evenement={evenement} />
+                                        <Dashboard user={user} evenement={evenement} activite={activite} />
                                     </Col>
                                 </Row>
                             </TabPane>

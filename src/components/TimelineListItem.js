@@ -97,19 +97,21 @@ function TimelineCard(args) {
         <Content className="flex-grow-1">
           <h4>{args.message}</h4>
           <p><div dangerouslySetInnerHTML={{__html: args.contenu}}></div></p>
-          {args.action === "Voir et signer" ? (
+
+          {args.action === "Voiretsigner" ? (
             <>
-              <ButtonPrimarySmall href="#" className="mt-3 mr-3"> Voir et signer</ButtonPrimarySmall>
+              <ButtonPrimarySmall href="#" target="blank" className="mt-3 mr-3"> Lire et signer</ButtonPrimarySmall>
             </>
-          ) : (<>{" "}</>)}
+          ) : (<>{""}</>)}
+          
 
           {args.action === "Contacter" ? (
             <>
               <ButtonPrimarySmall href="#" className="mt-3 mr-3"> Contacter mon conseillé</ButtonPrimarySmall>
             </>
-          ) : (<>{" "}</>)}
+          ) : (<>{""}</>)}
 
-{args.action === "rdvActe" ? (
+        {args.action === "rdvActe" ? (
             <>
               <ButtonPrimarySmall href={args.lienDoodle} target="blank" className="mt-3 mr-3"> Indiquez vos disponibilités</ButtonPrimarySmall>
             </>
