@@ -218,7 +218,7 @@ function Layout(args, props) {
     //console.log("user", user);
     //console.log("transaction", transaction);
     //console.log("bien", bien);
-    console.log("activite", activite);
+    //console.log("activite", activite);
 
     const fetchDataMemberstack = () => {
         setLoading(true);
@@ -361,7 +361,7 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard user={user} evenement={evenement} activite={activite} />
+                                        <Dashboard transactionName={transaction.nom} user={user} evenement={evenement} activite={activite} />
                                     </Col>
                                 </Row>
                             </TabPane>

@@ -9,69 +9,6 @@ import AideActe from "./AideActe";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faCheck, faExclamationTriangle } from '@fortawesome/fontawesome-free-solid'
 
-
-const ListGroupS = styled(ListGroup)`
-  width:100%;
-  li.list-group-item{
-    width:100%;
-    padding:23px 23px;
-    border-radius:8px;
-    border:0;
-    margin-bottom:16px;
-  }
-  h4.type{
-    display: inline-block;
-    text-transform: lowercase;
-    &:first-letter {
-      text-transform: uppercase;
-    }
-  }
-  &.fait{
-    li.list-group-item{background-color:#D0DFDB;}
-  }
-  &.infoManquantes{
-    li.list-group-item{background-color:#d4040433;}
-  }
-  &.pas{
-    li.list-group-item{background-color:#e0e0e052;}
-  }
-`;
-const BlocIcon = styled.div`
-  color:#006855;
-  display:inline;
-  margin-right:.2rem;
-  svg{height: 0.7em;}
-
-  &.done{color:#006855;}
-  &.ongoing{color:#F7C802;}
-  &.infomanquante{color:#D40404;}
-  &.pasfait{color:#000;}
-}
-`;
-const Content = styled.div`
-  h4{
-    font-size:16px;
-  font-weight:600;
-  margin-bottom:.5rem;
-  }
-  p{
-font-size:16px;
-  font-weight:400;
-  margin-bottom:0;
-  }
-`;
-const Actions = styled.div`
-width: 40%;
-text-align: end;
-  p{
-    color:#636060;
-    font-size:14px;
-  font-weight:400;
-  }
-`;
-
-
-
 function TimelineCard(args) {
     const [canvas, setCanvas] = useState(false);
     const toggleCompromis = () => setCanvas(!canvas);
@@ -154,5 +91,65 @@ function TimelineCard(args) {
     </>
   );
 }
+
+const ListGroupS = styled(ListGroup)`
+  width:100%;
+  li.list-group-item{
+    width:100%;
+    padding:23px 23px;
+    border-radius:8px;
+    border:0;
+    margin-bottom:16px;
+  }
+  h4.type{
+    display: inline-block;
+    text-transform: lowercase;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+  &.fait{
+    li.list-group-item{background-color:#D0DFDB;}
+  }
+  &.infoManquantes{
+    li.list-group-item{background-color:#d4040433;}
+  }
+  &.pas{
+    li.list-group-item{background-color:#e0e0e052;}
+  }
+`;
+const BlocIcon = styled.div`
+  color:#006855;
+  display:inline;
+  margin-right:.2rem;
+  svg{height: 0.7em;}
+
+  &.done{color:#006855;}
+  &.ongoing{color:#F7C802;}
+  &.infomanquante{color:#D40404;}
+  &.pasfait{color:#000;}
+}
+`;
+const Content = styled.div`
+  h4{
+    font-size:16px;
+  font-weight:600;
+  margin-bottom:.5rem;
+  }
+  p{
+font-size:16px;
+  font-weight:400;
+  margin-bottom:0;
+  }
+`;
+const Actions = styled.div`
+width: 40%;
+text-align: end;
+  p{
+    color:#636060;
+    font-size:14px;
+  font-weight:400;
+  }
+`;
 
 export default TimelineCard;

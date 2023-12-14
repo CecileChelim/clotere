@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-    Container, Row, Col,
-    Offcanvas
+    Container, Row, Col
 } from "reactstrap";
 import { TitlePageBig } from "../style/Layout";
 import CardBien from "../components/CardBien";
@@ -11,9 +10,7 @@ import CardInfoManquante from "../components/CardInfoManquante";
 
 function Bien(args) {
     //console.log("arg  bien",args.bien)
-    const [canvas, setCanvas] = useState(false);
-
-    const toggle2 = () => setCanvas(!canvas);
+   
 
     return (
         <>
@@ -29,12 +26,7 @@ function Bien(args) {
                     </Col>
                 </Row>
             </Container>
-            <Offcanvas
-                isOpen={canvas}
-                toggle={toggle2}
-                {...args}
-                direction="end"
-                scrollable></Offcanvas>
+            
         </>
     );
 }

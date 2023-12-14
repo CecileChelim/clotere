@@ -21,7 +21,10 @@ export const GlobalStyle = createGlobalStyle`
 
  .offcanvas{
   padding:2rem;
+  width:600px!important;
  }
+
+ a{cursor:pointer;}
   
 
    /** tabs **/

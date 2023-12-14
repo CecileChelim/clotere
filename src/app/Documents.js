@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import {
     Container, Row, Col,
-    Offcanvas,Nav,NavItem,NavLink,TabContent,TabPane
+    Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody,FormGroup,Form,Label,Input
 } from "reactstrap";
 import { TitlePageBig, TitlePageApp } from "../style/Layout";
 import { ButtonPrimary } from "../style/Button";
 import CardDoc from "../components/CardDocument";
-import CardHelp from "../components/CardHelp";
-import CardInfoManquante from "../components/CardInfoManquante";
 
 
 function Documents(args) {
@@ -26,90 +24,86 @@ function Documents(args) {
                     <TitlePageApp>
                         <Col md="7"><TitlePageBig className="mb-4">Vos documents</TitlePageBig></Col>
                         <Col md="5" className="text-end">
-                            <ButtonPrimary>+ Ajouter un document</ButtonPrimary>
+                            <ButtonPrimary onClick={toggle2}>+ Ajouter un document</ButtonPrimary>
                         </Col>
                     </TitlePageApp>
 
                     <Col md="7">
                         <Nav pills>
                             <NavItem>
-                            <NavLink 
-                            onClick={() => { toggle('tous'); }}
-                            className={`${currentActiveTab === "tous" ? "active" : ""}`}
-                            >
+                                <NavLink
+                                    onClick={() => { toggle('tous'); }}
+                                    className={`${currentActiveTab === "tous" ? "active" : ""}`}
+                                >
                                     Tous les documents
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                            <NavLink onClick={() => { toggle('perso'); }}
-                            className={`${currentActiveTab === "perso" ? "active" : ""}`}>
+                                <NavLink onClick={() => { toggle('perso'); }}
+                                    className={`${currentActiveTab === "perso" ? "active" : ""}`}>
                                     Personnel
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                            <NavLink onClick={() => { toggle('copro'); }}
-                            className={`${currentActiveTab === "copro" ? "active" : ""}`}>
+                                <NavLink onClick={() => { toggle('copro'); }}
+                                    className={`${currentActiveTab === "copro" ? "active" : ""}`}>
                                     Copropriété
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                            <NavLink onClick={() => { toggle('vente'); }}
-                            className={`${currentActiveTab === "vente" ? "active" : ""}`}>
+                                <NavLink onClick={() => { toggle('vente'); }}
+                                    className={`${currentActiveTab === "vente" ? "active" : ""}`}>
                                     Vente
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                            <NavLink onClick={() => { toggle('diag'); }}
-                            className={`${currentActiveTab === "diag" ? "active" : ""}`}>
+                                <NavLink onClick={() => { toggle('diag'); }}
+                                    className={`${currentActiveTab === "diag" ? "active" : ""}`}>
                                     Technique & diagnostics
                                 </NavLink>
                             </NavItem>
-                            
+
                         </Nav>
 
                         <TabContent className="mt-3" activeTab={currentActiveTab}>
                             <TabPane tabId="tous">
                                 <Row>
                                     <Col sm="12">
-                                    <CardDoc bien={args.bien} />
+                                        <CardDoc bien={args.bien} />
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="perso">
                                 <Row>
                                     <Col sm="12">
-                                    perso
+                                        perso
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="copro">
                                 <Row>
                                     <Col sm="12">
-                                    corpo
+                                        corpo
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="vente">
                                 <Row>
                                     <Col sm="12">
-                                    vente
+                                        vente
                                     </Col>
                                 </Row>
                             </TabPane>
                             <TabPane tabId="diag">
                                 <Row>
                                     <Col sm="12">
-                                    diag
+                                        diag
                                     </Col>
                                 </Row>
                             </TabPane>
-                            </TabContent>
+                        </TabContent>
 
-                        
-                    </Col>
-                    <Col md="5">
-                        <CardInfoManquante />
-                        <CardHelp />
+
                     </Col>
                 </Row>
             </Container>
@@ -118,7 +112,25 @@ function Documents(args) {
                 toggle={toggle2}
                 {...args}
                 direction="end"
-                scrollable></Offcanvas>
+                scrollable>
+                <OffcanvasHeader toggle={function noRefCheck() { }}>
+                    Ajouter un document
+                </OffcanvasHeader>
+                <OffcanvasBody>
+                <Form>
+                    <FormGroup>
+                        <Label for="exampleEmail">
+                        Nom du document
+                        </Label>
+                        <Input
+                        id="nomDoc"
+                        name="nomDoc"
+                        type="text"
+                        />
+                    </FormGroup>
+                    </Form>
+                </OffcanvasBody>
+            </Offcanvas>
         </>
     );
 }

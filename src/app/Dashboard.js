@@ -45,7 +45,7 @@ function Dashboard(args) {
                 <Row className="d-flex align-self-start">
                     <TitlePageApp>
                         <Col md="7">
-                            <TitlePage>Voici l'avancement de votre dossier <span role="img" aria-label="bottom">👇</span> </TitlePage>
+                            <TitlePage>{args.transactionName}, <small>voici l'avancement de votre dossier <span role="img" aria-label="bottom">👇</span> </small></TitlePage>
                         </Col>
                         <Col md="5" className="text-end">
                             <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
