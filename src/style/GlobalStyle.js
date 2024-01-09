@@ -37,6 +37,43 @@ export const GlobalStyle = createGlobalStyle`
       font-weight:bold;
     }
    }
+
+   /** MEMBERSTACK ELEMENT **/
+   .ms-modal{
+    .ms-form__button[type="submit"]{color:white;}
+    h2.ms-modal__title{
+      visibility: hidden;
+      margin-bottom:20px
+    }
+    .ms-form__group{margin-bottom:10px;}
+    .ms-form__input{padding:9px;}
+   }
+  
+    #SignupModal{
+    h2.ms-modal__title:after{
+      content: 'Créez votre compte';
+      visibility: visible;
+      display: block;
+      position: absolute;
+      top: 6rem;
+      width: 100%;
+      text-align: center;
+      left: 2px;
+    }
+    #LoginModal{
+      h2.ms-modal__title:after{
+        content: 'Connectez vous';
+        visibility: visible;
+        display: block;
+        position: absolute;
+        top: 6rem;
+        width: 100%;
+        text-align: center;
+        left: 2px;
+      }
+
+    }
+   
     `
   
   

@@ -90,7 +90,7 @@ function Layout(args, props) {
     useEffect(() => {
         //avec les info memberstack on recupere les info user airtable
         //console.log("seulement si member est update");
-        if (member !== null) {
+        if (member !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${member.metaData.airtable_id}`;
 
             return fetch(
@@ -115,7 +115,7 @@ function Layout(args, props) {
     //get info transaction
     useEffect(() => {
         //on recupere toutes les informations du dossier
-        if (user !== null) {
+        if (user !== null  && member.metaData.airtable_id !== undefined) {
             //La transaction
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/transaction/${user.transaction_id}`;
             fetch(
@@ -141,7 +141,7 @@ function Layout(args, props) {
     //get info bien
     useEffect(() => {
         //on recupere toutes les informations du dossier
-        if (transaction !== null) {
+        if (transaction !== null  && member.metaData.airtable_id !== undefined) {
             //Le bien
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/bien/${transaction.bien}`;
             fetch(
@@ -167,7 +167,7 @@ function Layout(args, props) {
     //get info event
     useEffect(() => {
         //on recupere les event de la transaction
-        if (transaction !== null) {
+        if (transaction !== null  && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/event?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
 
             return fetch(
@@ -192,7 +192,7 @@ function Layout(args, props) {
     //get info activite
     useEffect(() => {
         //on recupere les activite de la transaction
-        if (transaction !== null) {
+        if (transaction !== null  && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/activite?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
 
             return fetch(
@@ -234,7 +234,7 @@ function Layout(args, props) {
     };
 
 
-    if (user !== null & transaction !== null & bien !== null & evenement !== null & activite !== null) {
+    if (user !== null  & transaction !== null & bien !== null & evenement !== null & activite !== null) {
         return (
             <LayoutS>
                 <Row>
@@ -398,6 +398,143 @@ function Layout(args, props) {
                 </Row>
             </LayoutS>
         );
+    }
+    else if(member !== null && member.metaData.airtable_id === undefined){
+        return(
+            <LayoutS>
+                <Row>
+                    <ColMenu md="2">
+                        {/** Navbar mobile **/}
+                        <Navbar color="faded" light>
+                            <NavbarBrand className="me-auto">
+                            <NavLink onClick={() => { toggle('1'); }}>
+                                    <b>Clotere</b>
+                                </NavLink>
+                            </NavbarBrand>
+                            <NavbarToggler onClick={toggleNavbar} className="me-2" />
+                            <Collapse isOpen={!collapsed} navbar>
+                                <Nav navbar>
+                                <NavItem className='brand'>
+                                <NavLink
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <b>Clotere</b>
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <Link
+                                    to="/app/dashboard"
+                                    
+                                    className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/bien"
+                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                    onClick={() => { toggle('2'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/interlocuteurs"
+                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                    onClick={() => { toggle('3'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/documents"
+                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                    onClick={() => { toggle('4'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/transaction"
+                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                    onClick={() => { toggle('5'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                </Link>
+                            </NavItem>
+                                </Nav>
+                            </Collapse>
+                        </Navbar>
+                        {/** Navbar desktop **/}
+                        <Nav vertical className='menuSidebar'>
+                            <NavItem className='brand'>
+                                <NavLink
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <b>Clotere</b>
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <Link
+                                    to="/app/dashboard"
+                                    
+                                    className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+
+                                    onClick={() => { toggle('1'); }}
+                                >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/bien"
+                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                    onClick={() => { toggle('2'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/interlocuteurs"
+                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                    onClick={() => { toggle('3'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/documents"
+                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                    onClick={() => { toggle('4'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link 
+                                to="/app/transaction"
+                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                    onClick={() => { toggle('5'); }} >
+                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                </Link>
+                            </NavItem>
+                        </Nav>
+                    </ColMenu>
+                    <ColContent md="10">
+                        <TabContent activeTab={currentActiveTab}>
+                            <TabPane tabId="1">
+                                <Row>
+                                    <Col sm="12">
+                                        Composant new user
+                                    </Col>
+                                </Row>
+                            </TabPane>
+                            </TabContent>
+                            </ColContent>
+                    </Row>
+                    </LayoutS>
+        )
     }
     return (
         <>
