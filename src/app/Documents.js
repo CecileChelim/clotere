@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import {
-    Container, Row, Col,
-    Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody,FormGroup,Form,Label,Input
+    Container, Row, Col, Card,
+    Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody, FormGroup, Form, Label, Input, CardBody
 } from "reactstrap";
 import { TitlePageBig, TitlePageApp } from "../style/Layout";
 import { ButtonPrimary } from "../style/Button";
 import CardDoc from "../components/CardDocument";
+import { FileUploader } from "react-drag-drop-files";
+import { FileUploaderS } from "../style/FileUploaderStyle";
 
+
+const fileTypes = ["PDF", "DOC", "JPEG"];
+  
 
 function Documents(args) {
     //console.log("arg  bien",args.bien)
-    const [currentActiveTab, setCurrentActiveTab] = useState('tous');
+    const [currentActiveTab, setCurrentActiveTab] = useState('situation');
     const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
     const [canvas, setCanvas] = useState(false);
-
     const toggle2 = () => setCanvas(!canvas);
+
+    const [file, setFile] = useState(null);
+    const handleChange = (file) => {
+        setFile(file);
+        console.log(file);
+    };
 
     return (
         <>
@@ -32,28 +42,22 @@ function Documents(args) {
                         <Nav pills>
                             <NavItem>
                                 <NavLink
-                                    onClick={() => { toggle('tous'); }}
-                                    className={`${currentActiveTab === "tous" ? "active" : ""}`}
+                                    onClick={() => { toggle('situation'); }}
+                                    className={`${currentActiveTab === "situation" ? "active" : ""}`}
                                 >
-                                    Tous les documents
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink onClick={() => { toggle('perso'); }}
-                                    className={`${currentActiveTab === "perso" ? "active" : ""}`}>
-                                    Personnel
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink onClick={() => { toggle('copro'); }}
-                                    className={`${currentActiveTab === "copro" ? "active" : ""}`}>
-                                    Copropriété
+                                    Situation
                                 </NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink onClick={() => { toggle('vente'); }}
                                     className={`${currentActiveTab === "vente" ? "active" : ""}`}>
                                     Vente
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink onClick={() => { toggle('copro'); }}
+                                    className={`${currentActiveTab === "copro" ? "active" : ""}`}>
+                                    Copropriété
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -66,17 +70,17 @@ function Documents(args) {
                         </Nav>
 
                         <TabContent className="mt-3" activeTab={currentActiveTab}>
-                            <TabPane tabId="tous">
+                            <TabPane tabId="situation">
                                 <Row>
                                     <Col sm="12">
                                         <CardDoc bien={args.bien} />
                                     </Col>
                                 </Row>
                             </TabPane>
-                            <TabPane tabId="perso">
+                            <TabPane tabId="vente">
                                 <Row>
                                     <Col sm="12">
-                                        perso
+                                        vente
                                     </Col>
                                 </Row>
                             </TabPane>
@@ -105,6 +109,54 @@ function Documents(args) {
 
 
                     </Col>
+                    <Col md="5">
+                        <Card>
+                            <CardBody>
+                                <Form>
+                                    <h3>Ajoutez vos documents</h3>
+                                    <FormGroup>
+                                        <Label>De quel document s’agit-il ?</Label>
+                                        <Input
+                                        id="exampleSelect"
+                                        name="select"
+                                        type="select"
+                                        >
+                                        <option>
+                                            1
+                                        </option>
+                                        <option>
+                                            2
+                                        </option>
+                                        <option>
+                                            3
+                                        </option>
+                                        <option>
+                                            4
+                                        </option>
+                                        <option>
+                                            5
+                                        </option>
+                                        </Input>
+                                    </FormGroup>
+                                    <FormGroup>
+                                    <FileUploaderS>
+                                        <FileUploader
+                                        multiple={true}
+                                        handleChange={handleChange}
+                                        name="file"
+                                        types={fileTypes}
+                                    />
+                                    <p>{file ? `Nom de votre fichier: ${file[0].name}` : "Aucun fichier chargé"}</p>
+                                    </FileUploaderS>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <ButtonPrimary>Ajouter le document</ButtonPrimary>
+                                    </FormGroup>
+                                </Form>
+                                
+                            </CardBody>
+                        </Card>
+                    </Col>
                 </Row>
             </Container>
             <Offcanvas
@@ -113,21 +165,21 @@ function Documents(args) {
                 {...args}
                 direction="end"
                 scrollable>
-                <OffcanvasHeader toggle={function noRefCheck() { }}>
+                <OffcanvasHeader toggle={toggle2}>
                     Ajouter un document
                 </OffcanvasHeader>
                 <OffcanvasBody>
-                <Form>
-                    <FormGroup>
-                        <Label for="exampleEmail">
-                        Nom du document
-                        </Label>
-                        <Input
-                        id="nomDoc"
-                        name="nomDoc"
-                        type="text"
-                        />
-                    </FormGroup>
+                    <Form>
+                        <FormGroup>
+                            <Label for="exampleEmail">
+                                Nom du document
+                            </Label>
+                            <Input
+                                id="nomDoc"
+                                name="nomDoc"
+                                type="text"
+                            />
+                        </FormGroup>
                     </Form>
                 </OffcanvasBody>
             </Offcanvas>

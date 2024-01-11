@@ -93,6 +93,7 @@ function Layout(args, props) {
         fetchDataMemberstack();
     }, []);
 
+
     //get info user airtable
     useEffect(() => {
         //avec les info memberstack on recupere les info user airtable
