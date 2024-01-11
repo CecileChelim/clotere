@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Navbar, NavbarBrand, Collapse, NavbarToggler,Dropdown,DropdownToggle,DropdownMenu,DropdownItem } from 'reactstrap';
+import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Navbar, NavbarBrand, Collapse, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { useMemberstack } from "@memberstack/react";
 import styled from "styled-components";
 import Dashboard from './Dashboard';
@@ -66,24 +66,24 @@ function Layout(args, props) {
     const [collapsed, setCollapsed] = useState(true);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleProfil = () => setDropdownOpen((prevState) => !prevState);
+    const toggleProfil = () => setDropdownOpen((prevState) => !prevState);
 
     const toggleNavbar = () => setCollapsed(!collapsed);
 
     //active tabs with route
     useEffect(() => {
-        if(window.location.pathname === "/app/dashboard"){
+        if (window.location.pathname === "/app/dashboard") {
             setCurrentActiveTab("1")
-        }else if(window.location.pathname === "/app/bien"){
+        } else if (window.location.pathname === "/app/bien") {
             setCurrentActiveTab("2")
-        }else if(window.location.pathname === "/app/interlocuteurs"){
+        } else if (window.location.pathname === "/app/interlocuteurs") {
             setCurrentActiveTab("3")
-        }else if(window.location.pathname === "/app/documents"){
+        } else if (window.location.pathname === "/app/documents") {
             setCurrentActiveTab("4")
         }
-        else if(window.location.pathname === "/app/profil"){
+        else if (window.location.pathname === "/app/profil") {
             setCurrentActiveTab("5")
-        }else{
+        } else {
             setCurrentActiveTab("1")
         }
     }, []);
@@ -122,7 +122,7 @@ function Layout(args, props) {
     //get info transaction
     useEffect(() => {
         //on recupere toutes les informations du dossier
-        if (user !== null  && member.metaData.airtable_id !== undefined) {
+        if (user !== null && member.metaData.airtable_id !== undefined) {
             //La transaction
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/transaction/${user.transaction_id}`;
             fetch(
@@ -148,7 +148,7 @@ function Layout(args, props) {
     //get info bien
     useEffect(() => {
         //on recupere toutes les informations du dossier
-        if (transaction !== null  && member.metaData.airtable_id !== undefined) {
+        if (transaction !== null && member.metaData.airtable_id !== undefined) {
             //Le bien
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/bien/${transaction.bien}`;
             fetch(
@@ -174,7 +174,7 @@ function Layout(args, props) {
     //get info event
     useEffect(() => {
         //on recupere les event de la transaction
-        if (transaction !== null  && member.metaData.airtable_id !== undefined) {
+        if (transaction !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/event?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
 
             return fetch(
@@ -199,7 +199,7 @@ function Layout(args, props) {
     //get info activite
     useEffect(() => {
         //on recupere les activite de la transaction
-        if (transaction !== null  && member.metaData.airtable_id !== undefined) {
+        if (transaction !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/activite?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
 
             return fetch(
@@ -241,7 +241,7 @@ function Layout(args, props) {
     };
 
 
-    if (user !== null  & transaction !== null & bien !== null & evenement !== null & activite !== null) {
+    if (user !== null & transaction !== null & bien !== null & evenement !== null & activite !== null) {
         return (
             <LayoutS>
                 <Row>
@@ -249,63 +249,63 @@ function Layout(args, props) {
                         {/** Navbar mobile **/}
                         <Navbar color="faded" light>
                             <NavbarBrand className="me-auto">
-                            <NavLink onClick={() => { toggle('1'); }}>
+                                <NavLink onClick={() => { toggle('1'); }}>
                                     <b>Clotere</b>
                                 </NavLink>
                             </NavbarBrand>
                             <NavbarToggler onClick={toggleNavbar} className="me-2" />
                             <Collapse isOpen={!collapsed} navbar>
                                 <Nav navbar>
-                                <NavItem className='brand'>
-                                <NavLink
-                                    onClick={() => { toggle('1'); }}
-                                >
-                                    <b>Clotere</b>
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <Link
-                                    to="/app/dashboard"
-                                    
-                                    className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+                                    <NavItem className='brand'>
+                                        <NavLink
+                                            onClick={() => { toggle('1'); }}
+                                        >
+                                            <b>Clotere</b>
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/dashboard"
 
-                                    onClick={() => { toggle('1'); }}
-                                >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/bien"
-                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
-                                    onClick={() => { toggle('2'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/interlocuteurs"
-                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
-                                    onClick={() => { toggle('3'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/documents"
-                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
-                                    onClick={() => { toggle('4'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/transaction"
-                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
-                                    onClick={() => { toggle('5'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
-                                </Link>
-                            </NavItem>
+                                            className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+
+                                            onClick={() => { toggle('1'); }}
+                                        >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/bien"
+                                            className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                            onClick={() => { toggle('2'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/interlocuteurs"
+                                            className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                            onClick={() => { toggle('3'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/documents"
+                                            className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                            onClick={() => { toggle('4'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/transaction"
+                                            className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                            onClick={() => { toggle('5'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                        </Link>
+                                    </NavItem>
                                 </Nav>
                             </Collapse>
                         </Navbar>
@@ -321,7 +321,7 @@ function Layout(args, props) {
                             <NavItem>
                                 <Link
                                     to="/app/dashboard"
-                                    
+
                                     className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
 
                                     onClick={() => { toggle('1'); }}
@@ -330,33 +330,33 @@ function Layout(args, props) {
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/bien"
-                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                <Link
+                                    to="/app/bien"
+                                    className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
                                     onClick={() => { toggle('2'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/interlocuteurs"
-                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                <Link
+                                    to="/app/interlocuteurs"
+                                    className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
                                     onClick={() => { toggle('3'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/documents"
-                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                <Link
+                                    to="/app/documents"
+                                    className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
                                     onClick={() => { toggle('4'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/transaction"
-                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                <Link
+                                    to="/app/transaction"
+                                    className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
                                     onClick={() => { toggle('5'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
                                 </Link>
@@ -389,7 +389,7 @@ function Layout(args, props) {
                             <TabPane tabId="4">
                                 <Row>
                                     <Col sm="12">
-                                    <Documents user={user} />
+                                        <Documents user={user} />
                                     </Col>
                                 </Row>
                             </TabPane>
@@ -406,71 +406,71 @@ function Layout(args, props) {
             </LayoutS>
         );
     }
-    else if(member !== null && member.metaData.airtable_id === undefined){
-        return(
+    else if (member !== null && member.metaData.airtable_id === undefined) {
+        return (
             <LayoutS>
                 <Row>
                     <ColMenu md="2">
                         {/** Navbar mobile **/}
                         <Navbar color="faded" light>
                             <NavbarBrand className="me-auto">
-                            <NavLink onClick={() => { toggle('1'); }}>
+                                <NavLink onClick={() => { toggle('1'); }}>
                                     <b>Clotere</b>
                                 </NavLink>
                             </NavbarBrand>
                             <NavbarToggler onClick={toggleNavbar} className="me-2" />
                             <Collapse isOpen={!collapsed} navbar>
                                 <Nav navbar>
-                                <NavItem className='brand'>
-                                <NavLink
-                                    onClick={() => { toggle('1'); }}
-                                >
-                                    <b>Clotere</b>
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <Link
-                                    to="/app/dashboard"
-                                    
-                                    className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+                                    <NavItem className='brand'>
+                                        <NavLink
+                                            onClick={() => { toggle('1'); }}
+                                        >
+                                            <b>Clotere</b>
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/dashboard"
 
-                                    onClick={() => { toggle('1'); }}
-                                >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/bien"
-                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
-                                    onClick={() => { toggle('2'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/interlocuteurs"
-                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
-                                    onClick={() => { toggle('3'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/documents"
-                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
-                                    onClick={() => { toggle('4'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
-                                </Link>
-                            </NavItem>
-                            <NavItem>
-                                <Link 
-                                to="/app/transaction"
-                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
-                                    onClick={() => { toggle('5'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
-                                </Link>
-                            </NavItem>
+                                            className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+
+                                            onClick={() => { toggle('1'); }}
+                                        >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/bien"
+                                            className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                            onClick={() => { toggle('2'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/interlocuteurs"
+                                            className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                            onClick={() => { toggle('3'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/documents"
+                                            className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                            onClick={() => { toggle('4'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/transaction"
+                                            className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                            onClick={() => { toggle('5'); }} >
+                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                        </Link>
+                                    </NavItem>
                                 </Nav>
                             </Collapse>
                         </Navbar>
@@ -486,7 +486,7 @@ function Layout(args, props) {
                             <NavItem>
                                 <Link
                                     to="/app/dashboard"
-                                    
+
                                     className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
 
                                     onClick={() => { toggle('1'); }}
@@ -495,62 +495,62 @@ function Layout(args, props) {
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/bien"
-                                className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                <Link
+                                    to="/app/bien"
+                                    className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
                                     onClick={() => { toggle('2'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/interlocuteurs"
-                                className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                <Link
+                                    to="/app/interlocuteurs"
+                                    className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
                                     onClick={() => { toggle('3'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/documents"
-                                className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                <Link
+                                    to="/app/documents"
+                                    className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
                                     onClick={() => { toggle('4'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
                                 </Link>
                             </NavItem>
                             <NavItem>
-                                <Link 
-                                to="/app/transaction"
-                                className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                <Link
+                                    to="/app/transaction"
+                                    className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
                                     onClick={() => { toggle('5'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
                                 </Link>
                             </NavItem>
-                            <NavItem className='profilItem'>
-                            {member && (
-            <>
-              <Dropdown isOpen={dropdownOpen} toggle={toggleProfil}>
-                <DropdownToggle caret>{member.auth.email}</DropdownToggle>
-                <DropdownMenu {...args}>
-                  <DropdownItem>
-                  <Link to="/app/dashboard">Dashboard</Link>
-                  </DropdownItem>
-                  <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem><a className="nav-link"
-                href="#"
-                onClick={() =>
-                  memberstack.logout()
-                    .then(({ data, type }) => {
-                      window.location.replace('/');
-                    })}
-              >
-                Deconnexion
-              </a></DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </>
-          )}
+                            <NavItem>
+                                {member && (
+                                    <>
+                                        <Dropdown isOpen={dropdownOpen} toggle={toggleProfil}>
+                                            <DropdownToggle caret>{member.auth.email}</DropdownToggle>
+                                            <DropdownMenu {...args}>
+                                                <DropdownItem>
+                                                    <Link to="/app/dashboard">Dashboard</Link>
+                                                </DropdownItem>
+                                                <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem><a className="nav-link"
+                                                    href="#"
+                                                    onClick={() =>
+                                                        memberstack.logout()
+                                                            .then(({ data, type }) => {
+                                                                window.location.replace('/');
+                                                            })}
+                                                >
+                                                    Deconnexion
+                                                </a></DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown>
+                                    </>
+                                )}
                             </NavItem>
                         </Nav>
                     </ColMenu>
@@ -563,10 +563,10 @@ function Layout(args, props) {
                                     </Col>
                                 </Row>
                             </TabPane>
-                            </TabContent>
-                            </ColContent>
-                    </Row>
-                    </LayoutS>
+                        </TabContent>
+                    </ColContent>
+                </Row>
+            </LayoutS>
         )
     }
     return (

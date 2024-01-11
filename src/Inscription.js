@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useMemberstack } from "@memberstack/react";
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, FormGroup, Form, Label, Input, Alert, FormText } from "reactstrap";
@@ -14,14 +14,22 @@ const ContainerFormRegister = styled(Container)`
 margin-top:8%;
 `;
 
-
-
 function Inscription(args, props) {
     const memberstack = useMemberstack();
     const [formError, setFormError] = useState(false);
     const [formErrorMessage, setFormErrorMessage] = useState("");
     const [member, setMember] = useState(null);
     const navigate = useNavigate();
+
+    //redirect if already logged
+      useEffect(() => {
+        memberstack.getCurrentMember()
+        .then(({ data: member }) => setMember(member))
+      }, []);
+
+      if (member){
+        navigate("/app/dashboard");
+      } 
 
 
     const handleSubmit = (event) => {
@@ -48,6 +56,7 @@ function Inscription(args, props) {
 
     return (
         <>
+        {!member && (
             <ContainerFormRegister>
                 <Row>
                     <Col md="3" xs="0"></Col>
@@ -104,7 +113,7 @@ function Inscription(args, props) {
                                     Mot de passe
                                 </Label>
                                 <Input
-                                    name="password" type="password" data-ms-member="password" minlength="8" required
+                                    name="password" type="password" data-ms-member="password" minLength="8" required
                                 />
                                 <FormText>
                                     8 charactères minimum
@@ -119,6 +128,7 @@ function Inscription(args, props) {
                     </Col>
                 </Row>
             </ContainerFormRegister>
+            )}
         </>
     );
 }

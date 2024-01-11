@@ -1,7 +1,8 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState,useEffect } from 'react';
 import {
   BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 //page
 import Home from './Home';
@@ -14,8 +15,6 @@ import Questionnaire from './app/Questionnaire';
 import Navbar from './components/Navbar';
 
 export const userInfoContext = createContext();
-
-
 
 const App = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -45,6 +44,7 @@ const App = () => {
       return <Navbar user={userInfo} />;
     }
   }
+
   
   return (
     <>

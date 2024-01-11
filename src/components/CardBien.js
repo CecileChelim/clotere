@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ListGroup, ListGroupItem, Row, Col, Offcanvas, OffcanvasHeader, OffcanvasBody } from "reactstrap";
+import { Badge,ListGroup, ListGroupItem, Row, Col, Offcanvas, OffcanvasHeader, OffcanvasBody, ListGroupItemHeading, ListGroupItemText } from "reactstrap";
 import styled from "styled-components";
 import { LinkCard } from "../style/Button";
 
@@ -54,13 +54,71 @@ function CardBien(args) {
         direction="end"
         scrollable>
 
-        <OffcanvasHeader toggle={function noRefCheck() { }}>
+        <OffcanvasHeader toggle={toggle2}>
           Informations sur votre bien
         </OffcanvasHeader>
         <OffcanvasBody>
-          <strong>
-            This is the Offcanvas body.
-          </strong>
+          <ListGroup>
+          <ListGroupItem>
+              <ListGroupItemText>Prix</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.prix ? args.bien.prix  : '--'} € </ListGroupItemHeading> 
+            </ListGroupItem>
+            <ListGroupItem>
+              <ListGroupItemText> Adresse</ListGroupItemText>
+              <ListGroupItemHeading>
+                {args.bien.adresse}{" "}
+                {args.bien.code_postal}{" "}
+                {args.bien.ville}
+
+              </ListGroupItemHeading>
+            </ListGroupItem>
+
+            <ListGroupItem>
+              <ListGroupItemText> Type </ListGroupItemText>
+              <ListGroupItemHeading>
+                <Badge color="primary">
+                {args.bien.type}
+                </Badge>
+              </ListGroupItemHeading>
+            </ListGroupItem>
+
+            <ListGroupItem>
+              <ListGroupItemText>Désignation</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.designation ? args.bien.designation : '--'} </ListGroupItemHeading>
+            </ListGroupItem>
+
+            <hr/>
+
+            <ListGroupItem>
+              <ListGroupItemText>Superficie</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.superficie ? args.bien.superficie : '--'} m2</ListGroupItemHeading>
+            </ListGroupItem>
+
+            <ListGroupItem>
+              <ListGroupItemText>Etage</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.etage ? args.bien.etage : '--'}</ListGroupItemHeading>
+            </ListGroupItem>
+
+            <ListGroupItem>
+              <ListGroupItemText>Dépendance</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.dependance ? args.bien.dependance : '--'}</ListGroupItemHeading>
+            </ListGroupItem>
+
+            <ListGroupItem>
+              <ListGroupItemText>Nombre de lot</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.nb_lot ? args.bien.nb_lot : '--'}</ListGroupItemHeading>
+            </ListGroupItem>
+
+            <ListGroupItem>
+              <ListGroupItemText>Orientation</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.orientation ? args.bien.orientation : '--'}</ListGroupItemHeading>
+            </ListGroupItem>
+
+            <ListGroupItem>
+              <ListGroupItemText>Reference Cadastrale</ListGroupItemText>
+              <ListGroupItemHeading>{args.bien.reference_cadastrale ? args.bien.reference_cadastrale : '--'}</ListGroupItemHeading>
+            </ListGroupItem>
+          </ListGroup>
         </OffcanvasBody>
       </Offcanvas>
     </>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useMemberstack } from "@memberstack/react";
+import React, { useState,useEffect } from "react";
+import { useMemberstack, } from "@memberstack/react";
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, FormGroup, Form, Label, Input, Alert, FormText } from "reactstrap";
 import { ButtonPrimary } from "./style/Button";
@@ -20,6 +20,18 @@ function Invitation(args, props) {
     const [formErrorMessage, setFormErrorMessage] = useState("");
     const [member, setMember] = useState(null);
     const navigate = useNavigate();
+
+    //redirect if already logged
+    useEffect(() => {
+        memberstack.getCurrentMember()
+        .then(({ data: member }) => setMember(member))
+      }, []);
+
+      if (member){
+        navigate("/app/dashboard");
+      } 
+
+    
 
 
     const handleSubmit = (event) => {
@@ -46,6 +58,7 @@ function Invitation(args, props) {
 
     return (
         <>
+        {!member && (
             <ContainerFormRegister>
                 <Row>
                     <Col md="3" xs="0"></Col>
@@ -90,6 +103,7 @@ function Invitation(args, props) {
                     </Col>
                 </Row>
             </ContainerFormRegister>
+            )}
         </>
     );
 }
