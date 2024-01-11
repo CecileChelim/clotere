@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Navbar, NavbarBrand, Collapse, NavbarToggler } from 'reactstrap';
+import { Col, Row, Nav, NavItem, NavLink, TabContent, TabPane, Navbar, NavbarBrand, Collapse, NavbarToggler,Dropdown,DropdownToggle,DropdownMenu,DropdownItem } from 'reactstrap';
 import { useMemberstack } from "@memberstack/react";
 import styled from "styled-components";
 import Dashboard from './Dashboard';
@@ -41,6 +41,10 @@ const ColMenu = styled(Col)`
     .navbar{display:block}
     min-height:auto!important;
   }
+  .profilItem{
+    position:absolute;
+    bottom:1rem;
+  }
 `;
 
 const ColContent = styled(Col)`
@@ -60,6 +64,9 @@ function Layout(args, props) {
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
     const [collapsed, setCollapsed] = useState(true);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleProfil = () => setDropdownOpen((prevState) => !prevState);
 
     const toggleNavbar = () => setCollapsed(!collapsed);
 
@@ -518,6 +525,32 @@ function Layout(args, props) {
                                     onClick={() => { toggle('5'); }} >
                                     <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
                                 </Link>
+                            </NavItem>
+                            <NavItem className='profilItem'>
+                            {member && (
+            <>
+              <Dropdown isOpen={dropdownOpen} toggle={toggleProfil}>
+                <DropdownToggle caret>{member.auth.email}</DropdownToggle>
+                <DropdownMenu {...args}>
+                  <DropdownItem>
+                  <Link to="/app/dashboard">Dashboard</Link>
+                  </DropdownItem>
+                  <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem><a className="nav-link"
+                href="#"
+                onClick={() =>
+                  memberstack.logout()
+                    .then(({ data, type }) => {
+                      window.location.replace('/');
+                    })}
+              >
+                Deconnexion
+              </a></DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </>
+          )}
                             </NavItem>
                         </Nav>
                     </ColMenu>

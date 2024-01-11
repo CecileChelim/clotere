@@ -7,6 +7,7 @@ import {
 import Home from './Home';
 import HomeAgent from './HomeAgent';
 import Inscription from './Inscription';
+import Invitation from './Invitation';
 import Layout from './app/Layout';
 import Questionnaire from './app/Questionnaire';
 //components
@@ -57,6 +58,7 @@ const App = () => {
             <Route index element={<Home />} user={userInfo} />
             <Route path="agent-immobilier" element={<HomeAgent />} user={userInfo} />
             <Route path="inscription" element={<Inscription />} user={userInfo} />
+            <Route path="connexion" element={<Invitation />} user={userInfo} />
             <Route path="app" element={<Layout />} user={userInfo} />
             <Route path="onboard" element={<Questionnaire />} user={userInfo} />
             <Route path="app/dashboard" exact user={userInfo} element={<Layout />}  />

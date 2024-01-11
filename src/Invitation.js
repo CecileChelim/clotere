@@ -14,9 +14,7 @@ const ContainerFormRegister = styled(Container)`
 margin-top:8%;
 `;
 
-
-
-function Inscription(args, props) {
+function Invitation(args, props) {
     const memberstack = useMemberstack();
     const [formError, setFormError] = useState(false);
     const [formErrorMessage, setFormErrorMessage] = useState("");
@@ -28,9 +26,9 @@ function Inscription(args, props) {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
-        memberstack.signupMemberEmailPassword({ email, password })
-            .then((signupData) => {
-                console.log("User signed up!", signupData);
+        memberstack.loginMemberEmailPassword({ email, password })
+            .then((signinData) => {
+                console.log("User connecte!", signinData);
                 setMember(member);
                 navigate("/app/dashboard");
             })
@@ -52,10 +50,10 @@ function Inscription(args, props) {
                 <Row>
                     <Col md="3" xs="0"></Col>
                     <Col md="6" xs="0">
-                        <div className="d-flex flex-column justify-content-center text-center">
+                    <div className="d-flex flex-column justify-content-center text-center">
                         <Logo alt="Clotere"
                             src={logoClotere}></Logo>
-                        <h3 className="mt-3 mb-3">Inscrivez-vous</h3>
+                        <h3 className="mt-3 mb-3">Connectez-vous</h3>
                         </div>
                         <Form data-ms-form="login" onSubmit={handleSubmit}>
                             {formError ? (
@@ -63,33 +61,6 @@ function Inscription(args, props) {
                                     {formErrorMessage}
                                 </Alert>
                             ) : (<>{" "}</>)}
-
-                            <Row>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Label for="nom">
-                                            Nom
-                                        </Label>
-                                        <Input
-                                            name="nom"
-                                            type="text"
-                                            data-ms-member="nom" 
-                                        />
-                                    </FormGroup>
-                                </Col>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Label for="prenom">
-                                            Prenom
-                                        </Label>
-                                        <Input
-                                            name="prenom"
-                                            type="text"
-                                            data-ms-member="prenom" 
-                                        />
-                                    </FormGroup>
-                                </Col>
-                            </Row>
 
                             <FormGroup>
                                 <Label for="exampleEmail">
@@ -112,7 +83,7 @@ function Inscription(args, props) {
 
                             </FormGroup>
                             <FormGroup>
-                                <ButtonPrimary type="submit">S'inscrire</ButtonPrimary>
+                                <ButtonPrimary type="submit">Se connecter</ButtonPrimary>
                             </FormGroup>
                         </Form>
 
@@ -123,4 +94,4 @@ function Inscription(args, props) {
     );
 }
 
-export default Inscription;
+export default Invitation;
