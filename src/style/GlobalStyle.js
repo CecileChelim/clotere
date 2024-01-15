@@ -11,6 +11,9 @@ h1,h2{
   font-family: "BodoniMedium", serif;
   font-weight:500;
 }
+h1{font-size:70px;}
+h2{font-size:50px;}
+h3{font-size:40px;}
 @media all and (max-width: 768px) {
   h1{
     font-size:50px!important;

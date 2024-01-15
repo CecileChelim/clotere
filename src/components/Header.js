@@ -14,16 +14,17 @@ align-items: center;
 `;
 
 const Title = styled.h1`
-font-size: 90px;
+font-size: 80px;
 margin-bottom:30px;
 line-height;46px;
 @media all and (max-width: 768px) {
+    //pour les écrans de max 768px
       font-size:50px!important;
   }
 `;
 const SubTitle = styled.h2`
 font-family:"Manrope",sans-serif;
-line-height: 46px;
+line-height: 44px;
 font-size:34px;
 width: 90%;
 color:${props => props.theme.colors.black};

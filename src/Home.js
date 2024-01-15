@@ -1,9 +1,13 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import Header from './components/Header';
 import styled from "styled-components";
 import Background from "./img/back-clotere.png"
 import Navbar from './components/Navbar';
+/** composants **/
+import Header from './components/Header';
+import EnMoyenne from './components/EnMoyenne';
+import Faq from './components/Faq';
+import BlocCta from './components/BlocCta';
+import Footer from './components/Footer';
 
 const HomeS = styled.div`
 background-image: url(${Background});
@@ -15,13 +19,12 @@ function Home(args) {
     return (
         <>
         <HomeS>
-        <Navbar user={args.user} />
-        <Header/>
-        <Container className="grey-bg mt-5">
-            <Row>
-                <Col md="12" xs="0"><br /><br /><br />Home</Col>
-            </Row>
-        </Container>
+            <Navbar user={args.user} />
+            <Header/>
+            <EnMoyenne/>
+            <Faq/>
+            <BlocCta/>
+            <Footer/>
         </HomeS>
         </>
     );
