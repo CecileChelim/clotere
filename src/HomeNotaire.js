@@ -3,14 +3,14 @@ import { Container, Row, Col } from "reactstrap";
 
 
 
-function HomeAgent() {
+function HomeNotaire() {
     return (
         <Container className="grey-bg mt-5">
             <Row>
-                <Col md="12" xs="0"><br/><br/><br/>Home Agent</Col>
+                <Col md="12" xs="0"><br/><br/><br/>Home notaire</Col>
                 </Row>
         </Container>
     );
 }
 
-export default HomeAgent;
+export default HomeNotaire;

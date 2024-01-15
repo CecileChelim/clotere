@@ -6,13 +6,13 @@ import {
   List, Col, Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
+  DropdownItem, Navbar,Collapse,NavbarToggler,Nav
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import ClotereLogo from "../img/logo-clotere.svg";
 
-const NavS = styled.div`
+const NavS = styled(Navbar)`
   background-color:transparent;
   padding:2rem 3rem 4rem 3rem;
     margin-right: auto;
@@ -27,7 +27,30 @@ const NavS = styled.div`
     font-weight:300;
     color:#000000;
   }
+  @media (max-width: 768px){
+    display: none!important;
+  } 
+}
 `;
+
+const NavMobileS = styled(Navbar)`
+display:none!important;
+@media (max-width: 768px){
+  display: flex!important;
+  padding: 1rem;
+  margin-bottom: 3rem;
+} 
+.collapse{
+  background-color: white;
+    padding: 1rem;
+    margin-top: 1rem;
+    a{
+      color:${props => props.theme.colors.black};
+    }
+}
+}
+`;
+
 
 function Navigation(args, props) {
   const memberstack = useMemberstack();
@@ -35,8 +58,9 @@ function Navigation(args, props) {
   const [member, setMember] = useState(null);
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const toggle = () => setDropdownOpen((prevState) => !prevState);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle2 = () => setIsOpen(!isOpen);
 
 
   useEffect(() => {
@@ -47,17 +71,17 @@ function Navigation(args, props) {
   }, []);
 
   return (
-    <div>
-      <NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between ">
+    <>
+    <NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between">
         <Col md="3" className="mb-2 mb-md-0 text-start">
           <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
             <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
         </Col>
-
+        
         <List className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><Link to="/" className="nav-link px-2">home</Link></li>
-          <li><Link to="/agent-immobilier" className="nav-link px-2">Agent immobilier</Link></li>
+          <li><Link to="/" className="nav-link px-2">Accueil</Link></li>
+          <li><Link to="/notaire" className="nav-link px-2">Vous êtes notaire ?</Link></li>
         </List>
 
         <Col md="3" className="d-flex  justify-content-end">
@@ -67,20 +91,20 @@ function Navigation(args, props) {
                 <DropdownToggle caret>{member.auth.email}</DropdownToggle>
                 <DropdownMenu {...args}>
                   <DropdownItem>
-                  <Link to="/app/dashboard">Dashboard</Link>
+                    <Link to="/app/dashboard">Dashboard</Link>
                   </DropdownItem>
                   <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem><a className="nav-link"
-                href="#"
-                onClick={() =>
-                  memberstack.logout()
-                    .then(({ data, type }) => {
-                      window.location.replace('/');
-                    })}
-              >
-                Deconnexion
-              </a></DropdownItem>
+                    href="#"
+                    onClick={() =>
+                      memberstack.logout()
+                        .then(({ data, type }) => {
+                          window.location.replace('/');
+                        })}
+                  >
+                    Deconnexion
+                  </a></DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </>
@@ -107,14 +131,75 @@ function Navigation(args, props) {
                     }
                     hideModal();
                   })
-                }>Espace client</Link>
+                }><u><b>Espace client</b></u></Link>
             </>
           )}
-
-
         </Col>
-      </NavS>
-    </div>
+    </NavS>
+    <NavMobileS className="d-flex fixed flex-wrap align-items-center  justify-content-between">
+          <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
+            <img src={ClotereLogo} width="150px" alt="Clotere" />
+          </Link>
+        <NavbarToggler onClick={toggle2} />
+        <Collapse isOpen={isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+            <List className="nav d-flex flex-column justify-content-center mb-md-0">
+              <li><Link to="/" className="nav-link px-2">Accueil</Link></li>
+              <li><Link to="/notaire" className="nav-link px-2">Vous êtes notaire ?</Link></li>
+            </List>
+            {member && (
+            <>
+              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                <DropdownToggle caret>{member.auth.email}</DropdownToggle>
+                <DropdownMenu {...args}>
+                  <DropdownItem>
+                    <Link to="/app/dashboard">Dashboard</Link>
+                  </DropdownItem>
+                  <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem><a className="nav-link"
+                    href="#"
+                    onClick={() =>
+                      memberstack.logout()
+                        .then(({ data, type }) => {
+                          window.location.replace('/');
+                        })}
+                  >
+                    Deconnexion
+                  </a></DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </>
+          )}
+          {!member && (
+            <>
+              <Link
+                className="nav-link px-2"
+                onClick={() =>
+                  openModal({
+                    type: "LOGIN"
+                  }).then(({ data, type }) => {
+                    console.log('data', data);
+                    console.log('type: ', type);
+                    if (type === "LOGIN") {
+                      console.log("login");
+                      hideModal();
+                      setMember(member);
+                      navigate("/app");
+                    } else if (type === "REGISTER") {
+                      console.log("REGISTER");
+                      hideModal();
+                      navigate("/onboard");
+                    }
+                    hideModal();
+                  })
+                }><u>Espace client</u></Link>
+            </>
+          )}
+            </Nav>
+        </Collapse>
+    </NavMobileS>
+    </>
   );
 }
 

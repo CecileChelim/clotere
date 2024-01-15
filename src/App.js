@@ -6,7 +6,7 @@ import Theme from "./Theme";
 
 //page
 import Home from './Home';
-import HomeAgent from './HomeAgent';
+import HomeNotaire from './HomeNotaire';
 import Inscription from './Inscription';
 import Invitation from './Invitation';
 import Layout from './app/Layout';
@@ -54,7 +54,7 @@ const App = () => {
           
           <Routes>
             <Route index element={<Home />} user={userInfo} />
-            <Route path="agent-immobilier" element={<HomeAgent />} user={userInfo} />
+            <Route path="notaire" element={<HomeNotaire />} user={userInfo} />
             <Route path="inscription" element={<Inscription />} user={userInfo} />
             <Route path="connexion" element={<Invitation />} user={userInfo} />
             <Route path="app" element={<Layout />} user={userInfo} />
