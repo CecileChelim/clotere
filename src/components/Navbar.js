@@ -10,14 +10,18 @@ import {
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
+import ClotereLogo from "../img/logo-clotere.svg";
 
 const NavS = styled.div`
-  
+  background-color:transparent;
+  padding:2rem 3rem 4rem 3rem;
+    margin-right: auto;
+    margin-left: auto;
   .brand{
     font-size:22px;
     font-weight:500;
+    height: 30px!important;
   }
-
   a{
     font-size:18px;
     font-weight:300;
@@ -44,10 +48,10 @@ function Navigation(args, props) {
 
   return (
     <div>
-      <NavS className="p-5  fixed-top d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between ">
         <Col md="3" className="mb-2 mb-md-0 text-start">
           <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
-            Clotere
+            <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
         </Col>
 

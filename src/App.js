@@ -2,6 +2,7 @@ import React, { createContext, useState} from 'react';
 import {
   BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
+import Theme from "./Theme";
 
 //page
 import Home from './Home';
@@ -10,14 +11,12 @@ import Inscription from './Inscription';
 import Invitation from './Invitation';
 import Layout from './app/Layout';
 import Questionnaire from './app/Questionnaire';
-//components
-import Navbar from './components/Navbar';
 
 export const userInfoContext = createContext();
 
 const App = () => {
   const [userInfo, setUserInfo] = useState(null);
-  console.log("path", window.location.pathname )
+  console.log("path", window.location.pathname );
 
   function getNavbar() {
     if(window.location.pathname === "/app/" ) {
@@ -40,14 +39,14 @@ const App = () => {
     else if(window.location.pathname === "/app/profil") {
       return "";
     } else {
-      return <Navbar user={userInfo} />;
+      return "";
     }
   }
 
   
   return (
     <>
-
+<Theme>
       <Router>
         <userInfoContext.Provider value={{ userInfo, setUserInfo }}>
         
@@ -69,13 +68,9 @@ const App = () => {
           </Routes>
         </userInfoContext.Provider>
       </Router>
-
+      </Theme>
     </>
   );
 };
-
-
-
-
 
 export default App;

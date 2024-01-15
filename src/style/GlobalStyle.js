@@ -1,6 +1,25 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+body{
+  font-family: "Manrope", sans-serif;
+}
+
+
+/** title **/
+h1,h2{
+  font-family: "BodoniMedium", serif;
+  font-weight:500;
+}
+@media all and (max-width: 768px) {
+  h1{
+    font-size:50px!important;
+  }
+  h2{
+    font-size:30px!important;
+  }
+}
+
 .spinner {
     position: absolute;
     display: flex;
@@ -26,7 +45,6 @@ export const GlobalStyle = createGlobalStyle`
 
  a{cursor:pointer;}
   
-
    /** tabs **/
    .nav-pills .nav-link{
     color:black;

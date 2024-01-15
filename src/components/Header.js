@@ -2,57 +2,78 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { ButtonPrimary, LinkS } from "../style/Button";
+import { ButtonPrimary} from "../style/Button";
+import ArrowRight from "../img/arrow-right.png";
 
+
+const ContainerS = styled(Container)`
+height: 100%;
+width: 100%;
+display: flex;
+align-items: center;
+`;
 
 const Title = styled.h1`
-font-size: 70px;
+font-size: 90px;
+margin-bottom:30px;
+line-height;46px;
+@media all and (max-width: 768px) {
+      font-size:50px!important;
+  }
 `;
 const SubTitle = styled.h2`
-font-size:26px;
-font-weight:400;
-color:#9DA2AD;
+font-family:"Manrope",sans-serif;
+line-height: 46px;
+font-size:34px;
 width: 90%;
-line-height: 130%;
-`;
-const Image = styled.img`
-border-radius:2rem;
-`;
-const BlocButton = styled.div`
-margin-top:2rem;
-margin-bottom:.5rem;
-a{
-    color:#000;
-    text-decoration:none;
+color:${props => props.theme.colors.black};
+font-weight: 300;
+span{
+    font-weight: 500;
+    background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
 }
+margin-bottom:60px;
 `;
+
+const BlocButton = styled.div`
+background-color: ${props => props.theme.main};
+margin-top:2rem;
+margin-bottom:20px;
+.btn{margin-right:20px;}
+p{
+    font-size:24px;
+    font-weight:300;
+}
+@media all and (max-width: 768px) {
+    display:flex;
+    flex-direction:column;
+    .btn{
+        width:90%;
+        margin:0 auto;
+        margin-bottom:1rem;
+    }
+}
+`; 
 
 function Header() {
     return (
-        <Container className="grey-bg mt-5 pt-5">
+        <ContainerS className="grey-bg">
             <Row className="d-flex align-items-center">
-                <Col md="6">
-                    <Title>Réinventons la signature de l’acte de vente</Title>
-                    <SubTitle>Clotere, vous accompagne pour signer votre acte de vente <span className="main-text">plus rapidement</span> avec <span className="main-text">moins de frais de notaire</span> !</SubTitle>
+                <Col md="12" align="center">
+                    <Title>Sécurisez & gagnez du temps sur votre vente immobilière</Title>
+                    <SubTitle>Clotere votre notaire en ligne<br/> pour <span>contrôler</span>, <span>suivre</span> et <span>signer</span> votre vente en toute sérénité.</SubTitle>
                     <BlocButton>
-                        <Link to="/onboard">
-                            <ButtonPrimary>Ouvrez votre dossier de vente</ButtonPrimary>
-                        </Link>
                         <Link to="/test">
-                            <LinkS>Comment ça marche ?</LinkS>
+                            <ButtonPrimary color="white">Parler à un expert</ButtonPrimary>
+                        </Link>
+                        <Link to="/onboard">
+                            <ButtonPrimary color="primary">Débutez ma transaction <img src={ArrowRight} alt=""/></ButtonPrimary>
                         </Link>
                     </BlocButton>
                     <p>100% gratuit. Sans engagement.</p>
                 </Col>
-                <Col md="6" className="text-end">
-                    <Image width="80%" src="https://imgdrop.imgix.net/2023-07-1689178592438-35057.jpg" alt="#" />
-                </Col>
-                <br/><br/><br/><br/>
-                <Col md="5">
-                
-                </Col>
             </Row>
-        </Container>
+        </ContainerS>
     );
 }
 
