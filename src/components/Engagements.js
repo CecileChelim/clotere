@@ -9,7 +9,7 @@ const EngagementS = styled.section`
  margin-top:90px;
  background-color:#fff;
  padding:80px;
- h2{font-size:72px!important;}
+ h2{font-size:72px}
  @media screen and (max-width: 600px) {
     padding-right:20px;
     padding-left:20px;

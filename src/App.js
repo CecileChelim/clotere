@@ -2,7 +2,7 @@ import React, { createContext, useState} from 'react';
 import {
   BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
-import Theme from "./Theme";
+
 
 //page
 import Home from './Home';
@@ -46,7 +46,7 @@ const App = () => {
   
   return (
     <>
-<Theme>
+
       <Router>
         <userInfoContext.Provider value={{ userInfo, setUserInfo }}>
         
@@ -68,7 +68,6 @@ const App = () => {
           </Routes>
         </userInfoContext.Provider>
       </Router>
-      </Theme>
     </>
   );
 };

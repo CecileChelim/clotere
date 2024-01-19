@@ -19,8 +19,17 @@ h3{font-size:40px;}
     font-size:50px!important;
   }
   h2{
-    font-size:30px!important;
+    font-size:40px!important;
   }
+}
+
+.navbar-collapse{
+  background-color: white;
+    padding: 1rem;
+    margin-top: 1rem;
+    a{
+      color:${props => props.theme.colors.black};
+    }
 }
 
 .spinner {

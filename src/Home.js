@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Background from "./img/back-clotere.png"
 import Navbar from './components/Navbar';
+import Fade from 'react-reveal/Fade';
 /** composants **/
 import Header from './components/Header';
 import Feature from './components/Feature';
@@ -23,12 +24,12 @@ function Home(args) {
         <HomeS>
             <Navbar user={args.user} />
             <Header/>
-            <Feature/>
-            <Engagement/>
-            <EnMoyenne/>
-            <Faq/>
-            <BlocCta/>
-            <Footer/>
+            <Fade bottom><Feature/></Fade>
+            <Fade bottom><Engagement/></Fade>
+            <Fade bottom><EnMoyenne/></Fade>
+            <Fade bottom><Faq/></Fade>
+            <Fade bottom><BlocCta/></Fade>
+            <Fade bottom><Footer/></Fade>
         </HomeS>
         </>
     );

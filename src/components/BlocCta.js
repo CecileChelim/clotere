@@ -25,6 +25,7 @@ margin-top:90px;
         margin-bottom:40px;
             @media all and (max-width: 768px) {
                 font-size:18px;
+                display:none;
               }
         }
      @media all and (max-width: 768px) {

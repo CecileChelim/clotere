@@ -11,6 +11,10 @@ import IlluFeature from "../img/illu-test.png";
 const ContainerS = styled(Container)`
 margin-top:100px;
 margin-bottom:150px;
+@media all and (max-width: 768px) {
+    margin-bottom:0px;
+    margin-top:30px;
+}
 `;
 
 const CardFeature = styled(Card)`
@@ -23,6 +27,9 @@ min-height:420px;
 .carousel-inner{
     overflow:visible;
 }
+@media all and (max-width: 768px) {
+   .carousel-desktop{display:none;}
+  }
 `;
 
 const TextCol = styled(Col)`
@@ -51,7 +58,6 @@ img{
 }
 `;
 const Arrow = styled.div`
-
 position:absolute;
 bottom:4rem;
 left:6rem;
@@ -70,6 +76,22 @@ a{
     svg{height:1.8em;}
 }
 `;
+const CarouselMobile = styled(Carousel)`
+display:none;
+@media all and (max-width: 768px) {
+    display:block;
+    .imgMobile{
+        img{
+            position:relative;
+            top: 20%;
+            width: 90%;
+            left: 5%;
+        }
+    }
+  }
+`;
+
+
 
 
 function Feature(args) {
@@ -137,6 +159,29 @@ function Feature(args) {
         );
     });
 
+    const slidesMobile = items.map((item) => {
+        return (
+            <CarouselItem
+                onExiting={() => setAnimating(true)}
+                onExited={() => setAnimating(false)}
+                key={item.src}
+            >
+                <Row>
+                <IlluCol xs="12" className="imgMobile">
+                        <img src={item.src} alt={item.altText} />
+                    </IlluCol>
+                    <TextCol xs="12">
+                        <h4 className="number"><b>{item.number}</b></h4>
+                        {item.title}
+                        <p>{item.content}</p>
+
+                    </TextCol>
+                    
+                </Row>
+            </CarouselItem>
+        );
+    });
+
     return (
         <ContainerS className="grey-bg">
             <Row className="d-flex align-items-center">
@@ -147,6 +192,7 @@ function Feature(args) {
                             next={next}
                             previous={previous}
                             {...args}
+                            className="carousel-desktop"
                         >
                            
                             {slides}
@@ -164,6 +210,29 @@ function Feature(args) {
                             </Arrow>
                             
                         </Carousel>
+
+                        <CarouselMobile
+                            activeIndex={activeIndex}
+                            next={next}
+                            previous={previous}
+                            {...args}
+                        >
+                           
+                            {slidesMobile}
+                            <Arrow>
+                            <CarouselControl
+                                direction="prev"
+                                directionText="Previous"
+                                onClickHandler={previous}
+                            />
+                            <CarouselControl
+                                direction="next"
+                                directionText="Next"
+                                onClickHandler={next}
+                            />
+                            </Arrow>
+                            
+                        </CarouselMobile>
 
                     </CardFeature>
                 </Col>
