@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { ButtonPrimary} from "../style/Button";
 import ArrowRight from "../img/arrow-right.png";
+import Illu from "../img/illustration-clotere-header.png";
 
 
 const ContainerS = styled(Container)`
@@ -11,10 +12,11 @@ height: 100%;
 width: 100%;
 display: flex;
 align-items: center;
+position:relative;
 `;
 
 const Title = styled.h1`
-font-size: 80px;
+font-size: 66px;
 margin-bottom:30px;
 line-height;46px;
 @media all and (max-width: 768px) {
@@ -25,7 +27,7 @@ line-height;46px;
 const SubTitle = styled.h2`
 font-family:"Manrope",sans-serif;
 line-height: 44px;
-font-size:34px;
+font-size:28px;
 width: 90%;
 color:${props => props.theme.colors.black};
 font-weight: 300;
@@ -56,23 +58,38 @@ p{
 }
 `; 
 
+const IlluS = styled(Col)`
+
+img{
+    width:300px;
+}
+@media screen and (max-width: 600px) {
+    display:none;
+}
+
+`;
+
 function Header() {
     return (
         <ContainerS className="grey-bg">
             <Row className="d-flex align-items-center">
-                <Col md="12" align="center">
-                    <Title>Sécurisez & gagnez du temps sur votre vente immobilière</Title>
-                    <SubTitle>Clotere votre notaire en ligne<br/> pour <span>contrôler</span>, <span>suivre</span> et <span>signer</span> votre vente en toute sérénité.</SubTitle>
+                    <IlluS md="3">
+                        <img src={Illu} alt=""/>
+                    </IlluS>
+                <Col md="9" xs="12" align="center">
+                    <Title>Sécurisez & gagnez du temps<br/> sur votre vente immobilière</Title>
+                    <SubTitle>Clotere votre notaire en ligne pour <span>contrôler</span>, <span>suivre</span> et <span>signer</span> votre vente en toute sérénité.</SubTitle>
                     <BlocButton>
                         <Link to="/test">
                             <ButtonPrimary color="white">Parler à un expert</ButtonPrimary>
                         </Link>
                         <Link to="/onboard">
-                            <ButtonPrimary color="primary">Débutez ma transaction <img src={ArrowRight} alt=""/></ButtonPrimary>
+                            <ButtonPrimary color="primary">Débuter ma transaction <img src={ArrowRight} alt=""/></ButtonPrimary>
                         </Link>
                     </BlocButton>
                     <p>100% gratuit. Sans engagement.</p>
                 </Col>
+               
             </Row>
         </ContainerS>
     );

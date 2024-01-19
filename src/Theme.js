@@ -1,8 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 
-
-
 const theme = {
   colors: {
     main: "#1DF36C",

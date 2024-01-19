@@ -4,6 +4,8 @@ import Background from "./img/back-clotere.png"
 import Navbar from './components/Navbar';
 /** composants **/
 import Header from './components/Header';
+import Feature from './components/Feature';
+import Engagement from './components/Engagements';
 import EnMoyenne from './components/EnMoyenne';
 import Faq from './components/Faq';
 import BlocCta from './components/BlocCta';
@@ -21,6 +23,8 @@ function Home(args) {
         <HomeS>
             <Navbar user={args.user} />
             <Header/>
+            <Feature/>
+            <Engagement/>
             <EnMoyenne/>
             <Faq/>
             <BlocCta/>
