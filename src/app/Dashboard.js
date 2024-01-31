@@ -10,6 +10,7 @@ import { TitlePage, TitlePageApp, TitleSection,Panel } from "../style/Layout";
 import { DropdownPrimary } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import styled from "styled-components";
+import icnRdv from "../img/icn-rdv.svg";
 
 const DerniereActivite = styled(Card)`
   background-color:#00A18E;
@@ -53,6 +54,35 @@ const ListGroupActionAmener = styled(ListGroup)`
     }
   }
 `;
+const CardRdv = styled(Card)`
+padding:30px;
+border:0;
+background: linear-gradient(180deg, rgba(239,234,224,1) 0%, rgba(255,255,255,1) 100%);
+margin-right:2rem;
+margin-bottom:2rem;
+ img{
+    width:60px;
+    height:60px;
+    margin-right: 20px;
+ }
+ p{
+    font-size:18px;
+    color:#1D2B28;
+    margin:0;
+    small{
+        display:block;
+        font-size:14px;
+        color:#1D2B28;
+    }
+ }
+ h5{
+    margin-top:30px;
+    font-size:24px;
+    font-weight:500;
+ }
+`;
+
+
 
 
 
@@ -84,7 +114,38 @@ function Dashboard(args) {
                         </Col>
                     </TitlePageApp>
                     <Col md="12" className="mt-3">
-                        <TitleSection>Vos actions à mener</TitleSection>
+                    <TitleSection>Vos prochains rendez-vous</TitleSection>
+                    <div className="d-flex flex-row justify-start align-items-start flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
+                        <CardRdv>
+                            <div className="d-flex flex-row align-items-center">
+                                <img src={icnRdv} alt="votre rendez-vous"/>
+                                <p><small>Date</small>Non programmé</p>
+                            </div>
+                            <div>
+                                <h5>Signature compromis de vente</h5>
+                            </div>
+                        </CardRdv>
+                        <CardRdv>
+                            <div className="d-flex flex-row align-items-center">
+                                <img src={icnRdv} alt="votre rendez-vous"/>
+                                <p><small>Date</small>Non programmé</p>
+                            </div>
+                            <div>
+                                <h5>Signature de l'acte de vente authentique</h5>
+                            </div>
+                        </CardRdv>
+                        <CardRdv>
+                            <div className="d-flex flex-row align-items-center">
+                                <img src={icnRdv} alt="votre rendez-vous"/>
+                                <p><small>Date</small>Non programmé</p>
+                            </div>
+                            <div>
+                                <h5>Rendez-vous avec votre conseillé</h5>
+                            </div>
+                        </CardRdv>
+                    </div>
+
+                        <TitleSection className="mt-5">Vos actions à mener</TitleSection>
                         <Panel>
                             <ListGroupActionAmener numbered>
                                 <ListGroupItem>
@@ -133,6 +194,8 @@ function Dashboard(args) {
                                 </ListGroupItem>
                             </ListGroupActionAmener>
                         </Panel>
+
+                        <TitleSection className="mt-5">Où en est votre notaire ?</TitleSection>
                     </Col>
 
                 </Row>

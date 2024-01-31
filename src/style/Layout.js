@@ -10,12 +10,13 @@ export const TitlePage = styled.h1`
 
 export const TitlePageBig = styled.h1`
   font-size:32px;
+  font-family:"Manrope", "sans-serif";
   color:#000;
-  font-weight:600;
+  font-weight:400;
 `;
 
 export const TitlePageApp = styled(Row)`
-margin-bottom: 2rem;
+margin-bottom: .5rem;
 @media all and (max-width: 768px) {
   .col-md-7,.col-md-5{
     width:100%!important;
@@ -28,6 +29,7 @@ export const TitleSection = styled.h3`
   font-size:20px;
   color:${props => props.theme.colors.black};
   font-weight:100;
+  margin-bottom:20px;
 `;
 export const Panel = styled(Card)`
   border-radius:16px;

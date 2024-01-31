@@ -29,6 +29,8 @@ const ColMenu = styled(Col)`
   min-height:100vh;
   ul{
     padding:20px;
+    position: fixed;
+    margin-left: 1rem;
     li.brand{
         background-color: transparent;  
         a img{width:70px!important;}
