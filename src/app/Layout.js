@@ -12,28 +12,45 @@ import { Link } from 'react-router-dom';
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/fontawesome-free-solid'
+import icnDash from '../img/icn-dashboard.svg';
+import icnBien from '../img/icn-home.svg';
+import icnDoc from '../img/icn-doc.svg';
+import icnUser from '../img/icn-user.svg';
+import icnTransac from '../img/icn-transac.svg';
+import icnLogo from '../img/icn-logo.svg';
+
 
 const LayoutS = styled.div`
-  background-color:#F6F5F4;
+  background-color:#E0EEEE;
 `;
 
 const ColMenu = styled(Col)`
   background-color:#FFF;
   min-height:100vh;
   ul{
-    padding:.5rem;
+    padding:20px;
     li.brand{
-        margin: 2rem 0rem;
         background-color: transparent;  
+        a img{width:70px!important;}
     }
   }
   a.nav-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
     color:#000;
     font-size:18px;
     transition:all ease .5s;
     cursor: pointer;
-    svg{margin-right:16px;}
-    &:hover,&.active{background-color:#F7F3EF;}
+    border-radius:16px;
+    margin-bottom:15px;
+    padding:20px;
+    &:hover,&.active{background-color:#EAF3F2;}
+    img{
+        width:30px;
+        height:30px;
+        margin-bottom:15px;
+    }
   }
   .navbar{display:none;}
   @media all and (max-width: 768px) {
@@ -247,76 +264,14 @@ function Layout(args, props) {
             <LayoutS>
                 <Row>
                     <ColMenu md="2">
-                        {/** Navbar mobile **/}
-                        <Navbar color="faded" light>
-                            <NavbarBrand className="me-auto">
-                                <NavLink onClick={() => { toggle('1'); }}>
-                                    <b>Clotere</b>
-                                </NavLink>
-                            </NavbarBrand>
-                            <NavbarToggler onClick={toggleNavbar} className="me-2" />
-                            <Collapse isOpen={!collapsed} navbar>
-                                <Nav navbar>
-                                    <NavItem className='brand'>
-                                        <NavLink
-                                            onClick={() => { toggle('1'); }}
-                                        >
-                                            <b>Clotere</b>
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <Link
-                                            to="/app/dashboard"
-
-                                            className={`nav-link  ${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
-
-                                            onClick={() => { toggle('1'); }}
-                                        >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
-                                        </Link>
-                                    </NavItem>
-                                    <NavItem>
-                                        <Link
-                                            to="/app/bien"
-                                            className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
-                                            onClick={() => { toggle('2'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
-                                        </Link>
-                                    </NavItem>
-                                    <NavItem>
-                                        <Link
-                                            to="/app/interlocuteurs"
-                                            className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
-                                            onClick={() => { toggle('3'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
-                                        </Link>
-                                    </NavItem>
-                                    <NavItem>
-                                        <Link
-                                            to="/app/documents"
-                                            className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
-                                            onClick={() => { toggle('4'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
-                                        </Link>
-                                    </NavItem>
-                                    <NavItem>
-                                        <Link
-                                            to="/app/transaction"
-                                            className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
-                                            onClick={() => { toggle('5'); }} >
-                                            <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
-                                        </Link>
-                                    </NavItem>
-                                </Nav>
-                            </Collapse>
-                        </Navbar>
+                        
                         {/** Navbar desktop **/}
                         <Nav vertical className='menuSidebar'>
                             <NavItem className='brand'>
                                 <NavLink
                                     onClick={() => { toggle('1'); }}
                                 >
-                                    <b>Clotere</b>
+                                    <img src={icnLogo} alt="Clotere"/>
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -327,7 +282,7 @@ function Layout(args, props) {
 
                                     onClick={() => { toggle('1'); }}
                                 >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Tableau de bord
+                                    <img src={icnDash} alt="tableau de bord"/> Tableau de bord
                                 </Link>
                             </NavItem>
                             <NavItem>
@@ -335,7 +290,7 @@ function Layout(args, props) {
                                     to="/app/bien"
                                     className={`nav-link  ${window.location.pathname === "/app/bien" ? "active" : ""}`}
                                     onClick={() => { toggle('2'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Bien
+                                    <img src={icnBien} alt="tableau de bord"/> Bien
                                 </Link>
                             </NavItem>
                             <NavItem>
@@ -343,7 +298,7 @@ function Layout(args, props) {
                                     to="/app/interlocuteurs"
                                     className={`nav-link  ${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
                                     onClick={() => { toggle('3'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Interlocuteurs
+                                    <img src={icnUser} alt="tableau de bord"/> Interlocuteurs
                                 </Link>
                             </NavItem>
                             <NavItem>
@@ -351,7 +306,7 @@ function Layout(args, props) {
                                     to="/app/documents"
                                     className={`nav-link  ${window.location.pathname === "/app/documents" ? "active" : ""}`}
                                     onClick={() => { toggle('4'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Documents
+                                    <img src={icnDoc} alt="tableau de bord"/> Documents
                                 </Link>
                             </NavItem>
                             <NavItem>
@@ -359,7 +314,7 @@ function Layout(args, props) {
                                     to="/app/transaction"
                                     className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
                                     onClick={() => { toggle('5'); }} >
-                                    <FontAwesomeIcon icon={faHome} className='mr-3' /> Transactions
+                                    <img src={icnTransac} alt="tableau de bord"/>Transactions
                                 </Link>
                             </NavItem>
                         </Nav>

@@ -23,7 +23,7 @@ export const ButtonPrimary = styled(Button)`
   }
 }
 &.btn-primary{
-  background-color: ${props => props.theme.colors.main};
+  background-color: ${props => props.theme.colors.main}!important;
   color:${props => props.theme.colors.black};
   &:hover{
     background-color: ${props => props.theme.colors.mainDark};
@@ -70,10 +70,12 @@ export const LinkCard = styled.a`
 
 export const DropdownPrimary = styled(Dropdown)`
   button.dropdown-toggle{
-    background-color: #006855;
+    background-color: transparent;
 border:0;
-font-size:18px;
-color:#fff;font-weight:600;
+font-size:16px;
+text-decoration:underline;
+color:${props => props.theme.colors.black};
+font-weight:600;
   }
 `;
 

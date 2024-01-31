@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import {Row} from "reactstrap";
+import {Row,Card} from "reactstrap";
 
 export const TitlePage = styled.h1`
-  font-size:22px;
-  color:#000;
-  font-weight:600;
+  font-family:"Manrope", "sans-serif";
+  font-size:48px;
+  color:${props => props.theme.colors.black};
+  font-weight:400;
 `;
+
 export const TitlePageBig = styled.h1`
   font-size:32px;
   color:#000;
@@ -21,6 +23,18 @@ margin-bottom: 2rem;
   }
 }
 `;
+export const TitleSection = styled.h3`
+  font-family:"Manrope", "sans-serif";
+  font-size:20px;
+  color:${props => props.theme.colors.black};
+  font-weight:100;
+`;
+export const Panel = styled(Card)`
+  border-radius:16px;
+  padding:35px;
+  border:0;
+`;
+
 
 
 
