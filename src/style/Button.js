@@ -44,13 +44,11 @@ export const ButtonPrimarySmall = styled(ButtonPrimary)`
   padding: 10px 18px;
 `;
 export const LinkS = styled.a`
-  font-size:18px;
-  color:#000;
-  transition: all 200ms ease-in-out;
-  padding: 18px 22px;
-  border-radius: 8px;
-  line-height: 100%;
-  font-weight: 600;
+border:0;
+font-size:16px;
+text-decoration:underline;
+color:${props => props.theme.colors.black};
+font-weight:600;
   &:hover {
     color: #006855;
     svg {

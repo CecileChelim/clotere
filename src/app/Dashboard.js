@@ -7,29 +7,13 @@ import {
     Offcanvas, Card, ListGroup, ListGroupItem
 } from "reactstrap";
 import { TitlePage, TitlePageApp, TitleSection,Panel } from "../style/Layout";
+import moment from "moment";
 import { DropdownPrimary } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import styled from "styled-components";
 import icnRdv from "../img/icn-rdv.svg";
 
-const DerniereActivite = styled(Card)`
-  background-color:#00A18E;
-  padding:1rem;
-  border:0;
-  ul.list-group{
-    background-color:transparent;
-    li.list-group-item{
-        background-color:transparent;
-    border: 0;
-    color: #fff;
-    font-weight:600;
-    display: flex;
-    justify-content: space-between;
-    span{font-weight:400;}
-    }
-}
-margin-bottom:2rem;
-`;
+
 
 const ListGroupActionAmener = styled(ListGroup)`
   border-radius:0;
@@ -38,7 +22,7 @@ const ListGroupActionAmener = styled(ListGroup)`
     border:0;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: baseline;
     margin-bottom:30px;
     &:before{
         content: counters(section, "") "";
@@ -46,18 +30,20 @@ const ListGroupActionAmener = styled(ListGroup)`
         display: inline;
         border: 1px solid #ddd;
         font-weight:500;
-        color:#1D2B28;
+        
         border-radius: 100px;
         padding: 10px 17px;
         margin-right: 30px;
         heigth:30px;
     }
+    h4{color:#1D2B28;}
+    color:#84847C;
   }
 `;
 const CardRdv = styled(Card)`
 padding:30px;
 border:0;
-background: linear-gradient(180deg, rgba(239,234,224,1) 0%, rgba(255,255,255,1) 100%);
+background:${props => props.theme.colors.linearBackground};
 margin-right:2rem;
 margin-bottom:2rem;
  img{
@@ -196,6 +182,23 @@ function Dashboard(args) {
                         </Panel>
 
                         <TitleSection className="mt-5">Où en est votre notaire ?</TitleSection>
+                        <Panel>
+                            <ListGroupActionAmener numbered>
+                                {args.activite.map((col, i) => (
+                                    <>
+                                        <ListGroupItem>
+                                            <div className="d-flex flex-column">
+                                            <h4>{args.activite[i].fields.message}</h4>
+                                            <p><span> {moment(args.activite[i].fields.date).format('DD/MM/YYYY')}</span></p>
+                                            </div>
+                                            
+                                        </ListGroupItem>
+                                    </>
+                                ))}
+
+
+                            </ListGroupActionAmener>
+                        </Panel>
                     </Col>
 
                 </Row>

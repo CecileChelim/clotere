@@ -7,7 +7,8 @@ const theme = {
     mainDark: "#1BE764",
     black: "#1D2B28",
     white: "#fff",
-    greenDark: "#016069"
+    greenDark: "#016069",
+    linearBackground:"linear-gradient(180deg, rgba(239,234,224,1) 0%, rgba(255,255,255,1) 100%);"
   },
   fonts: ["Manrope", "sans-serif"],
   fontSizes: {

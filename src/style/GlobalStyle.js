@@ -106,11 +106,12 @@ h3{font-size:40px;}
 
     /** card **/
     .card{border:0;}
+
+    .background-linear{
+      background-color:${props => props.theme.colors.linearBackground}!important;
+    }
    
     `
-
-
-
   ;
 
 

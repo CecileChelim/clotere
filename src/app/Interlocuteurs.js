@@ -4,7 +4,7 @@ import {
     Offcanvas
 } from "reactstrap";
 import { TitlePageBig,TitlePageApp } from "../style/Layout";
-import { ButtonPrimary } from "../style/Button";
+import { LinkS } from "../style/Button";
 import CardInterlocuteurs from "../components/CardInterlocuteurs";
 
 
@@ -12,11 +12,7 @@ function Interlocuteurs(args) {
     //console.log("arg interloc", args.user.transaction[0]);
     const transacInfo = args.transaction;
     const [canvas, setCanvas] = useState(false);
-
     const toggle = () => setCanvas(!canvas);
-
-
-
     return (
         <>
             <Container>
@@ -24,7 +20,7 @@ function Interlocuteurs(args) {
                     <TitlePageApp>
                         <Col  md="7"><TitlePageBig className="mb-4">Vos interlocuteurs</TitlePageBig></Col>
                         <Col md="5"  className="text-end">
-                            <ButtonPrimary>+ Ajouter un utilisateur</ButtonPrimary>
+                            <LinkS>+ Ajouter un utilisateur</LinkS>
                         </Col>
                     </TitlePageApp>
                     <Row>

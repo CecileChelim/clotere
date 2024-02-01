@@ -4,7 +4,6 @@ import {
 } from "reactstrap";
 import { TitlePageBig } from "../style/Layout";
 import CardBien from "../components/CardBien";
-import CardHelp from "../components/CardHelp";
 import CardInfoManquante from "../components/CardInfoManquante";
 
 
@@ -22,7 +21,6 @@ function Bien(args) {
                     </Col>
                     <Col md="5">
                         <CardInfoManquante />
-                        <CardHelp />
                     </Col>
                 </Row>
             </Container>
