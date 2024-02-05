@@ -18,6 +18,7 @@ import icnDoc from '../img/icn-doc.svg';
 import icnUser from '../img/icn-user.svg';
 import icnTransac from '../img/icn-transac.svg';
 import icnLogo from '../img/icn-logo.svg';
+import Logo from '../img/logo-clotere.svg';
 
 
 const LayoutS = styled.div`
@@ -29,7 +30,7 @@ const ColMenu = styled(Col)`
   min-height:100vh;
   ul{
     padding:20px;
-    position: fixed;
+    //position: fixed;
     margin-left: 1rem;
     li.brand{
         background-color: transparent;  
@@ -57,7 +58,20 @@ const ColMenu = styled(Col)`
   .navbar{display:none;}
   @media all and (max-width: 768px) {
     ul.menuSidebar{ display:none;}
-    .navbar{display:block}
+    .navbar{
+        display:block;
+        .navbar-collapse{padding:0;margin:0;}
+        .imgBrand{ width: auto;height: 30px;margin-bottom: 0;}
+        ul{padding:0;}
+        li.nav-item{
+            padding:1rem 0;border-bottom:1px solid #ddd;
+            img{
+                height:30px;
+                margin-right:.5rem;
+            }
+            a{text-decoration:none;}
+        }
+    }
     min-height:auto!important;
   }
   .profilItem{
@@ -319,7 +333,85 @@ function Layout(args, props) {
                                     <img src={icnTransac} alt="tableau de bord"/>Transactions
                                 </Link>
                             </NavItem>
+                            <NavItem className='logout'>
+                                <Link
+                                className="nav-link"
+                                    onClick={() =>
+                                        memberstack.logout()
+                                          .then(({ data, type }) => {
+                                            window.location.replace('/');
+                                          })} >
+                                    Se déconnecter
+                                </Link>
+                            </NavItem>
                         </Nav>
+
+                        {/** Navbar mobile **/}
+                        <Navbar>
+                        <NavbarBrand className="me-auto">
+                                <img src={Logo} alt="Clotere" className='imgBrand'/>
+                            </NavbarBrand>
+                        <NavbarToggler onClick={toggleNavbar} className="me-2" />
+                            <Collapse isOpen={!collapsed} navbar>
+                                <Nav vertical>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/dashboard"
+                                            className={`${window.location.pathname === "/app/dashboard" ? "active" : ""} ${window.location.pathname === "/app" ? "active" : ""}`}
+                                            onClick={() => {
+                                                toggle('1');
+                                                toggleNavbar();
+                                              }}
+                                        >
+                                            <img src={icnDash} alt="tableau de bord"/> Tableau de bord
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/bien"
+                                            className={`${window.location.pathname === "/app/bien" ? "active" : ""}`}
+                                            onClick={() => { toggle('2');toggleNavbar(); }} >
+                                            <img src={icnBien} alt="bien"/> Bien
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/interlocuteurs"
+                                            className={`${window.location.pathname === "/app/interlocuteurs" ? "active" : ""}`}
+                                            onClick={() => { toggle('3');toggleNavbar(); }} >
+                                            <img src={icnUser} alt="interlocuteurs"/> Interlocuteurs
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/documents"
+                                            className={`${window.location.pathname === "/app/documents" ? "active" : ""}`}
+                                            onClick={() => { toggle('4');toggleNavbar(); }} >
+                                            <img src={icnDoc} alt="documents"/> Documents
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link
+                                            to="/app/transaction"
+                                            className={`${window.location.pathname === "/app/transaction" ? "active" : ""}`}
+                                            onClick={() => { toggle('5');toggleNavbar(); }} >
+                                            <img src={icnTransac} alt="transactions"/>Transactions
+                                        </Link>
+                                    </NavItem>
+                                    <NavItem className='logout'>
+                                        <Link
+                                            onClick={() =>
+                                                memberstack.logout()
+                                                .then(({ data, type }) => {
+                                                    window.location.replace('/');
+                                                })} >
+                                            Se déconnecter
+                                        </Link>
+                                    </NavItem>
+                                </Nav>
+                                </Collapse>
+                        </Navbar>
+
                     </ColMenu>
                     <ColContent md="10">
                         <TabContent activeTab={currentActiveTab}>

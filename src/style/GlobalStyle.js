@@ -34,10 +34,10 @@ h2{font-size:50px;}
 h3{font-size:40px;}
 @media all and (max-width: 768px) {
   h1{
-    font-size:50px!important;
+    font-size:40px!important;
   }
   h2{
-    font-size:40px!important;
+    font-size:30px!important;
   }
 }
 
@@ -108,6 +108,7 @@ h3{font-size:40px;}
       text-align: center;
       left: 2px;
     }
+  }
     #LoginModal{
       h2.ms-modal__title:after{
         content: 'Connectez vous';
@@ -119,7 +120,6 @@ h3{font-size:40px;}
         text-align: center;
         left: 2px;
       }
-
     }
 
     /** card **/
@@ -128,7 +128,13 @@ h3{font-size:40px;}
     .background-linear{
       background-color:${props => props.theme.colors.linearBackground}!important;
     }
-   
+
+    /** dropdown **/
+   .dropdown-menu{
+    background:${props => props.theme.colors.linearBackground};
+    border:0;
+    width:100%;
+   }
  
     
     `

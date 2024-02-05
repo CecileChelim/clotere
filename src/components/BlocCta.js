@@ -45,7 +45,7 @@ function BlocCta() {
                         <h2>Faites nous confiance <br/>pour gérer vos documents de vente</h2>
                         <p className="subtitle">Créez votre dossier de transaction en quelques clics et votre expert <br/>juridique s’occupe du reste</p>
                         <Link to="/onboard">
-                            <ButtonPrimary color="primary">Débutez ma transaction <img src={ArrowRight} alt=""/></ButtonPrimary>
+                            <ButtonPrimary color="primary">Débuter ma transaction <img src={ArrowRight} alt=""/></ButtonPrimary>
                         </Link>
                     </Card>
                     </Col>

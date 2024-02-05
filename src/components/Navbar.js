@@ -30,6 +30,9 @@ const NavS = styled(Navbar)`
   @media (max-width: 768px){
     display: none!important;
   } 
+  .dropdown {
+    button{background-color: transparent;border: 0;color: black;}
+  }
 }
 `;
 
