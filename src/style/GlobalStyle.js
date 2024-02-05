@@ -3,7 +3,25 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 body{
   font-family: "Manrope", sans-serif;
+  background-color
 }
+
+.textHighlight{
+  font-weight: 500;
+background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
+}
+
+.badge{
+  font-size:18px;
+  font-weight:400;
+  border-radius:100px;
+  padding:6px 16px;
+}
+
+/** colors **/
+.bg-primary{background-color:${props => props.theme.colors.main}!important; color:${props => props.theme.colors.black};}
+.bg-dark{background-color:${props => props.theme.colors.greenDark}!important; color:${props => props.theme.colors.white};}
+.bg-secondary{background-color:${props => props.theme.colors.lightGreen}!important; color:${props => props.theme.colors.black};}
 
 
 /** title **/
@@ -111,6 +129,8 @@ h3{font-size:40px;}
       background-color:${props => props.theme.colors.linearBackground}!important;
     }
    
+ 
+    
     `
   ;
 

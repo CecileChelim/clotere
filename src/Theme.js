@@ -8,6 +8,7 @@ const theme = {
     black: "#1D2B28",
     white: "#fff",
     greenDark: "#016069",
+    lightGreen: "#A7C3C5",
     linearBackground:"linear-gradient(180deg, rgba(239,234,224,1) 0%, rgba(255,255,255,1) 100%);"
   },
   fonts: ["Manrope", "sans-serif"],

@@ -165,13 +165,12 @@ padding: .5rem 0!important;
     margin-right: 2rem;
     margin-bottom: 0!important;
   p{
-    font-size:18px;
     font-weight:600;
     color:black;
     margin-bottom:0;
-    font-size:20px;
+    font-size:24px;
     small{
-      font-size:12px;
+      font-size:14px;
       font-weight:400;
         color:#1D2B28;
         opacity:.5;

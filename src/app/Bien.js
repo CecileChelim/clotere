@@ -16,10 +16,10 @@ function Bien(args) {
             <Container>
                 <Row className="d-flex align-self-start">
                     <Col md="12"><TitlePageBig className="mb-4">Votre bien</TitlePageBig></Col>
-                    <Col md="7">
+                    <Col md="8">
                         <CardBien bien={args.bien} />
                     </Col>
-                    <Col md="5">
+                    <Col md="4">
                         <CardInfoManquante />
                     </Col>
                 </Row>

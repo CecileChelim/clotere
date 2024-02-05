@@ -31,10 +31,6 @@ font-size:28px;
 width: 90%;
 color:${props => props.theme.colors.black};
 font-weight: 300;
-span{
-    font-weight: 500;
-    background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
-}
 margin-bottom:60px;
 `;
 
@@ -78,7 +74,7 @@ function Header() {
                     </IlluS>
                 <Col md="9" xs="12" align="center">
                     <Title>Sécurisez & gagnez du temps<br/> sur votre vente immobilière</Title>
-                    <SubTitle>Clotere votre notaire en ligne pour <span>contrôler</span>, <span>suivre</span> et <span>signer</span> votre vente en toute sérénité.</SubTitle>
+                    <SubTitle>Clotere votre notaire en ligne pour <span className="textHighlight">contrôler</span>, <span  className="textHighlight">suivre</span> et <span  className="textHighlight">signer</span> votre vente en toute sérénité.</SubTitle>
                     <BlocButton>
                         <Link to="/test">
                             <ButtonPrimary color="white">Parler à un expert</ButtonPrimary>
