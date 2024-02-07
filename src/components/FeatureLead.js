@@ -14,6 +14,8 @@ const ContainerFeatureNotaire = styled(Container)`
 .lg{
     padding-top:2rem;
     padding-bottom:2rem;
+    width: 80%;
+    margin: 0 auto;
 }
 p.text-lead{
     font-size: 22px;
@@ -32,7 +34,7 @@ h4{
 .content{padding:3rem;}
 }
 @media all and (max-width: 768px) {
-    .lg{flex-wrap: wrap;justify-content: center;}
+    .lg{flex-wrap: wrap;justify-content: center;width:100%;}
     .revert{flex-wrap: wrap-reverse;}
     .content{padding: 1rem;}
   }
