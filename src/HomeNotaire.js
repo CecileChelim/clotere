@@ -1,15 +1,30 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import styled from "styled-components";
+import Background from "./img/back-clotere.png"
+import Navbar from './components/Navbar';
+import Fade from 'react-reveal/Fade';
+/** composants **/
+import HeaderNotaire from './components/HeaderNotaire';
+import FeatureLead from './components/FeatureLead';
+import Faq from './components/Faq';
+import BlocCta from './components/BlocCta';
+import Footer from './components/Footer';
 
+const HomeS = styled.div`
+background-image: url(${Background});
+background-position:top center;
+background-size:cover;
+`;
 
-
-function HomeNotaire() {
+function HomeNotaire(args) {
     return (
-        <Container className="grey-bg mt-5">
-            <Row>
-                <Col md="12" xs="0"><br/><br/><br/>Home notaire</Col>
-                </Row>
-        </Container>
+        <>
+        <HomeS>
+            <Navbar user={args.user} />
+            <HeaderNotaire/>
+            <FeatureLead/>
+        </HomeS>
+        </>
     );
 }
 
