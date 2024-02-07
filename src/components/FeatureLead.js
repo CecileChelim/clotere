@@ -31,12 +31,12 @@ h4{
     line-height: 1.3;
     margin-bottom:2rem!important;
 }
-.content{padding:3rem;}
+.content{padding:2rem;}
 }
 @media all and (max-width: 768px) {
-    .lg{flex-wrap: wrap;justify-content: center;width:100%;}
+    .lg{flex-wrap: wrap;justify-content: center;width:100%!important;}
     .revert{flex-wrap: wrap-reverse;}
-    .content{padding: 1rem;}
+    .content{padding: 1rem!important;}
   }
 `;
 
@@ -78,7 +78,7 @@ function FeatureLead(args) {
             ><div className="d-flex flex-row align-items-center lg">
                     <div md="7" className="content">
                         <p className="text-lead">Finis les Re:Re:Re:Re</p>
-                        <h3>Simplifiez  <span className="textHighlight">vos échanges</span> avec les clientsespace sécurisé</h3>
+                        <h3>Simplifiez  <span className="textHighlight">vos échanges</span> avec les clients</h3>
                         <p>Profitez de nos mails type de demande de document, rappel automatique. Evitez les mails, les pièces jointes perdus et les Re:Re:Re:Re  </p>
                     </div>
                     <div md="5" align="center">

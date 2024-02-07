@@ -6,8 +6,7 @@ import Fade from 'react-reveal/Fade';
 /** composants **/
 import HeaderNotaire from './components/HeaderNotaire';
 import FeatureLead from './components/FeatureLead';
-import Faq from './components/Faq';
-import BlocCta from './components/BlocCta';
+import Calendly from './components/Calendly';
 import Footer from './components/Footer';
 
 const HomeS = styled.div`
@@ -23,6 +22,8 @@ function HomeNotaire(args) {
             <Navbar user={args.user} />
             <HeaderNotaire/>
             <FeatureLead/>
+            <Fade bottom><Calendly/></Fade>
+            <Footer/>
         </HomeS>
         </>
     );

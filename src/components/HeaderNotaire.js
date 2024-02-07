@@ -74,16 +74,15 @@ function HeaderNotaire() {
             <Row className="d-flex align-items-center">
                 <Col md="7" xs="12">
                     <Title>Des nouveaux clients pour votre étude.</Title>
-                    <SubTitle>Clotere vous permet de toucher de nouveaux clients, avec des <span className="textHighlight">dossiers complets</span> et des <span className="textHighlight">outils qui facilitent </span>votre relation client.</SubTitle>
+                    <SubTitle>Clotere vous permet de toucher de nouveaux clients, avec des <span className="textHighlight">dossiers complets</span> et des <span className="textHighlight">outils</span> qui facilitent votre relation client.</SubTitle>
                     <BlocButton>
-                        <Link to="/test">
+                        <Link to="/demo-notaire">
                             <ButtonPrimary color="white">Demander une démo</ButtonPrimary>
                         </Link>
-                        <Link to="/onboard">
+                        <Link  target="blank" to="https://clotaire-notaire.netlify.app/">
                             <ButtonPrimary color="primary">Essayer gratuitement <img src={ArrowRight} alt=""/></ButtonPrimary>
                         </Link>
                     </BlocButton>
-                    <p>100% gratuit. Sans engagement.</p>
                 </Col>
                 <IlluS md="5">
                         <img src={Illu} alt=""/>

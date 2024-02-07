@@ -28,6 +28,7 @@
     "express-openid-connect": "^2.17.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-calendly": "^4.3.0",
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.10",
     "react-reveal": "^1.2.2",

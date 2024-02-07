@@ -17,7 +17,7 @@ margin-top:90px;
     border:0;
     background-color:transparent;
     color:#fff;
-    padding:80px 140px;
+    padding:40px 140px;
     text-align:center;
     p.subtitle{
         font-size:22px;

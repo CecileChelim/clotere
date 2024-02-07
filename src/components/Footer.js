@@ -21,16 +21,14 @@ function Footer() {
             <Container>
                 <Row>
                     <Col md='6'>
-                    <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
-            <img src={ClotereLogo} width="150px" alt="Clotere" />
-          </Link>
-          <p>
-          Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
-          </p>
+                        <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
+                            <img src={ClotereLogo} width="120px" alt="Clotere" />
+                        </Link>
+                        <p>Clotere digitalise et facilite votre relation avec votre notaire, pour votre transaction immobilière.</p>
                     </Col>
                     <Col md='6' className="d-flex flex-row justify-content-end">
-                    <Link to="/">Mentions légales</Link>
-                    <Link to="/">CGV / CGU</Link>
+                        <Link to="/mentions-legales">Mentions légales</Link>
+                        <Link to="/cgv">CGV / CGU</Link>
                     </Col>
                 </Row>
             </Container>
