@@ -11,6 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import ClotereLogo from "../img/logo-clotere.svg";
+import { hideAll } from "react-reveal/globals";
 
 const NavS = styled(Navbar)`
   background-color:transparent;
@@ -64,10 +65,11 @@ function Navigation(args, props) {
   const [member, setMember] = useState(null);
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const toggle = () => setDropdownOpen((prevState) => !prevState);
+
   const [isOpen, setIsOpen] = useState(false);
   const toggle2 = () => setIsOpen(!isOpen);
-
 
   useEffect(() => {
     if (member === null) {
@@ -78,22 +80,20 @@ function Navigation(args, props) {
 
   return (
     <>
-    <NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between">
-        <Col md="3" className="mb-2 mb-md-0 text-start">
+    
+     {window.innerWidth >= 768 ?<NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between">
+    <Col md="3" className="mb-2 mb-md-0 text-start">
           <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
             <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
         </Col>
-        
         <List className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li><Link to="/" className="nav-link px-2">Accueil</Link></li>
           <li><Link to="/notaire" className="nav-link px-2">Vous êtes notaire ?</Link></li>
         </List>
-
         <Col md="3" className="d-flex  justify-content-end">
-          {member && (
-            <>
-              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+    <div className="d-flex p-5">
+      {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle caret>{member.auth.email}</DropdownToggle>
                 <DropdownMenu {...args}>
                   <DropdownItem>
@@ -112,11 +112,7 @@ function Navigation(args, props) {
                     Deconnexion
                   </a></DropdownItem>
                 </DropdownMenu>
-              </Dropdown>
-            </>
-          )}
-          {!member && (
-            <>
+              </Dropdown>:  <>
               <Link
                 className="nav-link px-2"
                 onClick={() =>
@@ -138,11 +134,11 @@ function Navigation(args, props) {
                     hideModal();
                   })
                 }><u><b>Espace client</b></u></Link>
-            </>
-          )}
-        </Col>
-    </NavS>
-    <NavMobileS className="d-flex fixed flex-wrap align-items-center  justify-content-between">
+            </>}
+      
+    </div>
+    </Col>
+    </NavS> : <NavMobileS className="d-flex fixed flex-wrap align-items-center  justify-content-between">
           <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
             <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
@@ -204,7 +200,7 @@ function Navigation(args, props) {
           )}
             </Nav>
         </Collapse>
-    </NavMobileS>
+    </NavMobileS>}
     </>
   );
 }
