@@ -161,8 +161,8 @@ function Documents(args) {
                             </FileUploaderS>
                         </FormGroup>
                         <FormGroup>
-                                        <ButtonPrimary color="primary">Ajouter le document</ButtonPrimary>
-                                    </FormGroup>
+                            <ButtonPrimary color="primary">Ajouter le document</ButtonPrimary>
+                        </FormGroup>
                 </Form>
             </OffcanvasBody>
         </Offcanvas >

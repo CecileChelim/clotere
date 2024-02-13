@@ -123,15 +123,13 @@ function Navigation(args, props) {
                     console.log('type: ', type);
                     if (type === "LOGIN") {
                       console.log("login");
-                      hideModal();
                       setMember(member);
                       navigate("/app");
                     } else if (type === "REGISTER") {
                       console.log("REGISTER");
-                      hideModal();
                       navigate("/onboard");
                     }
-                    hideModal();
+                    memberstack.hideModal();
                   })
                 }><u><b>Espace client</b></u></Link>
             </>}
@@ -185,15 +183,13 @@ function Navigation(args, props) {
                     console.log('type: ', type);
                     if (type === "LOGIN") {
                       console.log("login");
-                      hideModal();
                       setMember(member);
                       navigate("/app");
                     } else if (type === "REGISTER") {
                       console.log("REGISTER");
-                      hideModal();
                       navigate("/onboard");
                     }
-                    hideModal();
+                    memberstack.hideModal();
                   })
                 }><u>Espace client</u></Link>
             </>

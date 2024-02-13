@@ -139,7 +139,7 @@ function Layout(args, props) {
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                         'content-type': 'application/x-www-form-urlencoded',
                         "Accept": "application/json, text/plain, /"
                     },
@@ -164,7 +164,7 @@ function Layout(args, props) {
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                         'content-type': 'application/x-www-form-urlencoded',
                         "Accept": "application/json, text/plain, /"
                     },
@@ -190,9 +190,8 @@ function Layout(args, props) {
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer keyOJASKOIpyF1ACT",
-                        'content-type': 'application/x-www-form-urlencoded',
-                        "Accept": "application/json, text/plain, /"
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                        "Accept": "application/json"
                     },
                 })
                 .then((res) => res.json())
@@ -216,7 +215,7 @@ function Layout(args, props) {
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                         'content-type': 'application/x-www-form-urlencoded',
                         "Accept": "application/json, text/plain, /"
                     },
@@ -241,7 +240,7 @@ function Layout(args, props) {
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer keyOJASKOIpyF1ACT",
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                         'content-type': 'application/x-www-form-urlencoded',
                         "Accept": "application/json, text/plain, /"
                     },
