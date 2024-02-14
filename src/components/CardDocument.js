@@ -1,42 +1,92 @@
-import React, { useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Offcanvas, OffcanvasHeader, OffcanvasBody } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Card, CardBody, CardTitle, CardSubtitle, Offcanvas, OffcanvasHeader, OffcanvasBody, Modal, } from "reactstrap";
 import styled from "styled-components";
 import { LinkCard } from "../style/Button";
+import { Viewer, Worker } from '@react-pdf-viewer/core';
 
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faExclamation, faFile } from "@fortawesome/free-solid-svg-icons";
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import '@react-pdf-viewer/core/lib/styles/index.css'; // Styles de base du PDF viewer
+import '@react-pdf-viewer/default-layout/lib/styles/index.css'; // Styles de la mise en page par défaut
 
 function CardDocument(args) {
   const [canvas, setCanvas] = useState(false);
   const toggle = () => setCanvas(!canvas);
+  const [pdfName, setPdfName] = useState(null);
+  const toggleModal = () => setPdfName(null);
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+
+  useEffect(() => {
+    console.log("Filtered data", args.documents)
+  }, [])
   return (
     <div>
-      {/* card document ajouté */} 
-      <CardS className="d-flex flex-row align-items-center doc-ajoute">
+      <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
+            
+            {  pdfName != null ? pdfName.type === "application/pdf" ? <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+               <Viewer  fileUrl={pdfName.url}
+               plugins={[
+                   // Register plugins
+                   defaultLayoutPluginInstance,
+               ]}
+               />
+           </Worker> :  <img src={pdfName.url}></img> : <></>}
+         </Modal>
+      {args.documents.map((item, index) => (
+        
+          item.etat == "ajouté" ?  <CardS className="d-flex flex-row align-items-center doc-ajoute">
+          <Icon>
+            <FontAwesomeIcon icon={faCheck} />
+          </Icon>
+          <CardBody className=" d-flex justify-content-between align-items-center">
+            <div>
+              <CardTitle tag="h5">
+                {item.nom}
+              </CardTitle>
+              <CardSubtitle
+                className="mb-2 text-muted"
+                tag="h6"
+              >
+                Déposée le {item.date_upload}
+              </CardSubtitle>
+            </div>
+            <Details>
+              <LinkCard onClick={() => {setPdfName({"url": item.document, "type": item.typeDocument});}} className="mr-3"> Voir</LinkCard>
+            </Details>
+          </CardBody>
+        </CardS> : <CardS className="d-flex flex-row align-items-center doc-non-ajoute">
         <Icon>
-          <FontAwesomeIcon icon={faCheck} />
+          <FontAwesomeIcon icon={faFile} />
         </Icon>
         <CardBody className=" d-flex justify-content-between align-items-center">
           <div>
             <CardTitle tag="h5">
-              Offre d’achat
+              {item.nom}
             </CardTitle>
             <CardSubtitle
               className="mb-2 text-muted"
               tag="h6"
             >
-              Déposée le 12/01/2023
+              Non déposé
             </CardSubtitle>
           </div>
           <Details>
-            <LinkCard  className="mr-3"> Voir</LinkCard>
+            <LinkCard onClick={() => {
+              args.onAddDoc(item);
+            }} className="mr-3"> Ajouter le document</LinkCard>
           </Details>
         </CardBody>
       </CardS>
+        
+       
+      ))}
+      {/* card document ajouté */} 
+      
 
       {/* card document non ajouté */} 
-      <CardS className="d-flex flex-row align-items-center doc-non-ajoute">
+      {/* <CardS className="d-flex flex-row align-items-center doc-non-ajoute">
         <Icon>
           <FontAwesomeIcon icon={faFile} />
         </Icon>
@@ -56,10 +106,10 @@ function CardDocument(args) {
             <LinkCard onClick={toggle} className="mr-3"> Ajouter le document</LinkCard>
           </Details>
         </CardBody>
-      </CardS>
+      </CardS> */}
 
       {/* card document anomalie */} 
-      <CardS className="d-flex flex-row align-items-center doc-anomalie">
+      {/* <CardS className="d-flex flex-row align-items-center doc-anomalie">
         <Icon>
           <FontAwesomeIcon icon={faExclamation} />
         </Icon>
@@ -79,23 +129,7 @@ function CardDocument(args) {
             <LinkCard onClick={toggle} className="mr-3"> Ajouter le document</LinkCard>
           </Details>
         </CardBody>
-      </CardS>
-      <Offcanvas
-        isOpen={canvas}
-        toggle={toggle}
-        {...args}
-        direction="end"
-        scrollable>
-
-        <OffcanvasHeader toggle={function noRefCheck() { }}>
-          Votre document
-        </OffcanvasHeader>
-        <OffcanvasBody>
-          <strong>
-            This is the Offcanvas body.
-          </strong>
-        </OffcanvasBody>
-      </Offcanvas>
+      </CardS> */}
     </div>
   );
 }
