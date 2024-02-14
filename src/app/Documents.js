@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
-    Container, Row, Col, Card,
-    Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody, FormGroup, Form, Label, Input, CardBody, Spinner, Button
+    Container, Row, Col,
+    Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody, FormGroup, Form, Label, Input, Spinner, Button, Alert
 } from "reactstrap";
 import { TitlePageBig, TitlePageApp } from "../style/Layout";
-import { ButtonPrimary, LinkS } from "../style/Button";
+import { LinkS } from "../style/Button";
 import CardDoc from "../components/CardDocument";
 import IconPDF from '../img/icon-pdf.png';
 import { FileUploader } from "react-drag-drop-files";
-import { FileUploaderS } from "../style/FileUploaderStyle";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import '../style/styleSideBar.css';
 
 import { useMemberstack } from "@memberstack/react";
-
-
-const fileTypes = ["PDF", "DOC", "JPEG"];
 
 
 function Documents(args) {
@@ -39,8 +35,6 @@ function Documents(args) {
     //console.log("arg  bien",args.bien)
     const [currentActiveTab, setCurrentActiveTab] = useState(null);
     const toggle = tab => {if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
-    const [canvas, setCanvas] = useState(false);
-    const toggle2 = () => setCanvas(!canvas);
     const [storage, setStorage] = useState([]);
     const [loadingUpload, setLoadingUpload] = useState(false)
     const [defaultValueNomDoc, setDefaultValueNomDoc] = useState(null);
@@ -154,7 +148,7 @@ function Documents(args) {
     }
 
     useEffect(() => {
-        if (data != undefined && data != null) {
+        if (data !== undefined && data !== null) {
 
             var listTabsTemp = []
             var nomsDocuments = []
@@ -182,7 +176,7 @@ function Documents(args) {
         console.log(e);
         setDefaultValueNomDoc(e.target.value);
 
-        if(e.target.value != "Autres"){
+        if(e.target.value !== "Autres"){
             setIdSelectedDoc(data.find(item => item.nom === e.target.value).id)
         }
       };
@@ -233,7 +227,7 @@ function Documents(args) {
             const url = await getDownloadURL(storageRef);
     
             // Requete pour upload sur airtable
-            if(defaultValueNomDoc != "Autres"){
+            if(defaultValueNomDoc !== "Autres"){
                 const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document/${idSelectedDoc}`;
         
                 await fetch(
@@ -302,12 +296,12 @@ function Documents(args) {
 
     const stackSelected = (
         <div className="container-drag-drop">
-            <img style={{ height: "60px", marginBottom: "10px" }} src={IconPDF} />
+            <img alt="IconPDF" style={{ height: "60px", marginBottom: "10px" }} src={IconPDF} />
             <div className="subtitle">Fichier acceptés : PDF/JPG</div>
             <div className="subtitle">Taille maximum : 40MB</div>
             <br />
             <div style={{ display: "inline-flex" }}>
-                <div className="file-name">{file != undefined && file != null && file.name}</div>
+                <div className="file-name">{file !== undefined && file !== null && file.name}</div>
                 <div onClick={handleDelete} style={{ textDecoration: "underline" }}>Supprimer</div>
             </div>
         </div>
@@ -378,7 +372,14 @@ function Documents(args) {
                             <LinkS onClick={()  => {setShowSideBar(true)}}>+ Ajouter un document</LinkS>
                         </Col>
                     </TitlePageApp>
-
+                    {error == null ? <></> :
+                <Alert color="danger">
+                    {error}
+                </Alert> }
+                {success == null ? <></>:
+                <Alert color="success">
+                    {success}
+                </Alert> }
                     <Col md="7">
                         <Nav pills>
                         { listTabs.map((item, index) => (

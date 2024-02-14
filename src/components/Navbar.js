@@ -11,7 +11,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import ClotereLogo from "../img/logo-clotere.svg";
-import { hideAll } from "react-reveal/globals";
 
 const NavS = styled(Navbar)`
   background-color:transparent;
@@ -61,7 +60,7 @@ display:none!important;
 
 function Navigation(args, props) {
   const memberstack = useMemberstack();
-  const { openModal, hideModal } = useMemberstackModal();
+  const { openModal } = useMemberstackModal();
   const [member, setMember] = useState(null);
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -119,14 +118,10 @@ function Navigation(args, props) {
                   openModal({
                     type: "LOGIN"
                   }).then(({ data, type }) => {
-                    console.log('data', data);
-                    console.log('type: ', type);
                     if (type === "LOGIN") {
-                      console.log("login");
                       setMember(member);
                       navigate("/app");
                     } else if (type === "REGISTER") {
-                      console.log("REGISTER");
                       navigate("/onboard");
                     }
                     memberstack.hideModal();

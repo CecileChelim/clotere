@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Offcanvas, OffcanvasHeader, OffcanvasBody, Modal, } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Modal, } from "reactstrap";
 import styled from "styled-components";
 import { LinkCard } from "../style/Button";
 import { Viewer, Worker } from '@react-pdf-viewer/core';
