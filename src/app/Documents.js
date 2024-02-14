@@ -112,9 +112,9 @@ function Documents(args) {
             let categoriesFiltrees = null;
 
             if(userData.fields.role === "acheteur"){
-                categoriesFiltrees = ["commun", "acheteur"];
+                categoriesFiltrees = ["acheteur"];
             }else if(userData.fields.role === "vendeur"){
-                categoriesFiltrees = ["commun", "vendeur"];
+                categoriesFiltrees = ["vendeur"];
             }
 
             if(categoriesFiltrees != null){
@@ -150,15 +150,11 @@ function Documents(args) {
     useEffect(() => {
         if (data !== undefined && data !== null) {
 
-            var listTabsTemp = []
+            var listTabsTemp = ["autre", "vente", "personnel", "coproprieté", "technique et diagnostics"]
             var nomsDocuments = []
 
             for (let index = 0; index < data.length; index++) {
                 const element = data[index];
-
-                if(element.categorie != null && !listTabsTemp.includes(element.type)){
-                    listTabsTemp.push(element.type)
-                }
 
                 nomsDocuments.push(element.nom)
                     // setDropdownCategorie(dropdownCategorie => [...dropdownCategorie, element.categorie[0]])
@@ -270,7 +266,9 @@ function Documents(args) {
                             "date_upload": dateFormatee,
                             "nom": "Autre",
                             "qui_upload": userInfo.airtable_id,
-                            "transaction": [args.transaction.id]
+                            "type": "autre",
+                            "categorie": [userInfo.role],
+                            "transaction": [userInfo.transaction_id]
                         }})
                     }).then((res) => res.json());
             }
@@ -282,6 +280,7 @@ function Documents(args) {
               }, 5000);
 
         }catch(e){
+            console.log(e);
             setError("Erreur lors de l'upload de votre document.")
 
             setTimeout(() => {
