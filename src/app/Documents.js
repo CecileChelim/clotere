@@ -45,13 +45,13 @@ function Documents(args) {
                                     onClick={() => { toggle('situation'); }}
                                     className={`${currentActiveTab === "situation" ? "active" : ""}`}
                                 >
-                                    Situation
+                                    Identité
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink onClick={() => { toggle('vente'); }}
-                                    className={`${currentActiveTab === "vente" ? "active" : ""}`}>
-                                    Vente
+                                <NavLink onClick={() => { toggle('diag'); }}
+                                    className={`${currentActiveTab === "diag" ? "active" : ""}`}>
+                                    Technique & diagnostics
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -61,9 +61,9 @@ function Documents(args) {
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink onClick={() => { toggle('diag'); }}
-                                    className={`${currentActiveTab === "diag" ? "active" : ""}`}>
-                                    Technique & diagnostics
+                                <NavLink onClick={() => { toggle('vente'); }}
+                                    className={`${currentActiveTab === "vente" ? "active" : ""}`}>
+                                    Vente
                                 </NavLink>
                             </NavItem>
 

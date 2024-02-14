@@ -80,8 +80,8 @@ h3{font-size:40px;}
     color:black;
     cursor:pointer;
     &.active{
-      background-color:#dee2e6;
-      color:black;
+      background-color:${props => props.theme.colors.main};
+      color:white;
       font-weight:bold;
     }
    }
