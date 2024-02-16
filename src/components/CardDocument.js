@@ -25,7 +25,7 @@ function CardDocument(args) {
     <div>
       <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
             
-            {  pdfName != null ? pdfName.type === "application/pdf" ? <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            {  pdfName != null ? pdfName.type === "application/pdf" ? <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
                <Viewer  fileUrl={pdfName.url}
                plugins={[
                    // Register plugins

@@ -19,6 +19,7 @@ function Documents(args) {
     const [data, setData] = useState([]);
     const memberstack = useMemberstack();
     const [userInfo, setUserInfo] = useState(null);
+    const [valueNomDoc, setValueNomDoc] = useState(null);
     
     const [idSelectedDoc, setIdSelectedDoc] = useState(null);
     const [listTabs, setListTabs] = useState([]);
@@ -26,7 +27,10 @@ function Documents(args) {
     const [showSideBar, setShowSideBar] = useState(false);
     const toggleSideBar = () => {
         setShowSideBar(false);
+        setDefaultValueType(null)
+        setIdSelectedDoc(null)
         setFile(null);
+        setValueNomDoc(null)
     }
 
     const [error, setError] = useState(null);
@@ -37,7 +41,7 @@ function Documents(args) {
     const toggle = tab => {if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
     const [storage, setStorage] = useState([]);
     const [loadingUpload, setLoadingUpload] = useState(false)
-    const [defaultValueNomDoc, setDefaultValueNomDoc] = useState(null);
+    const [defaultValueType, setDefaultValueType] = useState(null);
     const [nomsDoc, setNomsDoc] = useState([]);
 
     const [file, setFile] = useState(null);
@@ -132,7 +136,6 @@ function Documents(args) {
             }
 
             if(dataFilterTemp != null && dataFilterTemp.length > 0){
-                setIdSelectedDoc(dataFilterTemp[0].id)
                 setData(dataFilterTemp.map(item => {
                     const { fields, ...rest } = item;
                     if (fields.hasOwnProperty('document')) {
@@ -150,7 +153,7 @@ function Documents(args) {
     useEffect(() => {
         if (data !== undefined && data !== null) {
 
-            var listTabsTemp = ["autre", "vente", "personnel", "coproprieté", "technique et diagnostics"]
+            var listTabsTemp = ["tous les documents","autre", "vente", "personnel", "coproprieté", "technique et diagnostics"]
             var nomsDocuments = []
 
             for (let index = 0; index < data.length; index++) {
@@ -163,20 +166,20 @@ function Documents(args) {
             setListTabs(listTabsTemp)
             setCurrentActiveTab(listTabsTemp[0]);
             setNomsDoc(nomsDocuments)
-            setDefaultValueNomDoc(nomsDocuments[0])
+            setDefaultValueType("autre")
         }
 
     }, [data])
 
     const handleChangeSelect = (e) => {
         console.log(e);
-        setDefaultValueNomDoc(e.target.value);
-
-        if(e.target.value !== "Autres"){
-            setIdSelectedDoc(data.find(item => item.nom === e.target.value).id)
-        }
+        setDefaultValueType(e.target.value);
       };
 
+      const handleChangeNom = (e) => {
+        console.log(e);
+        setValueNomDoc(e.target.value);
+      };
 
     const handleDelete = (event) => {
         // Empêcher la propagation de l'événement de clic
@@ -187,6 +190,28 @@ function Documents(args) {
         setFile(null);
     };
 
+    const formattedDate = () => {
+        var date = new Date()
+    
+        // Obtenir le jour, le mois, l'année, l'heure et les minutes
+        var jour = date.getDate();
+        var mois = date.getMonth() + 1; // Ajouter 1 car les mois sont indexés à partir de 0
+        var annee = date.getFullYear();
+        var heures = date.getHours();
+        var minutes = date.getMinutes();
+
+        // Formatage du jour et du mois pour qu'ils aient toujours 2 chiffres
+        jour = (jour < 10 ? '0' : '') + jour;
+        mois = (mois < 10 ? '0' : '') + mois;
+
+        // Formatage de l'heure et des minutes pour qu'ils aient toujours 2 chiffres
+        heures = (heures < 10 ? '0' : '') + heures;
+        minutes = (minutes < 10 ? '0' : '') + minutes;
+
+        // Création de la chaîne de caractères au format jj/mm/aaaa hh:mm
+        return jour + '/' + mois + '/' + annee + ' ' + heures + ':' + minutes;
+    }
+
       const handleUpload = async () => {
         try{
             setLoadingUpload(true)
@@ -194,25 +219,7 @@ function Documents(args) {
             // ---------------------- //
             // Formattage de la date  //
             // ---------------------- //
-            var date = new Date()
-    
-            // Obtenir le jour, le mois, l'année, l'heure et les minutes
-            var jour = date.getDate();
-            var mois = date.getMonth() + 1; // Ajouter 1 car les mois sont indexés à partir de 0
-            var annee = date.getFullYear();
-            var heures = date.getHours();
-            var minutes = date.getMinutes();
-    
-            // Formatage du jour et du mois pour qu'ils aient toujours 2 chiffres
-            jour = (jour < 10 ? '0' : '') + jour;
-            mois = (mois < 10 ? '0' : '') + mois;
-    
-            // Formatage de l'heure et des minutes pour qu'ils aient toujours 2 chiffres
-            heures = (heures < 10 ? '0' : '') + heures;
-            minutes = (minutes < 10 ? '0' : '') + minutes;
-    
-            // Création de la chaîne de caractères au format jj/mm/aaaa hh:mm
-            var dateFormatee = jour + '/' + mois + '/' + annee + ' ' + heures + ':' + minutes;
+            var date = formattedDate(); 
     
     
             // Upload du fichier sur firestore le temps de l'upload
@@ -223,7 +230,7 @@ function Documents(args) {
             const url = await getDownloadURL(storageRef);
     
             // Requete pour upload sur airtable
-            if(defaultValueNomDoc !== "Autres"){
+            if(defaultValueType !== "autre"){
                 const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document/${idSelectedDoc}`;
         
                 await fetch(
@@ -241,7 +248,7 @@ function Documents(args) {
                                 "filename": file.name
                             }],
                             "etat": "ajouté",
-                            "date_upload": dateFormatee,
+                            "date_upload": date,
                             "qui_upload": userInfo.airtable_id
                         }})
                     }).then((res) => res.json());
@@ -263,8 +270,8 @@ function Documents(args) {
                                 "filename": file.name
                             }],
                             "etat": "ajouté",
-                            "date_upload": dateFormatee,
-                            "nom": "Autre",
+                            "date_upload": date,
+                            "nom": valueNomDoc,
                             "qui_upload": userInfo.airtable_id,
                             "type": "autre",
                             "categorie": [userInfo.role],
@@ -279,6 +286,67 @@ function Documents(args) {
                 setSuccess(null);
               }, 5000);
 
+        }catch(e){
+            console.log(e);
+            setError("Erreur lors de l'upload de votre document.")
+
+            setTimeout(() => {
+                setError(null);
+              }, 5000);
+        }
+        
+        await getUserDocuments();
+        setLoadingUpload(false)
+        toggleSideBar();
+    }
+
+    const uploadWithoutPreSelection = async () => {
+        try{
+            setLoadingUpload(true);
+
+            // Upload du fichier sur firestore le temps de l'upload
+      
+            const storageRef = ref(storage, file.name);
+            await uploadBytes(storageRef, file);
+    
+            const url = await getDownloadURL(storageRef);
+  
+          var date = formattedDate();
+  
+          console.log("Date", date)
+          const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document`;
+          
+          await fetch(
+              URL,
+              {
+                  method: "POST",
+                  headers: {
+                      Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                      "Accept": "application/json",
+                      'content-type':"application/json"
+                  },
+                  body:  JSON.stringify({"fields": {
+                      "document": [{
+                          "url": url,
+                          "filename": file.name
+                      }],
+                      "etat": "ajouté",
+                      "date_upload": date,
+                      "nom": valueNomDoc,
+                      "qui_upload": userInfo.airtable_id,
+                      "type": defaultValueType,
+                      "categorie": [userInfo.role],
+                      "transaction": [userInfo.transaction_id]
+                  }})
+              }).then((res) => res.json());
+
+              setSuccess("Document upload avec succès !")
+
+            setTimeout(() => {
+                setSuccess(null);
+              }, 5000);
+
+              
         }catch(e){
             console.log(e);
             setError("Erreur lors de l'upload de votre document.")
@@ -341,22 +409,26 @@ function Documents(args) {
                             </Label>
 
                             <Input
+                                disabled={idSelectedDoc !== null}
                                 id="exampleSelect"
                                 name="select"
                                 type="select"
-                                value={defaultValueNomDoc}
+                                value={defaultValueType}
                                 onChange={handleChangeSelect}
                                 style={{ width: '400px' }}
                             >
-                                {nomsDoc != undefined && nomsDoc != null ? nomsDoc?.map((item, index) => (<option value={item}>
+                                {listTabs != undefined && listTabs != null ? listTabs?.filter(tab => {  if(tab !== "tous les documents"){return true}}).map((item, index) => (<option value={item}>
                                     {item}
                                 </option>)) : <></>}
-                                <option>Autres</option>
                             </Input>
                         </FormGroup>
-                        <FormGroup style={{width:"400px"}} className="text-center">
-                            <Button onClick={handleUpload} disabled={file === null} style={{backgroundColor: "#1c6856"}}>Ajouter</Button>
+                        <FormGroup>
+                            <Input onChange={handleChangeNom} disabled={idSelectedDoc !== null} name="nom" type="nom" style={{ width: '400px' }} value={valueNomDoc}/>
                         </FormGroup>
+                        <FormGroup style={{width:"400px"}} className="text-center">
+                            <Button onClick={idSelectedDoc !== null ? handleUpload: uploadWithoutPreSelection} disabled={file === null || valueNomDoc === null || valueNomDoc === ""} style={{backgroundColor: "#1c6856"}}>Ajouter</Button>
+                        </FormGroup>
+                        
                 </Form>
                     }
                     
@@ -402,11 +474,12 @@ function Documents(args) {
                                      <Col sm="12">
                                          <CardDoc onAddDoc={(doc) => {
                                             setIdSelectedDoc(doc.id);
-                                            setDefaultValueNomDoc(doc.nom);
+                                            setDefaultValueType(doc.type);
+                                            setValueNomDoc(doc.nom)
                                             setShowSideBar(true);
                                             console.log(doc);
                                          }} documents={data.filter(document => {
-                                            if(document.type === item){
+                                            if(document.type === item || item === "tous les documents"){
                                                 return true
                                             }
                                         })} />
