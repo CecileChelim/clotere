@@ -13,6 +13,7 @@ width: 100%;
 display: flex;
 align-items: center;
 position:relative;
+margin-bottom:3rem;
 `;
 
 const Title = styled.h1`
