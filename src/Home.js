@@ -6,6 +6,7 @@ import Fade from 'react-reveal/Fade';
 /** composants **/
 import Header from './components/Header';
 import Feature from './components/Feature';
+import FeatureParallax from './components/FeatureParallax';
 import Engagement from './components/Engagements';
 import EnMoyenne from './components/EnMoyenne';
 import Faq from './components/Faq';
@@ -24,7 +25,7 @@ function Home(args) {
         <HomeS>
             <Navbar user={args.user} />
             <Header/>
-            <Fade bottom><Feature/></Fade>
+            <Fade bottom><FeatureParallax/></Fade>
             <Fade bottom><Engagement/></Fade>
             <Fade bottom><EnMoyenne/></Fade>
             <Fade bottom><Faq/></Fade>
