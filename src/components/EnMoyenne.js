@@ -1,13 +1,23 @@
 import React from "react";
-import { Container,Row,Col,Card } from "reactstrap";
+import { Container, Row, Col, Card } from "reactstrap";
 import styled from "styled-components";
 import Illu2 from "../img/illu-1.svg";
 import Illu1 from "../img/illu-120.svg";
 import Illu3 from "../img/illu-15.svg";
 
+
 const EnMoyenneS = styled.section`
  margin-top:90px;
 `;
+
+const CardFlex = styled.div`
+display:flex;
+flex-direction:column:
+justify-content:space-between;
+align-items:center;
+@media all and (max-width: 768px) {display:block;}
+`;
+
 const CardS = styled(Card)`
  text-align:center;
  border:0;
@@ -48,35 +58,37 @@ const Divider = styled.div`
   }
 `;
 
+
+
 function EnMoyenne() {
     return (
         <EnMoyenneS>
-        <Container>
-            <Row>
-                <Col md="12" align="center" className="mb-4">
-                <h2>En moyenne</h2>
-                </Col>
-                <Col md="12">
-                    <div className="d-flex flex-sm-row flex-column justify-space-between align-items-center">
-                    <CardS className="first">
-                        <h4>120 <span>heures</span></h4>
-                        <p>C'est le temps que vous économisez en passant par Clotere</p>
-                    </CardS>
-                    <Divider/>
-                    <CardS className="second">
-                        <h4>1 <span>seul</span></h4>
-                        <p>Le nombre d'interlocuteur pour mener un projet avec Clotere</p>
-                    </CardS>
-                    <Divider/>
-                    <CardS className="third">
-                        <h4>15 <span>jours</span></h4>
-                        <p>Le nombre de jours  gagnés sur votre rendez-vous de signature</p>
-                    </CardS>
-                    </div>
-                </Col>
-            </Row>
-            
-        </Container>
+            <Container>
+                <Row>
+                    <Col md="12" align="center" className="mb-4">
+                        <h2>En moyenne</h2>
+                    </Col>
+                    <Col md="12">
+                        <CardFlex className="">
+                            <CardS className="first">
+                                <h4>120 <span>heures</span></h4>
+                                <p>C'est le temps que vous économisez en passant par Clotere</p>
+                            </CardS>
+                            <Divider />
+                            <CardS className="second">
+                                <h4>1 <span>seul</span></h4>
+                                <p>Le nombre d'interlocuteur pour mener un projet avec Clotere</p>
+                            </CardS>
+                            <Divider />
+                            <CardS className="third">
+                                <h4>15 <span>jours</span></h4>
+                                <p>Le nombre de jours  gagnés sur votre rendez-vous de signature</p>
+                            </CardS>
+                        </CardFlex>
+                    </Col>
+                </Row>
+
+            </Container>
         </EnMoyenneS>
     );
 }

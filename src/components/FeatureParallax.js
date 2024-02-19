@@ -1,8 +1,5 @@
 import React from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
-import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { ButtonPrimary, LinkS } from "../style/Button";
 import IlluFeature from "../img/illu-test.png";
 
 
@@ -141,9 +138,6 @@ min-height:420px;
 .carousel-inner{
     overflow:visible;
 }
-@media all and (max-width: 768px) {
-   .carousel-desktop{display:none;}
-  }
 	overflow: hidden;
 	display: grid;
 	grid-template-areas: "text img";
@@ -153,6 +147,7 @@ min-height:420px;
 	outline: var(--outline-width) solid lime;
     color:white;
     padding:60px 60px 90px 60px;
+    @media all and (max-width: 768px) {display:block;}
 h4{
     font-size:36px;
     
@@ -195,7 +190,7 @@ function FeatureParallax() {
                                 <p>On s’assure de la conformité des pièces du dossier, et on rédige les documents avec toutes les clauses juridiques.</p>
                             </div>
                             <figure>
-                                <img src={IlluFeature} alt="Image description" />
+                                <img src={IlluFeature} alt="feature1" />
                             </figure>
                         </div>
                     </li>
@@ -207,7 +202,7 @@ function FeatureParallax() {
                                 <p>Vous serez au courant de tout depuis notre plateforme en ligne. Récolte des pièces en cours, étapes de rédaction….</p>
                             </div>
                             <figure>
-                                <img src={IlluFeature} alt="Image description" />
+                                <img src={IlluFeature} alt="feature2" />
                             </figure>
                         </div>
                     </li>
@@ -219,7 +214,7 @@ function FeatureParallax() {
                                 <p>Tout se fait en ligne, y compris le rendez-vous de signature avec le notaire.</p>
                             </div>
                             <figure>
-                                <img src={IlluFeature} alt="Image description" />
+                                <img src={IlluFeature} alt="feature3" />
                             </figure>
                         </div>
                     </li>
