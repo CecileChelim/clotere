@@ -9,7 +9,7 @@ const ListS = styled.div`
 border:0;
 overflow:hidden;
 border-bottom:1px solid #ddd;
-margin-bottom:1rem;
+margin-bottom:3rem;
 h4{font-size:24px;font-weight:600;display:block;}
 p{ margin-bottom:0;}
   &.acheteur{.badge{background-color:#faba00a8!important}}

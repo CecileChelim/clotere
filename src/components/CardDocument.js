@@ -6,7 +6,7 @@ import { Viewer, Worker } from '@react-pdf-viewer/core';
 
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faExclamation, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faFile } from "@fortawesome/free-solid-svg-icons";
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/core/lib/styles/index.css'; // Styles de base du PDF viewer
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'; // Styles de la mise en page par défaut
@@ -32,11 +32,11 @@ function CardDocument(args) {
                    defaultLayoutPluginInstance,
                ]}
                />
-           </Worker> :  <img src={pdfName.url}></img> : <></>}
+           </Worker> :  <img alt="document" src={pdfName.url}></img> : <></>}
          </Modal>
       {args.documents.map((item, index) => (
         
-          item.etat == "ajouté" ?  <CardS className="d-flex flex-row align-items-center doc-ajoute">
+          item.etat === "ajouté" ?  <CardS className="d-flex flex-row align-items-center doc-ajoute">
           <Icon>
             <FontAwesomeIcon icon={faCheck} />
           </Icon>

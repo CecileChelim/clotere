@@ -5,7 +5,6 @@ import {
     ListGroup
 } from "reactstrap";
 import { TitlePageBig,TitlePageApp } from "../style/Layout";
-import { LinkS } from "../style/Button";
 import CardInfoManquante from "../components/CardInfoManquante";
 import ListGroupItemInterlocuteur from "../components/CardInterlocuteurs";
 
@@ -21,9 +20,11 @@ function Interlocuteurs(args) {
                 <Row className="d-flex align-self-start">
                     <TitlePageApp>
                         <Col  md="7"><TitlePageBig className="mb-4">Vos interlocuteurs</TitlePageBig></Col>
+                        {/**
                         <Col md="5"  className="text-end">
                             <LinkS>+ Ajouter un utilisateur</LinkS>
                         </Col>
+                         */}
                     </TitlePageApp>
                     <Row>
                         <Col md="8">

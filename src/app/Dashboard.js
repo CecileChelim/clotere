@@ -68,11 +68,6 @@ margin-bottom:2rem;
  }
 `;
 
-
-
-
-
-
 function Dashboard(args) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [canvas, setCanvas] = useState(false);
@@ -98,7 +93,6 @@ function Dashboard(args) {
                                 <DropdownMenu >
                                     <DropdownItem onClick={toggle2}>+ Ajouter un document</DropdownItem>
                                     <DropdownItem>Posez une question</DropdownItem>
-                                    <DropdownItem>Quo Action</DropdownItem>
                                 </DropdownMenu>
                             </DropdownPrimary>
                         </Col>
@@ -135,7 +129,7 @@ function Dashboard(args) {
                         </CardRdv>
                     </div>
                     
-                        {args.evenement != undefined && args.evenement.length > 0 ? <><TitleSection className="mt-5">Vos actions à mener</TitleSection>
+                        {args.evenement !== undefined && args.evenement.length > 0 ? <><TitleSection className="mt-5">Vos actions à mener</TitleSection>
                         <Panel>
                             <ListGroupActionAmener numbered>
                                 <ListGroupItem>
@@ -143,7 +137,7 @@ function Dashboard(args) {
                                     
                                     {args.evenement[0].fields.etat === "fait" ? (
 
-                                        <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger" lienDoc={args.evenement[0].fields.document_from_document != undefined && args.evenement[0].fields.document_from_document[0].url} />
+                                        <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger" lienDoc={args.evenement[0].fields.document_from_document !== undefined && args.evenement[0].fields.document_from_document[0].url} />
                                     ) : (<>{" "}</>)}
                                     {args.evenement[0].fields.etat === "en cours" ? (
                                         <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ajouterDoc" />
@@ -169,7 +163,7 @@ function Dashboard(args) {
                         ) : (<>{" "}</>)}
 
                         {args.evenement[1].fields.etat === "fait" ? (
-                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document != undefined &&  args.evenement[1].fields.document_from_document[0].url} />
+                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document !== undefined &&  args.evenement[1].fields.document_from_document[0].url} />
                         ) : (<>{" "}</>)}
                                 </ListGroupItem>
                                 <ListGroupItem>

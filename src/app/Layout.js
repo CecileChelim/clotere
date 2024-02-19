@@ -16,7 +16,6 @@ import icnDash from '../img/icn-dashboard.svg';
 import icnBien from '../img/icn-home.svg';
 import icnDoc from '../img/icn-doc.svg';
 import icnUser from '../img/icn-user.svg';
-import icnTransac from '../img/icn-transac.svg';
 import icnLogo from '../img/icn-logo.svg';
 import Logo from '../img/logo-clotere.svg';
 
@@ -324,6 +323,7 @@ function Layout(args, props) {
                                     <img src={icnDoc} alt="tableau de bord"/> Documents
                                 </Link>
                             </NavItem>
+                            {/**
                             <NavItem>
                                 <Link
                                     to="/app/transaction"
@@ -332,6 +332,7 @@ function Layout(args, props) {
                                     <img src={icnTransac} alt="tableau de bord"/>Transactions
                                 </Link>
                             </NavItem>
+                             */}
                             <NavItem className='logout'>
                                 <Link
                                 className="nav-link"
@@ -389,6 +390,7 @@ function Layout(args, props) {
                                             <img src={icnDoc} alt="documents"/> Documents
                                         </Link>
                                     </NavItem>
+                                    {/**
                                     <NavItem>
                                         <Link
                                             to="/app/transaction"
@@ -397,6 +399,7 @@ function Layout(args, props) {
                                             <img src={icnTransac} alt="transactions"/>Transactions
                                         </Link>
                                     </NavItem>
+                                     */}
                                     <NavItem className='logout'>
                                         <Link
                                             onClick={() =>

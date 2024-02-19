@@ -10,7 +10,7 @@ import IconPDF from '../img/icon-pdf.png';
 import { FileUploader } from "react-drag-drop-files";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import '../style/styleSideBar.css';
+import styled from "styled-components";
 
 import { useMemberstack } from "@memberstack/react";
 
@@ -362,26 +362,26 @@ function Documents(args) {
     }
 
     const stackSelected = (
-        <div className="container-drag-drop">
+        <DragAndDropContainer>
             <img alt="IconPDF" style={{ height: "60px", marginBottom: "10px" }} src={IconPDF} />
-            <div className="subtitle">Fichier acceptés : PDF/JPG</div>
+            <div className="subtitle">Fichier acceptés : PDF/JPG/PNG</div>
             <div className="subtitle">Taille maximum : 40MB</div>
             <br />
             <div style={{ display: "inline-flex" }}>
                 <div className="file-name">{file !== undefined && file !== null && file.name}</div>
                 <div onClick={handleDelete} style={{ textDecoration: "underline" }}>Supprimer</div>
             </div>
-        </div>
+        </DragAndDropContainer>
     );
 
     const stackNotSelected = (
-        <div className="container-drag-drop">
-            <img style={{ height: "60px", marginBottom: "10px" }} src={IconPDF} />
+        <DragAndDropContainer>
+            <img style={{ height: "60px", marginBottom: "10px" }} alt="drop" src={IconPDF} />
             <p style={{ fontWeight: "500" }}>Déposez votre document ici ou</p>
             <p className="title-underline">Sélectionnez un document</p>
-            <div className="subtitle">Fichier acceptés : PDF/JPG</div>
+            <div className="subtitle">Fichier acceptés : PDF/JPG/PNG</div>
             <div className="subtitle">Taille maximum : 40MB</div>
-        </div>
+        </DragAndDropContainer>
     );
 
     return (
@@ -398,13 +398,13 @@ function Documents(args) {
                     {
                         loadingUpload ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                         <Spinner style={{ width: '5rem', height: '5rem' }} color="primary" />
-                      </div> : <Form>
+                      </div> : <Form style={{ width: '100%' }}>
                         <FormGroup>
                             <FileUploader disabled={file != null} handleChange={handleChange} name="file" types={fileTypes} children={file != null ? stackSelected : stackNotSelected}>
                             </FileUploader>
                         </FormGroup>
                         <FormGroup>
-                            <Label for="exampleEmail">
+                            <Label style={{ width: '100%' }} for="exampleEmail">
                                 De quel document s'agit-il ?
                             </Label>
 
@@ -415,7 +415,6 @@ function Documents(args) {
                                 type="select"
                                 value={defaultValueType}
                                 onChange={handleChangeSelect}
-                                style={{ width: '400px' }}
                             >
                                 {listTabs != undefined && listTabs != null ? listTabs?.filter(tab => {  if(tab !== "tous les documents"){return true}}).map((item, index) => (<option value={item}>
                                     {item}
@@ -423,9 +422,9 @@ function Documents(args) {
                             </Input>
                         </FormGroup>
                         <FormGroup>
-                            <Input onChange={handleChangeNom} disabled={idSelectedDoc !== null} name="nom" type="nom" style={{ width: '400px' }} value={valueNomDoc}/>
+                            <Input onChange={handleChangeNom} disabled={idSelectedDoc !== null} name="nom" type="nom" value={valueNomDoc}/>
                         </FormGroup>
-                        <FormGroup style={{width:"400px"}} className="text-center">
+                        <FormGroup>
                             <Button onClick={idSelectedDoc !== null ? handleUpload: uploadWithoutPreSelection} disabled={file === null || valueNomDoc === null || valueNomDoc === ""} style={{backgroundColor: "#1c6856"}}>Ajouter</Button>
                         </FormGroup>
                         
@@ -451,10 +450,10 @@ function Documents(args) {
                 <Alert color="success">
                     {success}
                 </Alert> }
-                    <Col md="7">
+                    <Col md="12">
                         <Nav pills>
                         { listTabs.map((item, index) => (
-                                    <NavItem>
+                                    <NavItemNameCategorie>
                                 
                                     <NavLink
                                         onClick={() => { toggle(item); }}
@@ -462,10 +461,12 @@ function Documents(args) {
                                     >
                                         {item}
                                     </NavLink>
-                                </NavItem>
+                                </NavItemNameCategorie>
                                     ))}
 
                         </Nav>
+                        </Col>
+                        <Col md="8" xs="12">
 
                         <TabContent className="mt-3" activeTab={currentActiveTab}>
                             {listTabs.map((item, index) => (
@@ -496,3 +497,44 @@ function Documents(args) {
 }
 
 export default Documents;
+
+
+const NavItemNameCategorie = styled(NavItem)`
+a.nav-link {text-transform: lowercase}
+a.nav-link::first-letter {text-transform: uppercase}
+`;
+
+
+const DragAndDropContainer = styled.div`
+width: 100%; /* Largeur de la container */
+    height: 100vh; /* Hauteur de la container */
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    border-style: dotted;
+    border-color: #c3dbf7;
+    border-width: 2px;
+    border-radius:5px; 
+    width: 100%; 
+    height:250px;
+    background-color: #eef6ff;
+    flex-direction: column;
+
+    .title-underline{
+        color: #54958c; 
+        font-weight: 500; 
+        text-decoration: underline;
+      }
+    
+      .subtitle{
+        font-size: 15px;
+      }
+    
+      .file-name{
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        margin-right: "40px"
+      }
+`;
