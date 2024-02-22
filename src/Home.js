@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import Fade from 'react-reveal/Fade';
 /** composants **/
 import Header from './components/Header';
-import Feature from './components/Feature';
 import FeatureParallax from './components/FeatureParallax';
 import Engagement from './components/Engagements';
 import EnMoyenne from './components/EnMoyenne';

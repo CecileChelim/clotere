@@ -182,8 +182,8 @@ function FeatureParallax() {
         <BodyParallax>
             <main>
                 <ul id="cards">
-                    <li class="card" id="card_1">
-                        <div class="card__content">
+                    <li className="card" id="card_1">
+                        <div className="card__content">
                             <div>
                                 <h4 className="number">01.</h4>
                                 <h4>Clotere <span>rédige</span> et <span>contrôle</span> les documents de vente.</h4>
@@ -194,8 +194,8 @@ function FeatureParallax() {
                             </figure>
                         </div>
                     </li>
-                    <li class="card" id="card_2">
-                        <div class="card__content">
+                    <li className="card" id="card_2">
+                        <div className="card__content">
                             <div>
                                 <h4 className="number">02.</h4>
                                 <h4>Suivez plus <span>simplement</span> votre transaction</h4>
@@ -206,8 +206,8 @@ function FeatureParallax() {
                             </figure>
                         </div>
                     </li>
-                    <li class="card" id="card_3">
-                        <div class="card__content">
+                    <li className="card" id="card_3">
+                        <div className="card__content">
                             <div>
                                 <h4 className="number">03.</h4>
                                 <h4>Signez depuis <span>votre canapé</span></h4>

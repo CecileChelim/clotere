@@ -60,6 +60,7 @@ function Layout(args, props) {
     //get info memberstack
     useEffect(() => {
         fetchDataMemberstack();
+        // eslint-disable-next-line
     }, []);
 
 
@@ -70,7 +71,7 @@ function Layout(args, props) {
         if (member !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${member.metaData.airtable_id}`;
 
-            return fetch(
+            fetch(
                 URL,
                 {
                     method: "GET",
@@ -87,6 +88,7 @@ function Layout(args, props) {
                 })
                 .catch((error) => console.log(error));
         }
+        // eslint-disable-next-line
     }, [loading]);
 
     //get info transaction
@@ -112,7 +114,7 @@ function Layout(args, props) {
                 })
                 .catch((error) => console.log("transaction info error", error),);
         }
-
+// eslint-disable-next-line
     }, [user]);
 
     //get info bien
@@ -138,6 +140,7 @@ function Layout(args, props) {
                 .catch((error) => console.log("bien info error", error),);
         }
 
+// eslint-disable-next-line
     }, [transaction]);
 
     //get info event
@@ -146,7 +149,7 @@ function Layout(args, props) {
         if (transaction !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/event?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
 
-            return fetch(
+            fetch(
                 URL,
                 {
                     method: "GET",
@@ -163,6 +166,7 @@ function Layout(args, props) {
                 })
                 .catch((error) => console.log(error));
         }
+    // eslint-disable-next-line
     }, [transaction]);
 
     //get info activite
@@ -171,7 +175,7 @@ function Layout(args, props) {
         if (transaction !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/activite?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
 
-            return fetch(
+            fetch(
                 URL,
                 {
                     method: "GET",
@@ -188,6 +192,7 @@ function Layout(args, props) {
                 })
                 .catch((error) => console.log(error));
         }
+    // eslint-disable-next-line
     }, [transaction]);
 
     //get info rdv
@@ -196,7 +201,7 @@ function Layout(args, props) {
         if (transaction !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/rdv?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
 
-            return fetch(
+            fetch(
                 URL,
                 {
                     method: "GET",
@@ -213,6 +218,7 @@ function Layout(args, props) {
                 })
                 .catch((error) => console.log(error));
         }
+    // eslint-disable-next-line
     }, [transaction]);
 
     //console.log("member", member);
@@ -553,7 +559,7 @@ function Layout(args, props) {
                                                 <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
                                                 <DropdownItem divider />
                                                 <DropdownItem><a className="nav-link"
-                                                    href="#"
+                                                    href="/"
                                                     onClick={() =>
                                                         memberstack.logout()
                                                             .then(({ data, type }) => {

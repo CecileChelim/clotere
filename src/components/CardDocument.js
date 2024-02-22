@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, CardBody, CardTitle, CardSubtitle, Modal, } from "reactstrap";
 import styled from "styled-components";
 import { LinkCard } from "../style/Button";
@@ -12,15 +12,10 @@ import '@react-pdf-viewer/core/lib/styles/index.css'; // Styles de base du PDF v
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'; // Styles de la mise en page par défaut
 
 function CardDocument(args) {
-  const [canvas, setCanvas] = useState(false);
-  const toggle = () => setCanvas(!canvas);
   const [pdfName, setPdfName] = useState(null);
   const toggleModal = () => setPdfName(null);
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-  useEffect(() => {
-    console.log("Filtered data", args.documents)
-  }, [])
   return (
     <div>
       <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
@@ -36,7 +31,7 @@ function CardDocument(args) {
          </Modal>
       {args.documents.map((item, index) => (
         
-          item.etat === "ajouté" ?  <CardS className="d-flex flex-row align-items-center doc-ajoute">
+          item.etat === "ajouté" ?  <CardS key={index} className="d-flex flex-row align-items-center doc-ajoute">
           <Icon>
             <FontAwesomeIcon icon={faCheck} />
           </Icon>
@@ -57,7 +52,7 @@ function CardDocument(args) {
               <LinkCard onClick={() => {args.onDeleteDoc(item);}} className="mr-3"> Supprimer</LinkCard>
             </Details>
           </CardBody>
-        </CardS> : <CardS className="d-flex flex-row align-items-center doc-non-ajoute">
+        </CardS> : <CardS key={index} className="d-flex flex-row align-items-center doc-non-ajoute">
         <Icon>
           <FontAwesomeIcon icon={faFile} />
         </Icon>

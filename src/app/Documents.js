@@ -64,6 +64,7 @@ function Documents(args) {
 
     useEffect(() => {
         const fetchData = async () => {
+            // eslint-disable-next-line
             appFirebase = initializeApp(firebaseConfig);
             setStorage(getStorage(appFirebase));
         }
@@ -73,6 +74,8 @@ function Documents(args) {
 
     useEffect(() => {
         getUserDocuments()
+
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getUserDocuments = async () => {
@@ -134,7 +137,7 @@ function Documents(args) {
 
             if(dataFilterTemp != null && dataFilterTemp.length > 0){
                 setData(dataFilterTemp.map(item => {
-                    const { fields, ...rest } = item;
+                    const { fields } = item;
                     if (fields.hasOwnProperty('document')) {
                         fields.nomDocument = fields.document[0].filename
                         fields.typeDocument = fields.document[0].type
@@ -180,7 +183,7 @@ function Documents(args) {
       const handleDeleteDocument = async (doc) => {
         const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document/${doc.id}`;
 
-        if(doc.type == "autre"){
+        if(doc.type === "autre"){
             await fetch(
                 URL,
                 {
@@ -455,9 +458,23 @@ function Documents(args) {
                                 value={defaultValueType}
                                 onChange={handleChangeSelect}
                             >
-                                {listTabs != undefined && listTabs != null ? listTabs?.filter(tab => {  if(tab !== "tous les documents"){return true}}).map((item, index) => (<option value={item}>
-                                    {item}
-                                </option>)) : <></>}
+                                {listTabs !== undefined && listTabs !== null ? 
+                                    listTabs
+                                        ?.filter(tab => {  
+                                            if(tab !== "tous les documents") {
+                                                return true;
+                                            } else {
+                                                return false; // ou simplement, return tab !== "tous les documents";
+                                            }
+                                        })
+                                        .map((item, index) => (
+                                            <option key={index} value={item}>
+                                                {item}
+                                            </option>
+                                        )) 
+                                    : 
+                                    <></>
+                                }
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -492,7 +509,7 @@ function Documents(args) {
                     <Col md="12">
                         <Nav pills>
                         { listTabs.map((item, index) => (
-                                    <NavItemNameCategorie>
+                                    <NavItemNameCategorie key={index}>
                                 
                                     <NavLink
                                         onClick={() => { toggle(item); }}
@@ -509,9 +526,9 @@ function Documents(args) {
 
                         <TabContent className="mt-3" activeTab={currentActiveTab}>
                             {listTabs.map((item, index) => (
-                                 <TabPane tabId={item}>
+                                 <TabPane key={index} tabId={item}>
                                  <Row>
-                                     <Col sm="12">
+                                     <Col key={"dsjhnfsod"} sm="12">
                                          <CardDoc onAddDoc={(doc) => {
                                             setIdSelectedDoc(doc.id);
                                             setDefaultValueType(doc.type);
@@ -523,6 +540,8 @@ function Documents(args) {
                                          }} documents={data.filter(document => {
                                             if(document.type === item || item === "tous les documents"){
                                                 return true
+                                            }else{
+                                                return false
                                             }
                                         })} />
                                      </Col>

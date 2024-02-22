@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
     Container, Row, Col,
     DropdownToggle,
@@ -75,10 +75,6 @@ function Dashboard(args) {
     const toggle3 = () => setCanvas(!canvas);
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-    useEffect(() => {
-        console.log("LAAAA", args)
-    }, [args])
-
     return (
         <>
             <Container>
@@ -100,12 +96,11 @@ function Dashboard(args) {
                     </TitlePageApp>
                     <Col md="12" className="mt-3">
                             {args.rdv !== undefined && args.rdv.length > 0 ?
-                                <>
+                                <div>
                                 <TitleSection>Vos prochains rendez-vous</TitleSection>
                         <div className="d-flex flex-row justify-start align-items-stretch flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
                                     {args.rdv.map((col, i) => (
-                                        <>
-                                            <CardRdv>
+                                            <CardRdv key={i}>
                                                 <div className="d-flex flex-row align-items-center">
                                                     <img src={icnRdv} alt="votre rendez-vous" />
                                                     {args.rdv[i].fields.statut === "a programmer" ? (
@@ -140,10 +135,9 @@ function Dashboard(args) {
                                                     </div>
                                                 </div>
                                             </CardRdv>
-                                        </>
                                     ))}
                                     </div>
-                                </>
+                                </div>
                                 
                                 : <></>
                                 
@@ -209,15 +203,13 @@ function Dashboard(args) {
                         <Panel>
                             <ListGroupActionAmener numbered>
                                 {args.activite.map((col, i) => (
-                                    <>
-                                        <ListGroupItem>
+                                        <ListGroupItem key={i}>
                                             <div className="d-flex flex-column">
                                                 <h4>{args.activite[i].fields.message}</h4>
                                                 <p><span> {moment(args.activite[i].fields.date).format('DD/MM/YYYY')}</span></p>
                                             </div>
 
                                         </ListGroupItem>
-                                    </>
                                 ))}
 
 

@@ -20,7 +20,7 @@ function TimelineCard(args) {
 
         <Content className="flex-grow-1">
           <h4>{args.message}</h4>
-          <p><div dangerouslySetInnerHTML={{__html: args.contenu}}></div></p>
+          <div dangerouslySetInnerHTML={{__html: args.contenu}}></div>
           
 
           {args.action === "Voiretsigner" ? (
