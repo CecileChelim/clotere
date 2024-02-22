@@ -4,11 +4,11 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Offcanvas, Card, ListGroup, ListGroupItem
+    Offcanvas, Card, ListGroup, ListGroupItem,OffcanvasHeader,OffcanvasBody
 } from "reactstrap";
 import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
 import moment from "moment";
-import { DropdownPrimary } from "../style/Button";
+import { DropdownPrimary, ButtonPrimarySmall,LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import styled from "styled-components";
 import icnRdv from "../img/icn-rdv.svg";
@@ -72,6 +72,7 @@ function Dashboard(args) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [canvas, setCanvas] = useState(false);
     const toggle2 = () => setCanvas(!canvas);
+    const toggle3 = () => setCanvas(!canvas);
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
@@ -85,7 +86,7 @@ function Dashboard(args) {
                     <TitlePageApp>
                         <Col md="7">
                             <TitlePage>Bonjour Catherine</TitlePage>
-                            <p>Voici l'avancement de votre transaction : {args.transactionName} </p>
+                            <p>Voici l'avancement de votre transaction : <b>{args.transactionName}</b> </p>
                         </Col>
                         <Col md="5" className="text-end">
                             <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
@@ -98,21 +99,45 @@ function Dashboard(args) {
                         </Col>
                     </TitlePageApp>
                     <Col md="12" className="mt-3">
-                        
-
                             {args.rdv !== undefined && args.rdv.length > 0 ?
                                 <>
                                 <TitleSection>Vos prochains rendez-vous</TitleSection>
-                        <div className="d-flex flex-row justify-start align-items-start flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
+                        <div className="d-flex flex-row justify-start align-items-stretch flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
                                     {args.rdv.map((col, i) => (
                                         <>
                                             <CardRdv>
                                                 <div className="d-flex flex-row align-items-center">
                                                     <img src={icnRdv} alt="votre rendez-vous" />
-                                                    <p><small>Date</small>Non programmé</p>
+                                                    {args.rdv[i].fields.statut === "a programmer" ? (
+                                                        <p><small>Date</small>Non programmé</p>
+                                                    ) : (<>{" "}</>)}
+                                                    {args.rdv[i].fields.statut === "en cours de prog" ? (
+                                                        <p><small>Date</small>A programmer</p>
+                                                    ) : (<>{" "}</>)}
+                                                    {args.rdv[i].fields.statut === "programme" ? (
+                                                        <p><small>Date</small>
+                                                        {args.rdv[i].fields.date}
+                                                        </p>
+                                                    ) : (<>{" "}</>)}
+                                                    {args.rdv[i].fields.statut === "passe" ? (
+                                                        <p><small>Déjà réalisé</small>
+                                                        {args.rdv[i].fields.date}
+                                                        </p>
+                                                    ) : (<>{" "}</>)}
                                                 </div>
                                                 <div>
                                                     <h5>{args.rdv[i].fields.nom}</h5>
+                                                    <div className="link">
+                                                    {args.rdv[i].fields.statut === "en cours de prog" ? (
+                                                        <LinkS href={args.rdv[i].fields.lien_reservation} target="blank">Indiquez vos disponibilités</LinkS>
+                                                    ) : (<>{" "}</>)}
+                                                    {args.rdv[i].fields.statut === "programme" ? (
+                                                        <>
+                                                        <LinkS onClick={toggle3}>Vous n'êtes plus disponible ?</LinkS>
+                                                        <ButtonPrimarySmall className="mt-2" href={args.rdv[i].fields.lien_reunion} color="primary">Rejoindre la réunion</ButtonPrimarySmall>
+                                                        </>
+                                                    ) : (<>{" "}</>)}
+                                                    </div>
                                                 </div>
                                             </CardRdv>
                                         </>
@@ -208,6 +233,20 @@ function Dashboard(args) {
                 {...args}
                 direction="end"
                 scrollable></Offcanvas>
+                <Offcanvas
+                isOpen={canvas}
+                toggle={toggle3}
+                {...args}
+                direction="end"
+                scrollable>
+                    <OffcanvasHeader toggle={toggle3}>
+      Vous n'êtes plus disponible ?
+    </OffcanvasHeader>
+    <OffcanvasBody>
+    <p>Pour indiquer les raisons de votre indisponibilités veuillez contacter votre conseillé directement.</p>
+    </OffcanvasBody>
+                    
+                </Offcanvas>
         </>
     );
 }
