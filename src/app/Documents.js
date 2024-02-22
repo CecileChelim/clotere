@@ -42,7 +42,6 @@ function Documents(args) {
     const [storage, setStorage] = useState([]);
     const [loadingUpload, setLoadingUpload] = useState(false)
     const [defaultValueType, setDefaultValueType] = useState(null);
-    const [nomsDoc, setNomsDoc] = useState([]);
 
     const [file, setFile] = useState(null);
     const handleChange = (file) => {
@@ -114,9 +113,9 @@ function Documents(args) {
             let categoriesFiltrees = null;
 
             if(userData.fields.role === "acheteur"){
-                categoriesFiltrees = ["acheteur"];
+                categoriesFiltrees = ["acheteur", "commun"];
             }else if(userData.fields.role === "vendeur"){
-                categoriesFiltrees = ["vendeur"];
+                categoriesFiltrees = ["vendeur", "commun"];
             }
 
             if(categoriesFiltrees != null){
@@ -151,7 +150,7 @@ function Documents(args) {
     useEffect(() => {
         if (data !== undefined && data !== null) {
 
-            var listTabsTemp = ["tous les documents","autre", "vente", "personnel", "coproprieté", "technique et diagnostics"]
+            var listTabsTemp = ["tous les documents","vente", "personnel", "copropriété", "technique et diagnostics", "autre"]
             var nomsDocuments = []
 
             for (let index = 0; index < data.length; index++) {
@@ -163,7 +162,6 @@ function Documents(args) {
 
             setListTabs(listTabsTemp)
             setCurrentActiveTab(listTabsTemp[0]);
-            setNomsDoc(nomsDocuments)
             setDefaultValueType("autre")
         }
 
@@ -178,6 +176,48 @@ function Documents(args) {
         console.log(e);
         setValueNomDoc(e.target.value);
       };
+
+      const handleDeleteDocument = async (doc) => {
+        const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document/${doc.id}`;
+
+        if(doc.type == "autre"){
+            await fetch(
+                URL,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                        "Accept": "application/json",
+                        'content-type':"application/json"
+                    },
+                }).then((res) => res.json());
+        }else{
+            await fetch(
+                URL,
+                {
+                    method: "PATCH",
+                    headers: {
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                        "Accept": "application/json",
+                        'content-type':"application/json"
+                    },
+                    body:  JSON.stringify({"fields": {
+                        "document": [],
+                        "etat": "non ajouté",
+                        "date_upload": "",
+                        "qui_upload": ""
+                    }})
+                }).then((res) => res.json());
+        }
+
+            await getUserDocuments();
+
+            setSuccess("Document supprimé avec succès !")
+
+            setTimeout(() => {
+                setSuccess(null);
+              }, 5000);
+    };
 
     const handleDelete = (event) => {
         // Empêcher la propagation de l'événement de clic
@@ -478,6 +518,8 @@ function Documents(args) {
                                             setValueNomDoc(doc.nom)
                                             setShowSideBar(true);
                                             console.log(doc);
+                                         }} onDeleteDoc={(doc) => {
+                                            handleDeleteDocument(doc)
                                          }} documents={data.filter(document => {
                                             if(document.type === item || item === "tous les documents"){
                                                 return true

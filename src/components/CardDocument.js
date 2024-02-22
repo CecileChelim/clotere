@@ -54,6 +54,7 @@ function CardDocument(args) {
             </div>
             <Details>
               <LinkCard onClick={() => {setPdfName({"url": item.document, "type": item.typeDocument});}} className="mr-3"> Voir</LinkCard>
+              <LinkCard onClick={() => {args.onDeleteDoc(item);}} className="mr-3"> Supprimer</LinkCard>
             </Details>
           </CardBody>
         </CardS> : <CardS className="d-flex flex-row align-items-center doc-non-ajoute">
