@@ -6,7 +6,7 @@ import {
     DropdownItem,
     Offcanvas, Card, ListGroup, ListGroupItem
 } from "reactstrap";
-import { TitlePage, TitlePageApp, TitleSection,Panel } from "../style/Layout";
+import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
 import moment from "moment";
 import { DropdownPrimary } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
@@ -75,7 +75,7 @@ function Dashboard(args) {
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
-        console.log("LAAAA")
+        console.log("LAAAA", args)
     }, [args])
 
     return (
@@ -98,88 +98,87 @@ function Dashboard(args) {
                         </Col>
                     </TitlePageApp>
                     <Col md="12" className="mt-3">
-                    <TitleSection>Vos prochains rendez-vous</TitleSection>
-                    <div className="d-flex flex-row justify-start align-items-start flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
-                        <CardRdv>
-                            <div className="d-flex flex-row align-items-center">
-                                <img src={icnRdv} alt="votre rendez-vous"/>
-                                <p><small>Date</small>Non programmé</p>
-                            </div>
-                            <div>
-                                <h5>Signature compromis de vente</h5>
-                            </div>
-                        </CardRdv>
-                        <CardRdv>
-                            <div className="d-flex flex-row align-items-center">
-                                <img src={icnRdv} alt="votre rendez-vous"/>
-                                <p><small>Date</small>Non programmé</p>
-                            </div>
-                            <div>
-                                <h5>Signature de l'acte de vente authentique</h5>
-                            </div>
-                        </CardRdv>
-                        <CardRdv>
-                            <div className="d-flex flex-row align-items-center">
-                                <img src={icnRdv} alt="votre rendez-vous"/>
-                                <p><small>Date</small>Non programmé</p>
-                            </div>
-                            <div>
-                                <h5>Rendez-vous avec votre conseillé</h5>
-                            </div>
-                        </CardRdv>
-                    </div>
-                    
-                        {args.evenement !== undefined && args.evenement.length > 0 ? <><TitleSection className="mt-5">Vos actions à mener</TitleSection>
-                        <Panel>
-                            <ListGroupActionAmener numbered>
-                                <ListGroupItem>
-                                    {/* Composant offre d'achat */}
-                                    
-                                    {args.evenement[0].fields.etat === "fait" ? (
+                        
 
-                                        <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger" lienDoc={args.evenement[0].fields.document_from_document !== undefined && args.evenement[0].fields.document_from_document[0].url} />
-                                    ) : (<>{" "}</>)}
-                                    {args.evenement[0].fields.etat === "en cours" ? (
-                                        <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ajouterDoc" />
-                                    ) : (<>{" "}</>)}
-                                </ListGroupItem>
-                                <ListGroupItem>
-                                    {/* Composant compromis de vente */}
-                        {args.evenement[1].fields.etat === "pas fait" ? (
-                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="ensavoirplusCompromis" />
-                        ) : (<>{" "}</>)}
+                            {args.rdv !== undefined && args.rdv.length > 0 ?
+                                <>
+                                <TitleSection>Vos prochains rendez-vous</TitleSection>
+                        <div className="d-flex flex-row justify-start align-items-start flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
+                                    {args.rdv.map((col, i) => (
+                                        <>
+                                            <CardRdv>
+                                                <div className="d-flex flex-row align-items-center">
+                                                    <img src={icnRdv} alt="votre rendez-vous" />
+                                                    <p><small>Date</small>Non programmé</p>
+                                                </div>
+                                                <div>
+                                                    <h5>{args.rdv[i].fields.nom}</h5>
+                                                </div>
+                                            </CardRdv>
+                                        </>
+                                    ))}
+                                    </div>
+                                </>
+                                
+                                : <></>
+                                
+                            }
+                        
 
-                        {/* 2 états pour en cours, un sans action et l'autre avec action "Voir et signer" + lien de signature A DÉTERMINER*/}
-                        {args.evenement[1].fields.etat === "en cours" ? (
-                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} />
-                        ) : (<>{" "}</>)}
 
-                        {args.evenement[1].fields.etat === "a signer" ? (
-                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Voiretsigner" lienSignaure="#" />
-                        ) : (<>{" "}</>)}
 
-                        {args.evenement[1].fields.etat === "information(s) manquante(s)" ? (
-                            <TimelineListItem etatcss="infoManquantes" etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Contacter" />
-                        ) : (<>{" "}</>)}
+                        {args.evenement !== undefined && args.evenement.length > 0 ? <>
+                            <TitleSection className="mt-5">Vos actions à mener</TitleSection>
+                            <Panel>
+                                <ListGroupActionAmener numbered>
+                                    <ListGroupItem>
+                                        {/* Composant offre d'achat */}
 
-                        {args.evenement[1].fields.etat === "fait" ? (
-                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document !== undefined &&  args.evenement[1].fields.document_from_document[0].url} />
-                        ) : (<>{" "}</>)}
-                                </ListGroupItem>
-                                <ListGroupItem>
-                                    {/* Composant acte de vente */}
-                        {args.evenement[2].fields.etat === "pas fait" ? (
-                            <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="ensavoirplusActe" />
-                        ) : (<>{" "}</>)}
+                                        {args.evenement[0].fields.etat === "fait" ? (
 
-                        {/* 2 états pour en cours, un sans action et l'autre avec action "Indiquez vos dispo" + lien doodle*/}
-                        {args.evenement[2].fields.etat === "en cours" ? (
-                            <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="rdvActe" lienDoodle={args.evenement[2].fields.lien_doodle} />
-                        ) : (<>{" "}</>)}
-                                </ListGroupItem>
-                            </ListGroupActionAmener>
-                        </Panel></>    : <></>}
-                     
+                                            <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger" lienDoc={args.evenement[0].fields.document_from_document !== undefined && args.evenement[0].fields.document_from_document[0].url} />
+                                        ) : (<>{" "}</>)}
+                                        {args.evenement[0].fields.etat === "en cours" ? (
+                                            <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ajouterDoc" />
+                                        ) : (<>{" "}</>)}
+                                    </ListGroupItem>
+                                    <ListGroupItem>
+                                        {/* Composant compromis de vente */}
+                                        {args.evenement[1].fields.etat === "pas fait" ? (
+                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="ensavoirplusCompromis" />
+                                        ) : (<>{" "}</>)}
+
+                                        {/* 2 états pour en cours, un sans action et l'autre avec action "Voir et signer" + lien de signature A DÉTERMINER*/}
+                                        {args.evenement[1].fields.etat === "en cours" ? (
+                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} />
+                                        ) : (<>{" "}</>)}
+
+                                        {args.evenement[1].fields.etat === "a signer" ? (
+                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Voiretsigner" lienSignaure="#" />
+                                        ) : (<>{" "}</>)}
+
+                                        {args.evenement[1].fields.etat === "information(s) manquante(s)" ? (
+                                            <TimelineListItem etatcss="infoManquantes" etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Contacter" />
+                                        ) : (<>{" "}</>)}
+
+                                        {args.evenement[1].fields.etat === "fait" ? (
+                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document !== undefined && args.evenement[1].fields.document_from_document[0].url} />
+                                        ) : (<>{" "}</>)}
+                                    </ListGroupItem>
+                                    <ListGroupItem>
+                                        {/* Composant acte de vente */}
+                                        {args.evenement[2].fields.etat === "pas fait" ? (
+                                            <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="ensavoirplusActe" />
+                                        ) : (<>{" "}</>)}
+
+                                        {/* 2 états pour en cours, un sans action et l'autre avec action "Indiquez vos dispo" + lien doodle*/}
+                                        {args.evenement[2].fields.etat === "en cours" ? (
+                                            <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="rdvActe" lienDoodle={args.evenement[2].fields.lien_doodle} />
+                                        ) : (<>{" "}</>)}
+                                    </ListGroupItem>
+                                </ListGroupActionAmener>
+                            </Panel></> : <></>}
+
 
                         <TitleSection className="mt-5">Où en est votre notaire ?</TitleSection>
                         <Panel>
@@ -188,10 +187,10 @@ function Dashboard(args) {
                                     <>
                                         <ListGroupItem>
                                             <div className="d-flex flex-column">
-                                            <h4>{args.activite[i].fields.message}</h4>
-                                            <p><span> {moment(args.activite[i].fields.date).format('DD/MM/YYYY')}</span></p>
+                                                <h4>{args.activite[i].fields.message}</h4>
+                                                <p><span> {moment(args.activite[i].fields.date).format('DD/MM/YYYY')}</span></p>
                                             </div>
-                                            
+
                                         </ListGroupItem>
                                     </>
                                 ))}

@@ -20,70 +20,6 @@ import icnLogo from '../img/icn-logo.svg';
 import Logo from '../img/logo-clotere.svg';
 
 
-const LayoutS = styled.div`
-  background-color:#E0EEEE;
-`;
-
-const ColMenu = styled(Col)`
-  background-color:#FFF;
-  min-height:100vh;
-  ul{
-    padding:20px;
-    //position: fixed;
-    margin-left: 1rem;
-    li.brand{
-        background-color: transparent;  
-        a img{width:70px!important;}
-    }
-  }
-  a.nav-link{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    color:#000;
-    font-size:18px;
-    transition:all ease .5s;
-    cursor: pointer;
-    border-radius:16px;
-    margin-bottom:15px;
-    padding:20px;
-    &:hover,&.active{background-color:#EAF3F2;}
-    img{
-        width:30px;
-        height:30px;
-        margin-bottom:15px;
-    }
-  }
-  .navbar{display:none;}
-  @media all and (max-width: 768px) {
-    ul.menuSidebar{ display:none;}
-    .navbar{
-        display:block;
-        .navbar-collapse{padding:0;margin:0;}
-        .imgBrand{ width: auto;height: 30px;margin-bottom: 0;}
-        ul{padding:0;}
-        li.nav-item{
-            padding:1rem 0;border-bottom:1px solid #ddd;
-            img{
-                height:30px;
-                margin-right:.5rem;
-            }
-            a{text-decoration:none;}
-        }
-    }
-    min-height:auto!important;
-  }
-  .profilItem{
-    position:absolute;
-    bottom:1rem;
-  }
-`;
-
-const ColContent = styled(Col)`
-    padding : 3rem 2rem;
-`;
-
-
 function Layout(args, props) {
     const memberstack = useMemberstack();
     const [member, setMember] = useState(null);
@@ -92,6 +28,7 @@ function Layout(args, props) {
     const [bien, setBien] = useState(null);
     const [evenement, setEvenement] = useState(null);
     const [activite, setActivite] = useState(null);
+    const [rdv, setRdv] = useState(null);
     const [loading, setLoading] = useState(false);
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
@@ -221,7 +158,7 @@ function Layout(args, props) {
                 })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log("all event transaction", res.records);
+                    //console.log("all event transaction", res.records);
                     setEvenement(res.records);
                 })
                 .catch((error) => console.log(error));
@@ -246,8 +183,33 @@ function Layout(args, props) {
                 })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log("all event transaction", res.records);
+                    //console.log("all event transaction", res.records);
                     setActivite(res.records);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [transaction]);
+
+    //get info rdv
+    useEffect(() => {
+        //on recupere les rdv de la transaction
+        if (transaction !== null && member.metaData.airtable_id !== undefined) {
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/rdv?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
+
+            return fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    //console.log("all rdv transaction", res.records);
+                    setRdv(res.records);
                 })
                 .catch((error) => console.log(error));
         }
@@ -258,6 +220,7 @@ function Layout(args, props) {
     //console.log("transaction", transaction);
     //console.log("bien", bien);
     //console.log("activite", activite);
+    //console.log("rdv",rdv);
 
     const fetchDataMemberstack = () => {
         setLoading(true);
@@ -273,7 +236,7 @@ function Layout(args, props) {
     };
 
 
-    if (user !== null & transaction !== null & bien !== null & evenement !== null & activite !== null) {
+    if (user !== null & transaction !== null & bien !== null & evenement !== null & activite !== null  & rdv !== null ) {
         return (
             <LayoutS>
                 <Row>
@@ -420,7 +383,7 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard transactionName={transaction.nom} user={user} evenement={evenement} activite={activite} />
+                                        <Dashboard transactionName={transaction.nom} user={user} evenement={evenement} activite={activite} rdv={rdv} />
                                     </Col>
                                 </Row>
                             </TabPane>
@@ -630,3 +593,66 @@ function Layout(args, props) {
 }
 
 export default Layout;
+
+const LayoutS = styled.div`
+  background-color:#E0EEEE;
+`;
+
+const ColMenu = styled(Col)`
+  background-color:#FFF;
+  min-height:100vh;
+  ul{
+    padding:20px;
+    //position: fixed;
+    margin-left: 1rem;
+    li.brand{
+        background-color: transparent;  
+        a img{width:70px!important;}
+    }
+  }
+  a.nav-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    color:#000;
+    font-size:18px;
+    transition:all ease .5s;
+    cursor: pointer;
+    border-radius:16px;
+    margin-bottom:15px;
+    padding:20px;
+    &:hover,&.active{background-color:#EAF3F2;}
+    img{
+        width:30px;
+        height:30px;
+        margin-bottom:15px;
+    }
+  }
+  .navbar{display:none;}
+  @media all and (max-width: 768px) {
+    ul.menuSidebar{ display:none;}
+    .navbar{
+        display:block;
+        .navbar-collapse{padding:0;margin:0;}
+        .imgBrand{ width: auto;height: 30px;margin-bottom: 0;}
+        ul{padding:0;}
+        li.nav-item{
+            padding:1rem 0;border-bottom:1px solid #ddd;
+            img{
+                height:30px;
+                margin-right:.5rem;
+            }
+            a{text-decoration:none;}
+        }
+    }
+    min-height:auto!important;
+  }
+  .profilItem{
+    position:absolute;
+    bottom:1rem;
+  }
+`;
+
+const ColContent = styled(Col)`
+    padding : 3rem 2rem;
+`;

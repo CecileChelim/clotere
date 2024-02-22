@@ -52,8 +52,6 @@ function Documents(args) {
 
     const fileTypes = ["PDF", "PNG", "JPG"];
 
-    
-
     const firebaseConfig = {
         apiKey: "AIzaSyBx-T0tuEcSlSFsPF1zyeYQo3pZG-zytz8",
         authDomain: "clotere-33ee1.firebaseapp.com",
@@ -252,6 +250,7 @@ function Documents(args) {
                             "qui_upload": userInfo.airtable_id
                         }})
                     }).then((res) => res.json());
+                    
             }else{
                 const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document`;
         
