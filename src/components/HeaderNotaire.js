@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { ButtonPrimary} from "../style/Button";
 import ArrowRight from "../img/arrow-right.png";
-import Illu from "../img/illustration-header-notaire.png";
+import Illu from "../img/img-header-notaire.png";
 
 
 const ContainerS = styled(Container)`
@@ -50,7 +50,7 @@ p{
     display:flex;
     flex-direction:column;
     .btn{
-        width:90%;
+        width:100%;
         margin:0 auto;
         margin-bottom:1rem;
     }
@@ -74,7 +74,7 @@ function HeaderNotaire() {
             <Row className="d-flex align-items-center">
                 <Col md="7" xs="12">
                     <Title>Des nouveaux clients pour votre étude.</Title>
-                    <SubTitle>Clotere vous permet de toucher de nouveaux clients, avec des <span className="textHighlight">dossiers complets</span> et des <span className="textHighlight">outils</span> qui facilitent votre relation client.</SubTitle>
+                    <SubTitle>Clotere vous permet de trouver de <span className="textHighlight">nouveaux clients</span>, et vous fournis des <span className="textHighlight">outils</span> qui facilitent votre relation client.</SubTitle>
                     <BlocButton>
                         <Link to="/demo-notaire">
                             <ButtonPrimary color="white">Demander une démo</ButtonPrimary>

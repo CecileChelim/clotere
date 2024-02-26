@@ -1,21 +1,17 @@
 import React from "react";
 import {
-    Container
+    Container, Row, Col
 } from "reactstrap";
 import Fade from 'react-reveal/Fade';
 import styled from "styled-components";
-import IlluFeature from "../img/illu-feature-notaire.png";
-
-
-
 
 const ContainerFeatureNotaire = styled(Container)`
-
+margin-top:8rem;margin-bottom:8rem;
 .lg{
-    padding-top:2rem;
-    padding-bottom:2rem;
-    width: 80%;
-    margin: 0 auto;
+    border-radius: 16px;
+    border: 1px solid #fff;
+    background: linear-gradient(130deg,hsla(0,0%,100%,.3),#fff);
+    box-shadow: 0 20px 28px 0 rgba(0,0,0,.15), inset 0 1px 0 0 #fff;
 }
 p.text-lead{
     font-size: 22px;
@@ -34,7 +30,8 @@ h4{
 .content{padding:2rem;}
 }
 @media all and (max-width: 768px) {
-    .lg{flex-wrap: wrap;justify-content: center;width:100%!important;}
+    margin-top:4rem;margin-bottom:4srem;
+    .lg{flex-wrap: wrap;justify-content: center;width:100%!important;margin-bottom:2rem!important;}
     .revert{flex-wrap: wrap-reverse;}
     .content{padding: 1rem!important;}
   }
@@ -48,59 +45,48 @@ function FeatureLead(args) {
 
     return (
         <ContainerFeatureNotaire className="grey-bg">
-            <Fade bottom>
-                <div className="d-flex flex-row align-items-center lg">
-                    <div className="content">
-                        <p className="text-lead">Des clients pas des prospects</p>
-                        <h3>Ce ne sont pas des leads qualifiés que l’on vous envoit mais <span className="textHighlight">des clients</span></h3>
-                        <p>Les utilisateurs constituent en ligne leur dossier de transactions immobilières. Clotere classe, analyse et archive les données & documents pour vous. Lorsque le dossier est complet, si vous l’acceptez il est pour vous ! Gérez et suivez le sur votre interface dédiée.</p>
-                    </div>
-                    <div align="center">
-                        <img src={IlluFeature} alt="" />
-                    </div>
-                </div>
-            </Fade>
+            <div className="text-center mt-5">
+                <br/><br/><h3>Pourquoi choisir Clotere ?</h3>
+                <h5>
+                    Une somme de petits détails qui font une grande différence pour vos clients.
+                </h5>
+                <br/><br/>
+            </div>
 
             <Fade bottom>
-                <div className="d-flex flex-row align-items-center lg revert">
-                    <div align="center">
-                        <img src={IlluFeature} alt="" />
-                    </div>
-                    <div className="content">
-                        <p className="text-lead">Stocké et 100% sécurisé</p>
-                        <h3>Tous les documents regroupés dans un  <span className="textHighlight">espace sécurisé</span></h3>
-                        <p>On vous génère automatiquement la liste des documents nécessaires pour la signature et on demande ces documents aux différents interlocuteurs </p>
-                    </div>
-                </div>
+                <Row>
+                    <Col md='4' xs='12'>
+                        <div className="d-flex flex-row align-items-center lg">
+                            <div className="content">
+                                <p className="text-lead">Des clients pas des prospects</p>
+                                <h4>Pas de leads qualifiés mais <span className="textHighlight">des vrais clients</span></h4>
+                                <p>Les utilisateurs constituent en ligne leur dossier de transactions immobilières. Clotere classe, analyse et archive les données & documents pour vous. Lorsque le dossier est complet, si vous l’acceptez il est pour vous ! Gérez et suivez le sur votre interface dédiée.</p>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col md='4' xs='12'>
+                        <div className="d-flex flex-row align-items-center lg">
+                            <div className="content">
+                            <p className="text-lead">Stocké et 100% sécurisé</p>
+                        <h4>Tous les documents regroupés dans un  <span className="textHighlight">espace sécurisé</span></h4>
+                        <p>On vous génère automatiquement la liste des documents nécessaires pour la signature et on demande ces documents aux différents interlocuteurs.</p>
+                            <br/></div>
+                        </div>
+                    </Col>
+                    <Col md='4' xs='12'>
+                        <div className="d-flex flex-row align-items-center lg">
+                            <div className="content">
+                            <p className="text-lead">Une date en 3 clics</p>
+                        <h4>Fixez des <span className="textHighlight">rendez-vous facilement</span></h4>
+                        <p>Finis les Re:re:re:re pour trouver une date de rendez-vous. <br/>Profitez de nos agendas partagées et de nos rappels automatiques,  pour trouver une date de signature commune. </p>
+                        <br/> </div>
+                        </div>
+                    </Col>
+                </Row>
+
             </Fade>
 
-            <Fade bottom
-            ><div className="d-flex flex-row align-items-center lg">
-                    <div md="7" className="content">
-                        <p className="text-lead">Finis les Re:Re:Re:Re</p>
-                        <h3>Simplifiez  <span className="textHighlight">vos échanges</span> avec les clients</h3>
-                        <p>Profitez de nos mails type de demande de document, rappel automatique. Evitez les mails, les pièces jointes perdus et les Re:Re:Re:Re  </p>
-                    </div>
-                    <div md="5" align="center">
-                        <img src={IlluFeature} alt="" />
-                    </div>
-                </div>
-            </Fade>
 
-            <Fade bottom>
-                <div className="d-flex flex-row align-items-center lg revert">
-                    <div md="5" align="center">
-                        <img src={IlluFeature} alt="" />
-                    </div>
-                    <div md="7" className="content">
-                        <p className="text-lead">Une date en 3 clics</p>
-                        <h3>Fixez des <span className="textHighlight">rendez-vous facilement</span></h3>
-                        <p>On vous génère automatiquement la liste des documents nécessaires pour la signature et on demande ces documents aux différents interlocuteurs </p>
-                    </div>
-                </div>
-            </Fade>
-
-        
         </ContainerFeatureNotaire >
     );
 }

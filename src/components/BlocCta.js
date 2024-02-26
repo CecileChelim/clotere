@@ -11,7 +11,8 @@ const BlocCtaS = styled.section`
 margin-top:90px;
  .card{
     background-image: url(${ImgBlockCta});
-    background-size:cover;
+    background-size:110%;
+    border-radius;16px;
     background-repeat:no-repeat;
     background-position:top center;
     border:0;

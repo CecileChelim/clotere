@@ -36,6 +36,24 @@ const NavS = styled(Navbar)`
 }
 `;
 
+const LinkEspaceClient = styled.a`
+font-weight: 500;
+    background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
+`;
+const LinkNotaire = styled(Link)`
+transition:all ease .5s;
+text-decoration:none;
+padding: 0.5rem;
+font-size: 18px;
+font-weight: 300;
+color: #000000;
+&:hover{
+  color:${props => props.theme.colors.main};
+}
+
+`;
+
+
 const NavMobileS = styled(Navbar)`
 display:none!important;
 @media (max-width: 768px){
@@ -53,10 +71,6 @@ display:none!important;
 }
 }
 `;
-
-
-
-
 
 function Navigation(args, props) {
   const memberstack = useMemberstack();
@@ -86,12 +100,10 @@ function Navigation(args, props) {
             <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
         </Col>
-        <List className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><Link to="/" className="nav-link px-2">Accueil</Link></li>
-          <li><Link to="/notaire" className="nav-link px-2">Vous êtes notaire ?</Link></li>
-        </List>
-        <Col md="3" className="d-flex  justify-content-end">
-    <div className="d-flex p-5">
+        
+        <Col md="9" className="d-flex  justify-content-end">
+        <LinkNotaire to="/notaire" >Notaire ? Par ici</LinkNotaire>
+    <div className="d-flex p-2">
       {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle caret>{member.auth.email}</DropdownToggle>
                 <DropdownMenu {...args}>
@@ -112,7 +124,7 @@ function Navigation(args, props) {
                   </a></DropdownItem>
                 </DropdownMenu>
               </Dropdown>:  <>
-              <Link
+              <LinkEspaceClient
                 className="nav-link px-2"
                 onClick={() =>
                   openModal({
@@ -126,7 +138,7 @@ function Navigation(args, props) {
                     }
                     memberstack.hideModal();
                   })
-                }><u><b>Espace client</b></u></Link>
+                }><b>Espace client</b></LinkEspaceClient>
             </>}
       
     </div>
@@ -139,8 +151,7 @@ function Navigation(args, props) {
         <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
             <List className="nav d-flex flex-column justify-content-center mb-md-0">
-              <li><Link to="/" className="nav-link px-2">Accueil</Link></li>
-              <li><Link to="/notaire" className="nav-link px-2">Vous êtes notaire ?</Link></li>
+              <li><Link to="/notaire" className="nav-link px-2">Vous êtes notaire ? Par ici</Link></li>
             </List>
             {member && (
             <>
@@ -168,7 +179,7 @@ function Navigation(args, props) {
           )}
           {!member && (
             <>
-              <Link
+              <LinkEspaceClient
                 className="nav-link px-2"
                 onClick={() =>
                   openModal({
@@ -186,7 +197,7 @@ function Navigation(args, props) {
                     }
                     memberstack.hideModal();
                   })
-                }><u>Espace client</u></Link>
+                }>Espace client</LinkEspaceClient>
             </>
           )}
             </Nav>
