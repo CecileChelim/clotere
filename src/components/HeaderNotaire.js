@@ -14,7 +14,7 @@ display: flex;
 align-items: center;
 position:relative;
 @media screen and (max-width: 600px) {
-    padding:2rem;
+    padding:0 2rem;
 }
 `;
 

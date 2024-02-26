@@ -19,8 +19,12 @@ padding: 1rem;
  p{opacity:.5;}
  @media all and (max-width: 768px) {
 .logo{text-align:center;}
-flex-wrap: wrap;
+.liens{
+    flex-wrap: wrap;
     justify-content: start!important;
+    line-height:2rem;
+}
+    
  }
 `;
 
@@ -30,16 +34,16 @@ function Footer() {
         <FooterS>
             <Container>
                 <Row>
-                    <Col md='4' xs='13' className="logo">
+                    <Col md='4' xs='12' className="logo">
                         <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
                             <img src={ClotereLogo} width="120px" alt="Clotere" />
                         </Link>
-                        
-                    </Col>
-                    <Col md='8' className="d-flex flex-row justify-content-end">
 
-                    <p className="m-0 mr-5">Clotere n'est pas un notaire</p>
-                    <Link to="/mentions-legales">Mentions légales</Link>
+                    </Col>
+                    <Col md='8' className="d-flex flex-row justify-content-end liens">
+
+                        <p className="m-0 mr-5">Clotere n'est pas un notaire</p>
+                        <Link to="/mentions-legales">Mentions légales</Link>
                         <Link to="/cgv">CGV / CGU</Link>
                         <Link to="/securite-rgpd">Sécurité / RGPD</Link>
                     </Col>

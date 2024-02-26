@@ -83,7 +83,6 @@ const BodyParallax = styled.div`
 }
 
 /** DEBUG **/
-
 #debug {
   position: fixed;
   top: 1em;
@@ -100,12 +99,14 @@ const BodyParallax = styled.div`
   --outline-width: 1px;
 }
 
-
-
 header,
 main {
 	width: 80vw;
 	margin: 0 auto;
+	@media all and (max-width: 768px) {
+		width: 95vw;
+	margin: 0;
+	}
 }
 
 header {
@@ -122,6 +123,12 @@ header {
 	grid-template-columns: 1fr;
 	grid-template-rows: repeat(var(--numcards), var(--card-height));
 	gap: var(--card-margin);
+
+	@media all and (max-width: 768px) {
+		padding-left: 1rem;
+	}
+	
+	;
 }
 
 .card {
@@ -147,7 +154,7 @@ min-height:420px;
 	outline: var(--outline-width) solid lime;
     color:white;
     padding:60px 60px 90px 60px;
-    @media all and (max-width: 768px) {display:block;}
+    @media all and (max-width: 768px) {display:block;padding: 2rem;}
 h4{
     font-size:36px;
     

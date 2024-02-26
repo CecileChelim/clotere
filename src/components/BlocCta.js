@@ -31,6 +31,7 @@ margin-top:90px;
         }
      @media all and (max-width: 768px) {
         padding:30px 40px;
+        background-size: cover;
     }
  }
 `;

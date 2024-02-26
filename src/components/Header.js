@@ -20,9 +20,11 @@ const Title = styled.h1`
 font-size: 66px;
 margin-bottom:30px;
 line-height;46px;
+&.mobile{display:none;}
 @media all and (max-width: 768px) {
-    //pour les écrans de max 768px
       font-size:50px!important;
+      display:none;
+      &.mobile{display:block;}
   }
 `;
 const SubTitle = styled.h2`
@@ -33,6 +35,7 @@ width: 90%;
 color:${props => props.theme.colors.black};
 font-weight: 300;
 margin-bottom:60px;
+@media all and (max-width: 768px) {margin-bottom:30px;}
 `;
 
 const BlocButton = styled.div`
@@ -75,6 +78,7 @@ function Header() {
                     </IlluS>
                 <Col md="9" xs="12" align="center">
                     <Title>Sécurisez & gagnez du temps<br/> sur votre vente immobilière</Title>
+                    <Title className="mobile">Sécurisez & accélerez votre vente immobilière</Title>
                     <SubTitle>Clotere votre notaire en ligne pour <span className="textHighlight">contrôler</span>, <span  className="textHighlight">suivre</span> et <span  className="textHighlight">signer</span> votre vente en toute sérénité.</SubTitle>
                     <BlocButton>
                         <Link to="/test">
