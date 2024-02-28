@@ -40,7 +40,7 @@ const LinkEspaceClient = styled.a`
 font-weight: 500;
     background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
 `;
-const LinkNotaire = styled(Link)`
+const LinkNotaire = styled.a`
 transition:all ease .5s;
 text-decoration:none;
 padding: 0.5rem;
@@ -102,7 +102,7 @@ function Navigation(args, props) {
         </Col>
         
         <Col md="9" className="d-flex  justify-content-end">
-        <LinkNotaire to="/notaire" >Notaire ? Par ici</LinkNotaire>
+        <LinkNotaire href="https://notaire.clotere.fr" target="blank">Notaire ? Par ici</LinkNotaire>
     <div className="d-flex p-2">
       {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                 <DropdownToggle caret>{member.auth.email}</DropdownToggle>
@@ -151,7 +151,7 @@ function Navigation(args, props) {
         <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
             <List className="nav d-flex flex-column justify-content-center mb-md-0">
-              <li><Link to="/notaire" className="nav-link px-2">Vous êtes notaire ? Par ici</Link></li>
+              <li><a href="https://notaire.clotere.fr" target="blank"  className="nav-link px-2">Vous êtes notaire ? Par ici</a></li>
             </List>
             {member && (
             <>
