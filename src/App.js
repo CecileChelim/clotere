@@ -14,6 +14,7 @@ import Questionnaire from './app/Questionnaire';
 import Mentionslegales from './Mentionslegales';
 import Cgv from './Cgv';
 import DemoNotaire from './DemoNotaire';
+import CalculFraisNotaire from './blog/CalculFraisNotaire';
 
 export const userInfoContext = createContext();
 
@@ -71,6 +72,9 @@ const App = () => {
             <Route path="mentions-legales" exact user={userInfo} element={<Mentionslegales />}  />
             <Route path="cgv" exact user={userInfo} element={<Cgv />}  />
             <Route path="demo-notaire" exact user={userInfo} element={<DemoNotaire />}  />
+            {/** Articles de contenu **/}
+            <Route path="/achat-immobilier/calcul-frais-de-notaire" exact user={userInfo} element={<CalculFraisNotaire />}  />
+            
             
           </Routes>
         </userInfoContext.Provider>

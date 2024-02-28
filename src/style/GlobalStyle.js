@@ -86,6 +86,26 @@ h3{font-size:40px;}
     }
    }
 
+   /** Form **/
+   input{
+    &.form-control{
+      border: 0;
+      background-color: #004f4717;
+      border-bottom: 2px solid green;
+      border-radius: 0;
+      padding: 0.5rem;
+    }
+   }
+   select{
+    &.form-select{
+      border: 0;
+      background-color: #004f4717;
+      border-bottom: 2px solid green;
+      border-radius: 0;
+      padding: 0.5rem;
+    }
+   }
+
    /** MEMBERSTACK ELEMENT **/
    .ms-modal{
     .ms-form__button[type="submit"]{color:white;}

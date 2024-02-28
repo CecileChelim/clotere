@@ -6,7 +6,7 @@ import {
   List, Col, Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem, Navbar,Collapse,NavbarToggler,Nav
+  DropdownItem, Navbar, Collapse, NavbarToggler, Nav
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
@@ -93,37 +93,40 @@ function Navigation(args, props) {
 
   return (
     <>
-    
-     {window.innerWidth >= 768 ?<NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between">
-    <Col md="3" className="mb-2 mb-md-0 text-start">
+
+      {window.innerWidth >= 768 ? <NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between">
+        <Col md="3" className="mb-2 mb-md-0 text-start">
           <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
             <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
         </Col>
-        
-        <Col md="9" className="d-flex  justify-content-end">
-        <LinkNotaire href="https://notaire.clotere.fr" target="blank">Notaire ? Par ici</LinkNotaire>
-    <div className="d-flex p-2">
-      {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle caret>{member.auth.email}</DropdownToggle>
-                <DropdownMenu {...args}>
-                  <DropdownItem>
-                    <Link to="/app/dashboard">Dashboard</Link>
-                  </DropdownItem>
-                  <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem><a className="nav-link"
-                    href="#"
-                    onClick={() =>
-                      memberstack.logout()
-                        .then(({ data, type }) => {
-                          window.location.replace('/');
-                        })}
-                  >
-                    Deconnexion
-                  </a></DropdownItem>
-                </DropdownMenu>
-              </Dropdown>:  <>
+        <Col md="4" align="center">
+        <Link to="/achat-immobilier/calcul-frais-de-notaire">Calculer vos frais de notaire</Link>
+        </Col>
+
+        <Col md="5" className="d-flex  justify-content-end">
+          <LinkNotaire href="https://notaire.clotere.fr" target="blank">Notaire ? Par ici</LinkNotaire>
+          <div className="d-flex p-2">
+            {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+              <DropdownToggle caret>{member.auth.email}</DropdownToggle>
+              <DropdownMenu {...args}>
+                <DropdownItem>
+                  <Link to="/app/dashboard">Dashboard</Link>
+                </DropdownItem>
+                <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem><a className="nav-link"
+                  href="#"
+                  onClick={() =>
+                    memberstack.logout()
+                      .then(({ data, type }) => {
+                        window.location.replace('/');
+                      })}
+                >
+                  Deconnexion
+                </a></DropdownItem>
+              </DropdownMenu>
+            </Dropdown> : <>
               <LinkEspaceClient
                 className="nav-link px-2"
                 onClick={() =>
@@ -140,69 +143,69 @@ function Navigation(args, props) {
                   })
                 }><b>Espace client</b></LinkEspaceClient>
             </>}
-      
-    </div>
-    </Col>
-    </NavS> : <NavMobileS className="d-flex fixed flex-wrap align-items-center  justify-content-between">
-          <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
-            <img src={ClotereLogo} width="150px" alt="Clotere" />
-          </Link>
+
+          </div>
+        </Col>
+      </NavS> : <NavMobileS className="d-flex fixed flex-wrap align-items-center  justify-content-between">
+        <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
+          <img src={ClotereLogo} width="150px" alt="Clotere" />
+        </Link>
         <NavbarToggler onClick={toggle2} />
         <Collapse isOpen={isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+          <Nav className="ml-auto" navbar>
             <List className="nav d-flex flex-column justify-content-center mb-md-0">
-              <li><a href="https://notaire.clotere.fr" target="blank"  className="nav-link px-2">Vous êtes notaire ? Par ici</a></li>
+              <li><a href="https://notaire.clotere.fr" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</a></li>
             </List>
             {member && (
-            <>
-              <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                <DropdownToggle caret>{member.auth.email}</DropdownToggle>
-                <DropdownMenu {...args}>
-                  <DropdownItem>
-                    <Link to="/app/dashboard">Dashboard</Link>
-                  </DropdownItem>
-                  <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem><a className="nav-link"
-                    href="#"
-                    onClick={() =>
-                      memberstack.logout()
-                        .then(({ data, type }) => {
-                          window.location.replace('/');
-                        })}
-                  >
-                    Deconnexion
-                  </a></DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </>
-          )}
-          {!member && (
-            <>
-              <LinkEspaceClient
-                className="nav-link px-2"
-                onClick={() =>
-                  openModal({
-                    type: "LOGIN"
-                  }).then(({ data, type }) => {
-                    console.log('data', data);
-                    console.log('type: ', type);
-                    if (type === "LOGIN") {
-                      console.log("login");
-                      setMember(member);
-                      navigate("/app");
-                    } else if (type === "REGISTER") {
-                      console.log("REGISTER");
-                      navigate("/onboard");
-                    }
-                    memberstack.hideModal();
-                  })
-                }>Espace client</LinkEspaceClient>
-            </>
-          )}
-            </Nav>
+              <>
+                <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <DropdownToggle caret>{member.auth.email}</DropdownToggle>
+                  <DropdownMenu {...args}>
+                    <DropdownItem>
+                      <Link to="/app/dashboard">Dashboard</Link>
+                    </DropdownItem>
+                    <DropdownItem text><Link to="/app/profil">Profil</Link></DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem><a className="nav-link"
+                      href="#"
+                      onClick={() =>
+                        memberstack.logout()
+                          .then(({ data, type }) => {
+                            window.location.replace('/');
+                          })}
+                    >
+                      Deconnexion
+                    </a></DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </>
+            )}
+            {!member && (
+              <>
+                <LinkEspaceClient
+                  className="nav-link px-2"
+                  onClick={() =>
+                    openModal({
+                      type: "LOGIN"
+                    }).then(({ data, type }) => {
+                      console.log('data', data);
+                      console.log('type: ', type);
+                      if (type === "LOGIN") {
+                        console.log("login");
+                        setMember(member);
+                        navigate("/app");
+                      } else if (type === "REGISTER") {
+                        console.log("REGISTER");
+                        navigate("/onboard");
+                      }
+                      memberstack.hideModal();
+                    })
+                  }>Espace client</LinkEspaceClient>
+              </>
+            )}
+          </Nav>
         </Collapse>
-    </NavMobileS>}
+      </NavMobileS>}
     </>
   );
 }
