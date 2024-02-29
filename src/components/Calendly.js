@@ -7,9 +7,14 @@ import { InlineWidget } from "react-calendly";
 
 
 
+const SectionS = styled.section`
+background-color:#fff;
+margin-top:3rem;
+padding-top:80px;
+`;
 
 const ContainerS = styled(Container)`
-margin-top:3rem;
+
 p.text-lead{
     font-size: 22px;
     font-weight: 600;
@@ -31,32 +36,26 @@ h4{
   }
 `;
 
-
-
-
 function Calendly(args) {
-
-
     return (
-        <ContainerS className="grey-bg">
-            
-            <Row className="d-flex align-items-center">
-                <Col md='7'>
-                <p className="text-lead">Voyons-nous !</p>
-                        <h3>Une<span className="textHighlight"> démo</span> ca vous dit ?</h3>
-                        <p>
-                        Résevez un créneau et rencontrons-nous ! <br/>Nous vous faisons découvrir Clotere en live et répondons à toutes vos questions.
-                        <br/><br/>Vous préférez nous contacter par email ? 
+        <SectionS>
+        <ContainerS>
+            <Row>
+                <Col md='12' align="center">
+                <h1>Un démo ça vous dit ?</h1>
+                <h4>
+                Nous vous faisons <span className="textHighlight">découvrir</span> Clotere en live<br/> et répondons à toutes vos questions.
+                </h4>
+                </Col>
+                <Col md='12'  align="center">
+                    <InlineWidget url="https://calendly.com/clotere/clotere-presentation-de-30-min" />
+                    <br/><br/><p>Vous préférez nous contacter par email ? 
                         <br/>C'est par ici : <a href="mailto:contact@clotere.fr">contact@clotere.fr</a>
                         </p>
                 </Col>
-                <Col md='5'>
-                    <InlineWidget url="https://calendly.com/clotere/clotere-presentation-de-30-min" />
-                    
-                </Col>
             </Row>
-        
         </ContainerS>
+        </SectionS>
     );
 }
 

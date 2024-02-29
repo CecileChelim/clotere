@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Background from "./img/back-clotere.png"
+import Background from "./img/background-notaire.png"
 import Navbar from './components/Navbar';
 import Fade from 'react-reveal/Fade';
 /** composants **/
 import HeaderNotaire from './components/HeaderNotaire';
+import LeadClient from './components/LeadClient';
 import FeatureLead from './components/FeatureLead';
 import Calendly from './components/Calendly';
 import Footer from './components/Footer';
@@ -21,6 +22,7 @@ function HomeNotaire(args) {
         <HomeS>
             <Navbar user={args.user} />
             <HeaderNotaire/>
+            <LeadClient/>
             <FeatureLead/>
             <Fade bottom><Calendly/></Fade>
             <Footer/>

@@ -100,12 +100,14 @@ function Navigation(args, props) {
             <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
         </Col>
+        {/**
         <Col md="4" align="center">
         <Link to="/achat-immobilier/calcul-frais-de-notaire">Calculer vos frais de notaire</Link>
         </Col>
+      **/}
 
         <Col md="5" className="d-flex  justify-content-end">
-          <LinkNotaire href="https://notaire.clotere.fr" target="blank">Notaire ? Par ici</LinkNotaire>
+        <LinkNotaire href="https://clotere-notaire.netlify.app/" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</LinkNotaire>
           <div className="d-flex p-2">
             {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggle caret>{member.auth.email}</DropdownToggle>
@@ -154,7 +156,7 @@ function Navigation(args, props) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <List className="nav d-flex flex-column justify-content-center mb-md-0">
-              <li><a href="https://notaire.clotere.fr" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</a></li>
+              <li><LinkNotaire href="https://clotere-notaire.netlify.app/" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</LinkNotaire></li>
             </List>
             {member && (
               <>

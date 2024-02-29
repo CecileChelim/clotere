@@ -134,11 +134,19 @@ function CalculFraisNotaire(args) {
                     <Col md="4" xs="12">
                         <CardArticle>
                             <CardBody>
-                                <CardTitle>Quel est le rôle du notaire dans un achat immobilier ?</CardTitle>
+                                <CardTitle>Mais au fait les frais de notaire qu'est-ce que c'est ? </CardTitle>
                                 <CardText>
-                                Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. 
+                                    Les frais de notaire viennent s'ajouter à votre prix d'acquisition. Pour y voir plus claire on vous détaille les différents postes de ces frais : 
+                                    <ul>
+                                        <li>
+                                        Les impôts et les taxes
+                                        </li>
+                                       <li> Les frais de débours</li>
+                                        <li>Les émoluments du notaire   
+                                        </li>
+                                    </ul>
                                 </CardText>
-                                <LinkCard to="/">En savoir plus</LinkCard>
+                                <Link to="/achat-immobilier/de-quoi-se-compose-les-frais-de-notaire">Lire l'article</Link>
                             </CardBody>
                         </CardArticle>
                     </Col>

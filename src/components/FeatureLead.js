@@ -1,49 +1,112 @@
 import React from "react";
 import {
-    Container, Row, Col
+    Container, Row, Col,Card
 } from "reactstrap";
-import Fade from 'react-reveal/Fade';
 import styled from "styled-components";
+import Illu2 from "../img/illu-2-notaire.svg";
+import Illu1 from "../img/illu-1-notaire.svg";
+import Illu3 from "../img/illu-3-notaire.svg";
 
-const ContainerFeatureNotaire = styled(Container)`
-margin-top:8rem;margin-bottom:8rem;
-.lg{
-    border-radius: 16px;
-    border: 1px solid #fff;
-    background: linear-gradient(130deg,hsla(0,0%,100%,.3),#fff);
-    box-shadow: 0 20px 28px 0 rgba(0,0,0,.15), inset 0 1px 0 0 #fff;
-}
-p.text-lead{
-    font-size: 22px;
-    font-weight: 600;
-    color:${props => props.theme.colors.greenDark};
-}
-p{
+
+const EnMoyenneS = styled.section`
+ margin-top:90px;
+`;
+
+const CardFlex = styled.div`
+display:flex;
+flex-direction:column:
+justify-content:space-between;
+align-items:center;
+@media all and (max-width: 768px) {display:block;}
+`;
+
+const CardS = styled(Card)`
+ text-align:center;
+ border:0;
+ background: transparent;
+ padding:40px 30px;
+ margin:1.5rem;
+ background-size:200px;
+    background-repeat:no-repeat;
+    background-position:center;
+ h4{
+font-size:124px;
+font-family: "BodoniMedium", serif;
+    span{
+        display:block;
+        font-weight:normal;
+        font-size:48px;
+    }  
+ }
+ p{font-size:20px;margin-top:26px;font-weight:600;}
+ p.desc{
     font-size:16px;
-    line-height: 2;
-}
-h4{
-    font-size:32px;
-    line-height: 1.3;
-    margin-bottom:2rem!important;
-}
-.content{padding:2rem;}
-}
-@media all and (max-width: 768px) {
-    margin-top:4rem;margin-bottom:4srem;
-    .lg{flex-wrap: wrap;justify-content: center;width:100%!important;margin-bottom:2rem!important;}
-    .revert{flex-wrap: wrap-reverse;}
-    .content{padding: 1rem!important;}
+    text-align:left;
+    margin-top:2rem;
+    font-weight:400;
+ }
+ &.first{
+    background-image:url(${Illu1}); 
+ }
+ &.second{background-image:url(${Illu2}); }
+ &.third{background-image:url(${Illu3}); }
+ @media all and (max-width: 768px) {
+    padding:20px;
+    h3{font-size:74px;}
+    span{font-size:20px;}
+    p{font-size:18px;margin-top:0px;}
+  }
+`;
+const Divider = styled.div`
+ height:180px;
+ width:1px;
+ background-color:rgb(11,85,92,30%);
+ @media all and (max-width: 768px) {
+    display:none;
   }
 `;
 
-
-
-
 function FeatureLead(args) {
 
-
     return (
+        <>
+        <EnMoyenneS>
+            <Container>
+                <Row>
+                    <Col md="12" align="center" className="mb-4">
+                        <h1>Pourquoi Clotere ?</h1>
+                    </Col>
+                    <Col md="12">
+                        <CardFlex className="">
+                            <CardS className="first">
+                                <h4>100% <span>sécurisé</span></h4>
+                                <p>Tous les documents dans un espace sécurisé</p>
+                                <p className="desc">
+                                On vous génère automatiquement la liste des documents nécessaires pour la signature et on demande ces documents aux différents interlocuteurs
+                                </p>
+                            </CardS>
+                            <Divider />
+                            <CardS className="second">
+                                <h4>1 <span>outil</span></h4>
+                                <p>Simplifiez vos échanges avec les clients</p>
+                                <p className="desc">
+                                Profitez de nos mails type de demande de documents, rappels automatiques.
+Evitez les mails, les pièces jointes perdues et les Re:Re:Re:Re 
+                                </p>
+                            </CardS>
+                            <Divider />
+                            <CardS className="third">
+                                <h4>3 <span>clics</span></h4>
+                                <p>Fixez des rendez-vous facilement</p>
+                                <p className="desc">On vous génère automatiquement la liste des documents nécessaires pour la signature et on demande ces documents aux différents interlocuteurs</p>
+                            </CardS>
+                        </CardFlex>
+                    </Col>
+                </Row>
+
+            </Container>
+        </EnMoyenneS>
+        {/**
         <ContainerFeatureNotaire className="grey-bg">
             <div className="text-center mt-5">
                 <br/><br/><h3>Pourquoi choisir Clotere ?</h3>
@@ -87,7 +150,9 @@ function FeatureLead(args) {
             </Fade>
 
 
-        </ContainerFeatureNotaire >
+        </ContainerFeatureNotaire>
+         **/}
+        </>
     );
 }
 

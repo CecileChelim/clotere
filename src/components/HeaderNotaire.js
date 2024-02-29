@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
@@ -19,9 +19,12 @@ position:relative;
 `;
 
 const Title = styled.h1`
-font-size: 66px;
+font-family: "BodoniMedium", serif!important;
+font-weight:600;
+font-size: 72px;
 margin-bottom:30px;
 line-height;46px;
+color:#1D2B28;
 @media all and (max-width: 768px) {
     //pour les écrans de max 768px
       font-size:50px!important;
