@@ -71,8 +71,8 @@ function EnMoyenne() {
                     <Col md="12">
                         <CardFlex className="">
                             <CardS className="first">
-                                <h4>120 <span>heures</span></h4>
-                                <p>C'est le temps que vous économisez en passant par Clotere</p>
+                                <h4>50 <span>heures</span></h4>
+                                <p>Le temps que vous économisez en passant par Clotere</p>
                             </CardS>
                             <Divider />
                             <CardS className="second">

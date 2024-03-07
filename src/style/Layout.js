@@ -37,6 +37,18 @@ export const Panel = styled(Card)`
   border:0;
 `;
 
+export const Subtitle = styled.p`
+font-family: "Manrope", sans-serif;
+line-height: 44px;
+font-size: 28px;
+width: 90%;
+color: #1D2B28;
+font-weight: 300;
+margin-bottom: 60px;
+`;
+
+
+
 
 
 

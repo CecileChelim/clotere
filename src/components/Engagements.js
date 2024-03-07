@@ -4,6 +4,8 @@ import styled from "styled-components";
 import IcnAccompagnement from "../img/icn-accompagnement.svg";
 import IcnPro from "../img/icn-pro.svg";
 import IcnTransparence from "../img/icn-transparence.svg";
+import { Subtitle } from "../style/Layout";
+import Fade from 'react-reveal/Fade';
 
 const EngagementS = styled.section`
  margin-top:90px;
@@ -82,24 +84,27 @@ function Engagement() {
             <Row>
                 <Col md="12" align="center" className="mb-4">
                 <h2>Clotere s’engage</h2>
+                <Subtitle>A vous proposer une solution digitale <span className="textHighlight">simple</span>, <span className="textHighlight">rapide</span> et <span className="textHighlight">conforme</span> aux normes</Subtitle>
                 </Col>
+                <Fade left>
                 <ColEngagement md="12">
                     <CardS>
                         <Round className="round"><img src={IcnAccompagnement} alt="clotere"/></Round>
-                        <h4>A vous accompagner tout au long du projet</h4>
+                        <h4>Réactif</h4>
                         <p>Votre conseiller dédié vous accompagne à distance, avec pédagogie, de la naissance de votre projet jusqu’à la signature chez le notaire et même après !</p>
                     </CardS>
                     <CardS>
                     <Round className="round"><img src={IcnPro} alt="clotere"/></Round>
-                        <h4>Avec un notaire qualifié pour votre vente</h4>
-                        <p>L’ensemble des notaires et clercs de notaire qui vous accompagnent sur la plateforme sont des professionnels diplômés d’état.</p>
+                        <h4>100% conforme</h4>
+                        <p>Nous respectons les normes de signature et de légalité de la chambre des notaires de France.</p>
                     </CardS>
                     <CardS>
                     <Round className="round"><img src={IcnTransparence} alt="clotere"/></Round>
-                        <h4>Et le tout en totale transparence</h4>
+                        <h4>En totale transparence</h4>
                         <p>On vous dit tout par sms, téléphone ou visio. Vous pouvez suivre en live l’avancé de votre dossier.</p>
                     </CardS>
                 </ColEngagement>
+                </Fade>
             </Row>
             
         </Container>

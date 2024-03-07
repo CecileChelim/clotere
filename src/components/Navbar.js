@@ -17,6 +17,7 @@ const NavS = styled(Navbar)`
   padding:2rem 3rem 4rem 3rem;
     margin-right: auto;
     margin-left: auto;
+    transition : all ease .5s;
   .brand{
     font-size:22px;
     font-weight:500;
@@ -33,6 +34,17 @@ const NavS = styled(Navbar)`
   .dropdown {
     button{background-color: transparent;border: 0;color: black;}
   }
+}
+.sticky-nav {
+  transition : all ease .5s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  background: #fff;
+  box-shadow: 0 13px 35px -12px rgba(35,35,35,.1);
+  padding:1rem 3rem 1rem 3rem;
+  z-index: 9999;
 }
 `;
 
@@ -78,6 +90,7 @@ function Navigation(args, props) {
   const [member, setMember] = useState(null);
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [stickyClass, setStickyClass] = useState('');
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -90,11 +103,25 @@ function Navigation(args, props) {
         .then(({ data: member }) => setMember(member))
     }
   }, []);
+  useEffect(() => {
+    window.addEventListener('scroll', stickNavbar);
+    return () => window.removeEventListener('scroll', stickNavbar);
+  }, []);
+
+  const stickNavbar = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      // window height changed for the demo
+      windowHeight > 150 ? setStickyClass('sticky-nav') : setStickyClass('');
+    }
+  };
+
 
   return (
     <>
 
-      {window.innerWidth >= 768 ? <NavS className="d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-between">
+      {window.innerWidth >= 768 ? 
+      <NavS className={`d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-betweennavbar ${stickyClass}`}>
         <Col md="3" className="mb-2 mb-md-0 text-start">
           <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
             <img src={ClotereLogo} width="150px" alt="Clotere" />

@@ -17,7 +17,7 @@ margin-bottom:3rem;
 `;
 
 const Title = styled.h1`
-font-size: 66px;
+font-size: 78px;
 margin-bottom:30px;
 line-height;46px;
 &.mobile{display:none;}
@@ -72,18 +72,20 @@ img{
 function Header() {
     return (
         <ContainerS className="grey-bg">
-            <Row className="d-flex align-items-center">
-                    <IlluS md="3">
+            <Row className="d-flex align-items-center" align="center">
+                    <IlluS md="5">
                         <img src={Illu} alt=""/>
                     </IlluS>
-                <Col md="9" xs="12" align="center">
-                    <Title>Sécurisez & gagnez du temps<br/> sur votre vente immobilière</Title>
+                <Col md="7" xs="12" align="left">
+                    <Title>L'acte notarié simplifié</Title>
                     <Title className="mobile">Sécurisez & accélerez votre vente immobilière</Title>
                     <SubTitle>Clotere votre notaire en ligne pour <span className="textHighlight">contrôler</span>, <span  className="textHighlight">suivre</span> et <span  className="textHighlight">signer</span> votre vente en toute sérénité.</SubTitle>
                     <BlocButton>
+                        {/**
                         <Link to="/test">
                             <ButtonPrimary color="white">Parler à un expert</ButtonPrimary>
                         </Link>
+                         */}
                         <Link to="/onboard">
                             <ButtonPrimary color="primary">Débuter ma transaction <img src={ArrowRight} alt=""/></ButtonPrimary>
                         </Link>
