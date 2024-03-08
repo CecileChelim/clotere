@@ -4,14 +4,16 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody
+    Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody,Alert
 } from "reactstrap";
+import { Link } from 'react-router-dom';
 import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
 import moment from "moment";
 import { DropdownPrimary, ButtonPrimarySmall, LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import styled from "styled-components";
 import icnRdv from "../img/icn-rdv.svg";
+import backWelcome from "../img/back-alert-welcome.png";
 
 
 const ListGroupActionAmener = styled(ListGroup)`
@@ -84,6 +86,38 @@ margin-bottom:2rem;
     font-weight:500;
  }
 `;
+const AlertPret = styled(Alert)`
+margin-left: 4rem !important;
+background-color: transparent;
+border: 2px solid #e0eeee;
+margin: 0;
+p{
+    margin-bottom: 0;
+    font-size: 14px;
+}
+h5{
+    color: #006855;
+}
+`;
+
+const AlertWelcome = styled(Alert)`
+background-image:url(${backWelcome});
+background-size:cover;
+background-repeat:no-repeat;
+color: white;
+border: 0;
+border-radius:16px;
+margin-bottom: 3rem;
+padding: 2rem;
+p{
+    margin-bottom: 0;
+    font-size: 18px;
+}
+a{color:white!important;}
+`;
+
+
+
 
 function Dashboard(args) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -163,6 +197,19 @@ function Dashboard(args) {
                             </Col>
                         </TitlePageApp>
                         <Col md="12" className="mt-3">
+                        {args.user.statut === "new user" ?
+                        <>
+                        <AlertWelcome>
+                            <p>Votre dossier va être pris en charge par un notaire Clotere. <br/>
+                            Vous pourrez programmer vos rendez-vous, suivre l'avancée et déposer vos documents en lieu sûre !
+                                <br/><br/>
+                                Sans plus attendre complétez votre dossier en <Link to="/app/documents"> ajoutant vos documents</Link>
+                            </p>
+                        </AlertWelcome>
+                        </>
+                        : <></>
+
+                        }
                             {args.rdv !== undefined && args.rdv.length > 0 ?
                                 <div>
                                     <TitleSection>Vos prochains rendez-vous</TitleSection>
@@ -261,6 +308,19 @@ function Dashboard(args) {
                                                 <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document !== undefined && args.evenement[1].fields.document_from_document[0].url} />
                                             ) : (<>{" "}</>)}
                                         </ListGroupItem>
+                                        {/* Affichage de l'alerte du délai */}
+                                        {args.transaction.type_financement === "avec pret immobilier" ? (
+                                                <>
+                                                <AlertPret> 
+                                                    <h5><span role="image">👋</span>Information importante</h5>
+                                                    <p> Cette transaction immobilière est financée par un prêt.<br/> 
+                                                L’acquéreur dispose d’un délai généralement compris entre 45 et 90 jours pour effectuer sa demande de prêt.<br/>
+                                                Concrètement, la date de signature de l'acte de vente authentique ne pourras pas avoir lieu avant cette date, fixée dans le compromis de vente.
+                                                </p>
+                                                </AlertPret>
+                                                </>
+
+                                            ) : (<>{" "}</>)}
                                         <ListGroupItem>
                                             {/* Composant acte de vente */}
                                             {args.evenement[2].fields.etat === "pas fait" ? (

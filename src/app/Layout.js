@@ -384,7 +384,7 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard transactionName={transaction.nom} user={user} evenement={evenement} activite={activite} rdv={rdv} />
+                                        <Dashboard transaction={transaction} user={user} evenement={evenement} activite={activite} rdv={rdv} />
                                     </Col>
                                 </Row>
                             </TabPane>
