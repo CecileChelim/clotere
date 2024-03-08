@@ -2,11 +2,13 @@ import React, { useState }  from "react";
 import { Offcanvas } from "reactstrap";
 import { LinkCard, ButtonPrimarySmall,ButtonPrimary } from "../style/Button";
 import styled from "styled-components";
+import AideOffre from "./AideOffre";
 import AideCompromis from "./AideCompromis";
 import AideActe from "./AideActe";
 
 function TimelineCard(args) {
     const [canvas, setCanvas] = useState(false);
+    const toggleOffre = () => setCanvas(!canvas);
     const toggleCompromis = () => setCanvas(!canvas);
     const toggleActe = () => setCanvas(!canvas);
 
@@ -59,15 +61,22 @@ function TimelineCard(args) {
             </>
           ) : (<>{" "}</>)}
 
+
+        {args.action === "ensavoirplusOffre" ? (
+            <>
+              <LinkCard href="#" className="mr-3" onClick={toggleOffre}> Qu’est-ce que l'offre d'achat ?</LinkCard>
+            </>
+          ) : (<>{" "}</>)}
+
           {args.action === "ensavoirplusCompromis" ? (
             <>
-              <LinkCard href="#" className="mr-3" onClick={toggleCompromis}> Qu’est-ce que le compromis ?</LinkCard>
+              <LinkCard href="#" className="mr-3" onClick={toggleCompromis}> Qu’est-ce que le compromis de vente ?</LinkCard>
             </>
           ) : (<>{" "}</>)}
 
           {args.action === "ensavoirplusActe" ? (
             <>
-              <LinkCard href="#" className="mr-3" onClick={toggleActe}> Qu’est-ce que l'acte de vente ?</LinkCard>
+              <LinkCard href="#" className="mr-3" onClick={toggleActe}> Qu’est-ce que l'acte de vente authentique ?</LinkCard>
             </>
           ) : (<>{" "}</>)}
 
@@ -75,6 +84,7 @@ function TimelineCard(args) {
 
         </Actions>
     </ListGroupS>
+    <Offcanvas isOpen={canvas} toggle={toggleOffre} {...args} direction="end" scrollable><AideOffre /> </Offcanvas>
       <Offcanvas isOpen={canvas} toggle={toggleCompromis} {...args} direction="end" scrollable><AideCompromis /> </Offcanvas>
       <Offcanvas isOpen={canvas} toggle={toggleActe} {...args} direction="end" scrollable><AideActe /> </Offcanvas>
     </>

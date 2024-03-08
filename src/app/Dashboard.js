@@ -14,7 +14,6 @@ import styled from "styled-components";
 import icnRdv from "../img/icn-rdv.svg";
 
 
-
 const ListGroupActionAmener = styled(ListGroup)`
   border-radius:0;
   border:0;
@@ -150,7 +149,7 @@ function Dashboard(args) {
                     <Row className="d-flex align-self-start">
                         <TitlePageApp>
                             <Col md="7">
-                                <TitlePage>Bonjour Catherine</TitlePage>
+                                <TitlePage>Bonjour {args.user.prenom},</TitlePage>
                                 <p>Voici l'avancement de votre transaction : <b>{args.transactionName}</b> </p>
                             </Col>
                             <Col md="5" className="text-end">
@@ -201,6 +200,13 @@ function Dashboard(args) {
                                                                 <ButtonPrimarySmall className="mt-2" href={args.rdv[i].fields.lien_reunion} color="primary">Rejoindre la réunion</ButtonPrimarySmall>
                                                             </>
                                                         ) : (<>{" "}</>)}
+
+                                                            {args.rdv[i].fields.nom === "Rendez-vous avec votre conseillé" & args.rdv[i].fields.statut === "a programmer" ? (
+                                                            <>
+                                                            <LinkS href={args.rdv[i].fields.lien_reservation} target="blank">Réservez une réunion avec votre conseillé</LinkS>
+                                                            </>
+                                                        ) : (<>{" "}</>)}
+
                                                     </div>
                                                 </div>
                                             </CardRdv>
@@ -213,14 +219,16 @@ function Dashboard(args) {
                             }
 
 
-
-
                             {args.evenement !== undefined && args.evenement.length > 0 ? <>
-                                <TitleSection className="mt-5">Vos actions à mener</TitleSection>
+                                <TitleSection className="mt-5">Les étapes de votre transaction</TitleSection>
                                 <Panel>
                                     <ListGroupActionAmener numbered>
                                         <ListGroupItem>
                                             {/* Composant offre d'achat */}
+                                            {args.evenement[0].fields.etat === "pas fait" ? (
+
+                                            <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ensavoirplusOffre"  />
+                                            ) : (<>{" "}</>)}
 
                                             {args.evenement[0].fields.etat === "fait" ? (
 
@@ -268,6 +276,7 @@ function Dashboard(args) {
                                 </Panel></> : <></>}
 
 
+                            {args.activite !== undefined && args.activite.length > 0 ? <>
                             <TitleSection className="mt-5">Où en est votre notaire ?</TitleSection>
                             <Panel>
                                 <ListGroupActionAmener numbered>
@@ -284,6 +293,7 @@ function Dashboard(args) {
 
                                 </ListGroupActionAmener>
                             </Panel>
+                            </> : <></>}
                         </Col>
 
                     </Row>
