@@ -4,11 +4,11 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Offcanvas, Card, ListGroup, ListGroupItem,OffcanvasHeader,OffcanvasBody
+    Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody
 } from "reactstrap";
 import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
 import moment from "moment";
-import { DropdownPrimary, ButtonPrimarySmall,LinkS } from "../style/Button";
+import { DropdownPrimary, ButtonPrimarySmall, LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import styled from "styled-components";
 import icnRdv from "../img/icn-rdv.svg";
@@ -30,11 +30,29 @@ const ListGroupActionAmener = styled(ListGroup)`
         display: inline;
         border: 1px solid #ddd;
         font-weight:500;
-        
         border-radius: 100px;
         padding: 10px 17px;
         margin-right: 30px;
         heigth:30px;
+    }
+    &.done{
+        &:before{
+            content: "✔️";
+            background-color:${props => props.theme.colors.main};
+            color:white;
+            border:0;
+        }
+    }
+    &.encours{
+        &:before{
+            content: "⏳";
+        }
+    }
+    &.avenir{
+        opacity:.5;
+        &:before{
+            content: "👉";
+        }
     }
     h4{color:#1D2B28;}
     color:#84847C;
@@ -75,31 +93,82 @@ function Dashboard(args) {
     const toggle3 = () => setCanvas(!canvas);
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-    return (
-        <>
-            <Container>
-                <Row className="d-flex align-self-start">
-                    <TitlePageApp>
-                        <Col md="7">
-                            <TitlePage>Bonjour Catherine</TitlePage>
-                            <p>Voici l'avancement de votre transaction : <b>{args.transactionName}</b> </p>
+    if (args.info === "newUser") {
+        return (
+            <>
+                <Container>
+                    <Row>
+                        <TitlePageApp>
+                            <Col md="12">
+                                <TitlePage>Bonjour <span role="img">👋</span> </TitlePage>
+                                <p>Votre transaction est en attente de validation. Nous vous enverrons un email lorsquelle sera validée. </p>
+                            </Col>
+                        </TitlePageApp>
+                        <Col md="12">
+                            <TitleSection className="mt-5">Suivi de votre transaction</TitleSection>
+                            <Panel>
+                                <ListGroupActionAmener numbered>
+                                <ListGroupItem className="done">
+                                            <div className="d-flex flex-column">
+                                                <h4>Création de votre transaction immobilière</h4>
+                                                <p>Aujourd'hui</p>
+                                            </div>
+
+                                        </ListGroupItem>
+                                        <ListGroupItem  className="encours">
+                                            <div className="d-flex flex-column">
+                                                <h4>Vérification de votre transaction immobilière</h4>
+                                                <p>En cours</p>
+                                            </div>
+                                        </ListGroupItem>
+                                        <ListGroupItem  className="avenir">
+                                            <div className="d-flex flex-column">
+                                                <h4>Ouvertures des accès aux utilisateurs (acheteur(s), vendeur(s), agent, notaire)</h4>
+                                                <p>A venir</p>
+                                            </div>
+                                        </ListGroupItem>
+                                        <ListGroupItem  className="avenir">
+                                            <div className="d-flex flex-column">
+                                                <h4>Attribution de votre notaire</h4>
+                                                <p>A venir</p>
+                                            </div>
+                                        </ListGroupItem>
+
+
+                                </ListGroupActionAmener>
+                            </Panel>
                         </Col>
-                        <Col md="5" className="text-end">
-                            <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
-                                <DropdownToggle caret>Actions rapides</DropdownToggle>
-                                <DropdownMenu >
-                                    <DropdownItem onClick={toggle2}>+ Ajouter un document</DropdownItem>
-                                    <DropdownItem>Posez une question</DropdownItem>
-                                </DropdownMenu>
-                            </DropdownPrimary>
-                        </Col>
-                    </TitlePageApp>
-                    <Col md="12" className="mt-3">
+                    </Row>
+                </Container>
+
+            </>
+        )
+    } else {
+        return (
+            <>
+                <Container>
+                    <Row className="d-flex align-self-start">
+                        <TitlePageApp>
+                            <Col md="7">
+                                <TitlePage>Bonjour Catherine</TitlePage>
+                                <p>Voici l'avancement de votre transaction : <b>{args.transactionName}</b> </p>
+                            </Col>
+                            <Col md="5" className="text-end">
+                                <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
+                                    <DropdownToggle caret>Actions rapides</DropdownToggle>
+                                    <DropdownMenu >
+                                        <DropdownItem onClick={toggle2}>+ Ajouter un document</DropdownItem>
+                                        <DropdownItem>Posez une question</DropdownItem>
+                                    </DropdownMenu>
+                                </DropdownPrimary>
+                            </Col>
+                        </TitlePageApp>
+                        <Col md="12" className="mt-3">
                             {args.rdv !== undefined && args.rdv.length > 0 ?
                                 <div>
-                                <TitleSection>Vos prochains rendez-vous</TitleSection>
-                        <div className="d-flex flex-row justify-start align-items-stretch flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
-                                    {args.rdv.map((col, i) => (
+                                    <TitleSection>Vos prochains rendez-vous</TitleSection>
+                                    <div className="d-flex flex-row justify-start align-items-stretch flex-lg-nowrap flex-md-nowrap flex-sm-wrap flex-wrap">
+                                        {args.rdv.map((col, i) => (
                                             <CardRdv key={i}>
                                                 <div className="d-flex flex-row align-items-center">
                                                     <img src={icnRdv} alt="votre rendez-vous" />
@@ -111,98 +180,98 @@ function Dashboard(args) {
                                                     ) : (<>{" "}</>)}
                                                     {args.rdv[i].fields.statut === "programme" ? (
                                                         <p><small>Date</small>
-                                                        {args.rdv[i].fields.date}
+                                                            {args.rdv[i].fields.date}
                                                         </p>
                                                     ) : (<>{" "}</>)}
                                                     {args.rdv[i].fields.statut === "passe" ? (
                                                         <p><small>Déjà réalisé</small>
-                                                        {args.rdv[i].fields.date}
+                                                            {args.rdv[i].fields.date}
                                                         </p>
                                                     ) : (<>{" "}</>)}
                                                 </div>
                                                 <div>
                                                     <h5>{args.rdv[i].fields.nom}</h5>
                                                     <div className="link">
-                                                    {args.rdv[i].fields.statut === "en cours de prog" ? (
-                                                        <LinkS href={args.rdv[i].fields.lien_reservation} target="blank">Indiquez vos disponibilités</LinkS>
-                                                    ) : (<>{" "}</>)}
-                                                    {args.rdv[i].fields.statut === "programme" ? (
-                                                        <>
-                                                        <LinkS onClick={toggle3}>Vous n'êtes plus disponible ?</LinkS>
-                                                        <ButtonPrimarySmall className="mt-2" href={args.rdv[i].fields.lien_reunion} color="primary">Rejoindre la réunion</ButtonPrimarySmall>
-                                                        </>
-                                                    ) : (<>{" "}</>)}
+                                                        {args.rdv[i].fields.statut === "en cours de prog" ? (
+                                                            <LinkS href={args.rdv[i].fields.lien_reservation} target="blank">Indiquez vos disponibilités</LinkS>
+                                                        ) : (<>{" "}</>)}
+                                                        {args.rdv[i].fields.statut === "programme" ? (
+                                                            <>
+                                                                <LinkS onClick={toggle3}>Vous n'êtes plus disponible ?</LinkS>
+                                                                <ButtonPrimarySmall className="mt-2" href={args.rdv[i].fields.lien_reunion} color="primary">Rejoindre la réunion</ButtonPrimarySmall>
+                                                            </>
+                                                        ) : (<>{" "}</>)}
                                                     </div>
                                                 </div>
                                             </CardRdv>
-                                    ))}
+                                        ))}
                                     </div>
                                 </div>
-                                
+
                                 : <></>
-                                
+
                             }
-                        
 
 
 
-                        {args.evenement !== undefined && args.evenement.length > 0 ? <>
-                            <TitleSection className="mt-5">Vos actions à mener</TitleSection>
+
+                            {args.evenement !== undefined && args.evenement.length > 0 ? <>
+                                <TitleSection className="mt-5">Vos actions à mener</TitleSection>
+                                <Panel>
+                                    <ListGroupActionAmener numbered>
+                                        <ListGroupItem>
+                                            {/* Composant offre d'achat */}
+
+                                            {args.evenement[0].fields.etat === "fait" ? (
+
+                                                <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger" lienDoc={args.evenement[0].fields.document_from_document !== undefined && args.evenement[0].fields.document_from_document[0].url} />
+                                            ) : (<>{" "}</>)}
+                                            {args.evenement[0].fields.etat === "en cours" ? (
+                                                <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ajouterDoc" />
+                                            ) : (<>{" "}</>)}
+                                        </ListGroupItem>
+                                        <ListGroupItem>
+                                            {/* Composant compromis de vente */}
+                                            {args.evenement[1].fields.etat === "pas fait" ? (
+                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="ensavoirplusCompromis" />
+                                            ) : (<>{" "}</>)}
+
+                                            {/* 2 états pour en cours, un sans action et l'autre avec action "Voir et signer" + lien de signature A DÉTERMINER*/}
+                                            {args.evenement[1].fields.etat === "en cours" ? (
+                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} />
+                                            ) : (<>{" "}</>)}
+
+                                            {args.evenement[1].fields.etat === "a signer" ? (
+                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Voiretsigner" lienSignaure="#" />
+                                            ) : (<>{" "}</>)}
+
+                                            {args.evenement[1].fields.etat === "information(s) manquante(s)" ? (
+                                                <TimelineListItem etatcss="infoManquantes" etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Contacter" />
+                                            ) : (<>{" "}</>)}
+
+                                            {args.evenement[1].fields.etat === "fait" ? (
+                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document !== undefined && args.evenement[1].fields.document_from_document[0].url} />
+                                            ) : (<>{" "}</>)}
+                                        </ListGroupItem>
+                                        <ListGroupItem>
+                                            {/* Composant acte de vente */}
+                                            {args.evenement[2].fields.etat === "pas fait" ? (
+                                                <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="ensavoirplusActe" />
+                                            ) : (<>{" "}</>)}
+
+                                            {/* 2 états pour en cours, un sans action et l'autre avec action "Indiquez vos dispo" + lien doodle*/}
+                                            {args.evenement[2].fields.etat === "en cours" ? (
+                                                <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="rdvActe" lienDoodle={args.evenement[2].fields.lien_doodle} />
+                                            ) : (<>{" "}</>)}
+                                        </ListGroupItem>
+                                    </ListGroupActionAmener>
+                                </Panel></> : <></>}
+
+
+                            <TitleSection className="mt-5">Où en est votre notaire ?</TitleSection>
                             <Panel>
                                 <ListGroupActionAmener numbered>
-                                    <ListGroupItem>
-                                        {/* Composant offre d'achat */}
-
-                                        {args.evenement[0].fields.etat === "fait" ? (
-
-                                            <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger" lienDoc={args.evenement[0].fields.document_from_document !== undefined && args.evenement[0].fields.document_from_document[0].url} />
-                                        ) : (<>{" "}</>)}
-                                        {args.evenement[0].fields.etat === "en cours" ? (
-                                            <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ajouterDoc" />
-                                        ) : (<>{" "}</>)}
-                                    </ListGroupItem>
-                                    <ListGroupItem>
-                                        {/* Composant compromis de vente */}
-                                        {args.evenement[1].fields.etat === "pas fait" ? (
-                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="ensavoirplusCompromis" />
-                                        ) : (<>{" "}</>)}
-
-                                        {/* 2 états pour en cours, un sans action et l'autre avec action "Voir et signer" + lien de signature A DÉTERMINER*/}
-                                        {args.evenement[1].fields.etat === "en cours" ? (
-                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} />
-                                        ) : (<>{" "}</>)}
-
-                                        {args.evenement[1].fields.etat === "a signer" ? (
-                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Voiretsigner" lienSignaure="#" />
-                                        ) : (<>{" "}</>)}
-
-                                        {args.evenement[1].fields.etat === "information(s) manquante(s)" ? (
-                                            <TimelineListItem etatcss="infoManquantes" etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Contacter" />
-                                        ) : (<>{" "}</>)}
-
-                                        {args.evenement[1].fields.etat === "fait" ? (
-                                            <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document !== undefined && args.evenement[1].fields.document_from_document[0].url} />
-                                        ) : (<>{" "}</>)}
-                                    </ListGroupItem>
-                                    <ListGroupItem>
-                                        {/* Composant acte de vente */}
-                                        {args.evenement[2].fields.etat === "pas fait" ? (
-                                            <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="ensavoirplusActe" />
-                                        ) : (<>{" "}</>)}
-
-                                        {/* 2 états pour en cours, un sans action et l'autre avec action "Indiquez vos dispo" + lien doodle*/}
-                                        {args.evenement[2].fields.etat === "en cours" ? (
-                                            <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="rdvActe" lienDoodle={args.evenement[2].fields.lien_doodle} />
-                                        ) : (<>{" "}</>)}
-                                    </ListGroupItem>
-                                </ListGroupActionAmener>
-                            </Panel></> : <></>}
-
-
-                        <TitleSection className="mt-5">Où en est votre notaire ?</TitleSection>
-                        <Panel>
-                            <ListGroupActionAmener numbered>
-                                {args.activite.map((col, i) => (
+                                    {args.activite.map((col, i) => (
                                         <ListGroupItem key={i}>
                                             <div className="d-flex flex-column">
                                                 <h4>{args.activite[i].fields.message}</h4>
@@ -210,37 +279,38 @@ function Dashboard(args) {
                                             </div>
 
                                         </ListGroupItem>
-                                ))}
+                                    ))}
 
 
-                            </ListGroupActionAmener>
-                        </Panel>
-                    </Col>
+                                </ListGroupActionAmener>
+                            </Panel>
+                        </Col>
 
-                </Row>
-            </Container>
-            <Offcanvas
-                isOpen={canvas}
-                toggle={toggle2}
-                {...args}
-                direction="end"
-                scrollable></Offcanvas>
+                    </Row>
+                </Container>
                 <Offcanvas
-                isOpen={canvas}
-                toggle={toggle3}
-                {...args}
-                direction="end"
-                scrollable>
+                    isOpen={canvas}
+                    toggle={toggle2}
+                    {...args}
+                    direction="end"
+                    scrollable></Offcanvas>
+                <Offcanvas
+                    isOpen={canvas}
+                    toggle={toggle3}
+                    {...args}
+                    direction="end"
+                    scrollable>
                     <OffcanvasHeader toggle={toggle3}>
-      Vous n'êtes plus disponible ?
-    </OffcanvasHeader>
-    <OffcanvasBody>
-    <p>Pour indiquer les raisons de votre indisponibilités veuillez contacter votre conseillé directement.</p>
-    </OffcanvasBody>
-                    
+                        Vous n'êtes plus disponible ?
+                    </OffcanvasHeader>
+                    <OffcanvasBody>
+                        <p>Pour indiquer les raisons de votre indisponibilités veuillez contacter votre conseillé directement.</p>
+                    </OffcanvasBody>
+
                 </Offcanvas>
-        </>
-    );
+            </>
+        )
+    }
 }
 
 export default Dashboard;
