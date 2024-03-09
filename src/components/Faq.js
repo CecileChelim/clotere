@@ -73,16 +73,16 @@ function Faq() {
                             </ListGroupItem>
                             <Collapse isOpen={isOpen}>
                                 <p>La plateforme Clotere est totalement gratuite pour l’acheteur, le vendeur et l’agent immobilier.<br />
-                                    Une seule de nos prestations est payante, il s’agit de la rédaction du compromis de vente.</p>
+                                    Une seule de nos prestations est payante : la rédaction du compromis de vente.</p>
                             </Collapse>
                             <ListGroupItem onClick={toggle1} >
-                                Pourquoi Clotere est plus rapide et moins cher qu’un notaire physique ?
+                                Pourquoi Clotere est plus rapide qu’un notaire physique ?
                                 <FontAwesomeIcon icon={faAngleDown} />
                             </ListGroupItem>
                             <Collapse isOpen={isOpen1}>
                                 <p>
-                                    Clotere, vous permet de regrouper tous vos échanges, documents et événements avec toutes les parties prenantes de votre transaction immobilière.
-                                    <br />Ainsi, en vous proposant des rappels automatiques, des fixation de rendez-vous en ligne…etc vous éviter de perdre du temps pour aller à votre rendez-vous de signature d’acte de vente le plus rapidement passible !
+                                    Clotere vous permet de regrouper tous vos échanges, documents et événements avec toutes les parties prenantes de votre transaction immobilière.
+                                    <br />Ainsi, en vous proposant des rappels automatiques, des fixations de rendez-vous en ligne…etc, vous signez plus rapidement l'acte de vente !
                                 </p>
                             </Collapse>
                             <ListGroupItem onClick={toggle2} >
@@ -91,19 +91,19 @@ function Faq() {
                             </ListGroupItem>
                             <Collapse isOpen={isOpen2}>
                                 <p>
-                                    Non ! Clotere est une plateforme de mise en relation entre des acheteurs et vendeurs et des notaires faisant partie de la chambre des notaires de France.
+                                    Non ! Clotere est une plateforme de mise en relation entre des acheteurs, des vendeurs et des notaires faisant partie de la chambre des notaires de France.
                                 </p>
                             </Collapse>
                             <ListGroupItem onClick={toggle3} >
-                                Est-ce que Clotere est un système sécurisé et privé ?
+                                Est-ce que Clotere est un système sécurisé ?
                                 <FontAwesomeIcon icon={faAngleDown} />
                             </ListGroupItem>
                             <Collapse isOpen={isOpen3}>
                                 <p>
                                     La confidentialité et la sécurité de vos données sont toujours protégées lorsque vous utilisez Clotere.
-                                    <br />Nous utilisation la sécurité SSL. Cela garantit une sécurité dans la communication entre votre navigateur et nos serveurs.
+                                    <br />Nous utilisation la sécurité SSL qui garantit une parfaite sécurité dans la communication entre votre navigateur et nos serveurs.
                                     <br />Les serveurs Clotere sont situés dans des centres de données en France conformes aux normes ISO 27001.
-                                    <br />Aucune de vos données personnelles n’est visible ou stockée par l'un de nos partenaires ou entreprises sous-traitantes, ou utilisée à des fins publicitaires.
+                                    <br />Aucune de vos données personnelles n’est visible ni stockée par l'un de nos partenaires ou entreprises sous-traitantes, ou utilisée à des fins publicitaires.
                                     <br />Conformément à la loi RGPR, les utilisateurs peuvent corriger, bloquer ou supprimer leurs données personnelles à tout moment.
                                 </p>
                             </Collapse>

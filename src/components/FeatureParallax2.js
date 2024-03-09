@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import IlluFeature from "../img/illu-test.png";
+import IlluFeature1 from "../img/illu-landing-1.svg";
+import IlluFeature2 from "../img/illu-landing-2.svg";
+import IlluFeature3 from "../img/illu-landing-3.svg";
 
 
 const BodyParallax = styled.div`
@@ -198,7 +201,7 @@ function FeatureParallax() {
                                 <p>Remplissez les informations de votre transaction et ajoutez vos documents en quelques minutes.</p>
                             </div>
                             <figure>
-                                <img src={IlluFeature} alt="feature1" />
+                                <img src={IlluFeature1} alt="ajoutez votre transaction " />
                             </figure>
                         </div>
                     </li>
@@ -206,11 +209,11 @@ function FeatureParallax() {
                         <div className="card__content">
                             <div>
                                 <h4 className="number">02.</h4>
-                                <h4>Un <span>notaire</span> vous prends en charge</h4>
+                                <h4>Un <span>notaire</span> vous prend en charge</h4>
                                 <p>Votre notaire vérifie, et prépare les documents pour signature. Suivez l'avancement en ligne.</p>
                             </div>
                             <figure>
-                                <img src={IlluFeature} alt="feature2" />
+                                <img src={IlluFeature2} alt="Trouvez votre notaire" />
                             </figure>
                         </div>
                     </li>
@@ -222,7 +225,7 @@ function FeatureParallax() {
                                 <p>Signez vos documents de manière sécurisée et 100% conforme à la législation.</p>
                             </div>
                             <figure>
-                                <img src={IlluFeature} alt="feature3" />
+                                <img src={IlluFeature3} alt="Suivez et signez vos documents" />
                             </figure>
                         </div>
                     </li>

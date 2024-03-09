@@ -84,7 +84,7 @@ function Engagement() {
             <Row>
                 <Col md="12" align="center" className="mb-4">
                 <h2>Clotere s’engage</h2>
-                <Subtitle>A vous proposer une solution digitale <span className="textHighlight">simple</span>, <span className="textHighlight">rapide</span> et <span className="textHighlight">conforme</span> aux normes</Subtitle>
+                <Subtitle>Une solution digitale <span className="textHighlight">simple</span>, <span className="textHighlight">rapide</span> et <span className="textHighlight">conforme</span> aux normes</Subtitle>
                 </Col>
                 <Fade left>
                 <ColEngagement md="12">
@@ -101,7 +101,7 @@ function Engagement() {
                     <CardS>
                     <Round className="round"><img src={IcnTransparence} alt="clotere"/></Round>
                         <h4>En totale transparence</h4>
-                        <p>On vous dit tout par sms, téléphone ou visio. Vous pouvez suivre en live l’avancé de votre dossier.</p>
+                        <p>On vous dit tout par sms, téléphone ou visio. Vous pouvez suivre en live l’avancée de votre dossier.</p>
                     </CardS>
                 </ColEngagement>
                 </Fade>

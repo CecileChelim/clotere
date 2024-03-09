@@ -77,7 +77,7 @@ function EnMoyenne() {
                             <Divider />
                             <CardS className="second">
                                 <h4>1 <span>seul</span></h4>
-                                <p>Le nombre d'interlocuteur pour mener un projet avec Clotere</p>
+                                <p>Le nombre d'interlocuteurs pour mener votre projet avec Clotere</p>
                             </CardS>
                             <Divider />
                             <CardS className="third">
