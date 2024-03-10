@@ -78,7 +78,7 @@ function Header() {
                     </IlluS>
                 <Col md="7" xs="12" align="left">
                     <Title>L'acte notarié simplifié</Title>
-                    <Title className="mobile">Sécurisez & accélerez votre vente immobilière</Title>
+                    <Title className="mobile">L'acte notarié simplifié</Title>
                     <SubTitle>Clotere votre notaire en ligne pour <span className="textHighlight">contrôler</span>, <span  className="textHighlight">suivre</span> et <span  className="textHighlight">signer</span> votre vente en toute sérénité.</SubTitle>
                     <BlocButton>
                         {/**
