@@ -134,7 +134,7 @@ function Navigation(args, props) {
       **/}
 
         <Col md="5" className="d-flex  justify-content-end">
-        <LinkNotaire href="https://clotere-notaire.netlify.app/" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</LinkNotaire>
+        <LinkNotaire href="https://notaire.clotere.fr" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</LinkNotaire>
           <div className="d-flex p-2">
             {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggle caret>{member.auth.email}</DropdownToggle>

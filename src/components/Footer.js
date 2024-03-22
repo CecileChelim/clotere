@@ -44,8 +44,10 @@ function Footer() {
 
                         <p className="m-0 mr-5">Clotere n'est pas un notaire</p>
                         <Link to="/mentions-legales">Mentions légales</Link>
+                        {/**
                         <Link to="/cgv">CGV / CGU</Link>
                         <Link to="/securite-rgpd">Sécurité / RGPD</Link>
+                        */}
                     </Col>
                 </Row>
             </Container>
