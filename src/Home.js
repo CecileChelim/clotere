@@ -12,7 +12,7 @@ import Faq from './components/Faq';
 import BlocCta from './components/BlocCta';
 import Footer from './components/Footer';
 
-const HomeS = styled.div`
+export const HomeS = styled.div`
 background-image: url(${Background});
 background-position:top center;
 background-size:cover;

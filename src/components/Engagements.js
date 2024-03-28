@@ -1,11 +1,10 @@
 import React from "react";
 import { Container,Row,Col,Card } from "reactstrap";
 import styled from "styled-components";
-import IcnAccompagnement from "../img/icn-accompagnement.svg";
-import IcnPro from "../img/icn-pro.svg";
-import IcnTransparence from "../img/icn-transparence.svg";
-import { Subtitle } from "../style/Layout";
 import Fade from 'react-reveal/Fade';
+import ArrowRight from "../img/arrow-right.png";
+import { ButtonPrimary } from "../style/Button";
+import { Link } from 'react-router-dom';
 
 const EngagementS = styled.section`
  margin-top:90px;
@@ -48,9 +47,9 @@ const CardS = styled(Card)`
 `;
 
 const Round = styled.div`
-background-color:#173B3C;
-height:60px;
-width:60px;
+background-color:white;
+height:70px;
+width:70px;
 border-radius:100px;
 padding:1rem;
 display:flex;
@@ -58,6 +57,7 @@ justify-content:center;
 align-items:center;
 margin-bottom:30px;
 transition:all ease .5s;
+span{font-size:20px;}
 `;
 
 const ColEngagement = styled(Col)`
@@ -83,27 +83,34 @@ function Engagement() {
         <Container>
             <Row>
                 <Col md="12" align="center" className="mb-4">
-                <h2>Clotere s’engage</h2>
-                <Subtitle>Une solution digitale <span className="textHighlight">simple</span>, <span className="textHighlight">rapide</span> et <span className="textHighlight">conforme</span> aux normes</Subtitle>
+                <h2>Simplifiez votre passage chez le notaire</h2>
                 </Col>
                 <Fade left>
                 <ColEngagement md="12">
                     <CardS>
-                        <Round className="round"><img src={IcnAccompagnement} alt="clotere"/></Round>
-                        <h4>Réactif</h4>
-                        <p>Votre conseiller dédié vous accompagne à distance, avec pédagogie, de la naissance de votre projet jusqu’à la signature chez le notaire et même après !</p>
+                        <Round className="round"><span role="img">👋</span></Round>
+                        <h4>Trouvez un notaire <span className="textHighlight">qualifié</span> et <span className="textHighlight">disponible</span>.</h4>
+                        <p>Les temps d’attente sont parfois long dans les études notariales, chez Clotere les notaires prennent votre affaire rapidement et sont réactifs.</p>
                     </CardS>
                     <CardS>
-                    <Round className="round"><img src={IcnPro} alt="clotere"/></Round>
-                        <h4>100% conforme</h4>
-                        <p>Nous respectons les normes de signature et de légalité de la chambre des notaires de France.</p>
+                    <Round className="round"><span role="img">🙂</span></Round>
+                        <h4>Un accompagnement <span className="textHighlight">pédagogue</span> et <span className="textHighlight">réactif</span>.</h4>
+                        <p>De la naissance de votre projet jusqu’à la signature et même après nous serons la ! Disponible et pédagogue nous répondrons à toutes vos questions.</p>
                     </CardS>
                     <CardS>
-                    <Round className="round"><img src={IcnTransparence} alt="clotere"/></Round>
-                        <h4>En totale transparence</h4>
-                        <p>On vous dit tout par sms, téléphone ou visio. Vous pouvez suivre en live l’avancée de votre dossier.</p>
+                    <Round className="round"><span role="img">🧘</span></Round>
+                        <h4><span className="textHighlight">Signez</span> depuis votre canapé !</h4>
+                        <p>Bénéficiez de la puissance de nos outils digitaux pour gérer votre passage chez le notaire à distance. Suivez l’avancement facilement et signez depuis votre canapé.</p>
                     </CardS>
                 </ColEngagement>
+                <Col md='12' xs="12">
+                <div className="text-center">
+			<Link to="/onboard">
+                            <ButtonPrimary color="primary" >Trouvez votre notaire <img src={ArrowRight} alt=""/></ButtonPrimary>
+                        </Link>
+						<br/><p className="m-0 mt-2">En 3 minutes, et gratuitement !</p>
+			</div>
+                </Col>
                 </Fade>
             </Row>
             

@@ -20,6 +20,7 @@ margin-top:90px;
     color:#fff;
     padding:40px 140px;
     text-align:center;
+    border-radius:16px;
     p.subtitle{
         font-size:22px;
         font-weight: 300;

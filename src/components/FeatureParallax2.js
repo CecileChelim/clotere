@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import IlluFeature from "../img/illu-test.png";
+import { Link } from 'react-router-dom';
 import IlluFeature1 from "../img/illu-landing-1.svg";
 import IlluFeature2 from "../img/illu-landing-2.svg";
 import IlluFeature3 from "../img/illu-landing-3.svg";
+import ArrowRight from "../img/arrow-right.png";
+import { ButtonPrimary } from "../style/Button";
 
 
 const BodyParallax = styled.div`
@@ -231,6 +233,12 @@ function FeatureParallax() {
                     </li>
                 </ul>
             </main>
+			<div className="text-center">
+			<Link to="/onboard">
+                            <ButtonPrimary color="primary" >Trouvez votre notaire <img src={ArrowRight} alt=""/></ButtonPrimary>
+                        </Link>
+						<br/><p className="m-0 mt-2">En 3 minutes, et gratuitement !</p>
+			</div>
         </BodyParallax>
     );
 }

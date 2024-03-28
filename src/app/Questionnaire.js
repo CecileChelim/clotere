@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, Row, Col } from 'reactstrap';
-import { Widget } from '@typeform/embed-react'
+import { Widget } from '@typeform/embed-react';
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 import styled from "styled-components";
 
 
@@ -11,17 +13,19 @@ height:600px;
 `;
 
 
-function Questionnaire(args,props) {
+function Questionnaire(args) {
 
   return (
     <>
-    <Container className="grey-bg mt-5 pt-5">
+    <Navbar user={args.user} /> 
+    <Container className="grey-bg">
         <Row>
             <Col md="12" xs="0">
             <WidgetTypeform id="JM2MTsDD"  className="" />
             </Col>
         </Row>
     </Container>
+    <Footer/>
     </>
   );
 }

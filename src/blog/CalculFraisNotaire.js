@@ -12,18 +12,11 @@ import Footer from '../components/Footer';
 import styled from "styled-components";
 import Background from "../img/back-clotere.png"
 import { ButtonPrimarySmall, LinkCard } from "../style/Button";
+import { CardArticle } from "../style/Blog";
 import { Link } from "react-router-dom";
 
 
-const CardArticle = styled(Card)`
-.card-title{
-    font-size: 18px;
-    font-weight: 600;
-}
-.card-body{
-    padding:2rem;
-}
-`;
+
 const CardResultatFrais = styled(Card)`
 border-radius:16px;
  border:0;

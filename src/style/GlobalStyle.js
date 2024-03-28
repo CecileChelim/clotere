@@ -22,6 +22,7 @@ background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
 .bg-primary{background-color:${props => props.theme.colors.main}!important; color:${props => props.theme.colors.black};}
 .bg-dark{background-color:${props => props.theme.colors.greenDark}!important; color:${props => props.theme.colors.white};}
 .bg-secondary{background-color:${props => props.theme.colors.lightGreen}!important; color:${props => props.theme.colors.black};}
+.white-background{background-color:white;}
 
 
 /** title **/
@@ -105,6 +106,7 @@ h3{font-size:40px;}
       padding: 0.5rem;
     }
    }
+
 
    /** MEMBERSTACK ELEMENT **/
    .ms-modal{

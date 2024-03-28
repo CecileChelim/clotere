@@ -7,7 +7,7 @@ import ArrowRight from "../img/arrow-right.png";
 import Illu from "../img/illustration-clotere-header.png";
 
 
-const ContainerS = styled(Container)`
+export const ContainerS = styled(Container)`
 height: 100%;
 width: 100%;
 display: flex;
@@ -16,7 +16,7 @@ position:relative;
 margin-bottom:3rem;
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
 font-size: 78px;
 margin-bottom:30px;
 line-height;46px;
@@ -27,7 +27,7 @@ line-height;46px;
       &.mobile{display:block;}
   }
 `;
-const SubTitle = styled.h2`
+export const SubTitle = styled.h2`
 font-family:"Manrope",sans-serif;
 line-height: 44px;
 font-size:28px;
@@ -38,7 +38,7 @@ margin-bottom:60px;
 @media all and (max-width: 768px) {margin-bottom:30px;}
 `;
 
-const BlocButton = styled.div`
+export const BlocButton = styled.div`
 background-color: ${props => props.theme.main};
 margin-top:2rem;
 margin-bottom:20px;
@@ -58,7 +58,7 @@ p{
 }
 `; 
 
-const IlluS = styled(Col)`
+export const IlluS = styled(Col)`
 
 img{
     width:300px;
