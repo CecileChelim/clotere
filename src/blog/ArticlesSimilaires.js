@@ -1,47 +1,15 @@
 import React from "react";
-import {
-    Container, Row, Col, CardBody, CardTitle, CardText
-} from "reactstrap";
-import { Link } from "react-router-dom";
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import HeaderBlog from "../img/header-blog.png";
-import { ContainerS, Title, SubTitle } from '../components/Header';
-import { HomeS } from '../Home';
+import { CardTitle,Container,Row,Col,CardBody,CardText } from "reactstrap";
+import { Link } from 'react-router-dom';
 import { CardArticle } from "../style/Blog";
 
 
 
-
-function Blog(args) {
-
+function ArticlesSimilaires() {
     return (
-        <>
-            <HomeS>
-                <Navbar user={args.user} />
-                <ContainerS className="grey-bg">
-                    <Row className="d-flex align-items-center" align="center">
-                        <Col md="7" xs="12" align="left">
-                            <Title>Le blog by <span className="textHighlight">Clotere</span></Title>
-                            <Title className="mobile">Le blog by <span className="textHighlight">Clotere</span></Title>
-                            <SubTitle>Tous savoir sur votre passage chez le notaire, lors de votre achat immobilier.</SubTitle>
-
-                        </Col>
-                        <Col md="5">
-                            <img width="150%" src={HeaderBlog} alt="" />
-                        </Col>
-
-
-                    </Row>
-                </ContainerS>
-                <section className="white-background">
-                    <Container>
+                    <Container className="mt-5">
                         <Row className="d-flex align-items-center justify-content-center mt-3">
-                            <Col md='12' align="center">
-                                <br /><br /><br />
-                                <h3>Tous nos articles sur les notaires, leurs rôles et leurs frais.</h3>
-                                <br /><br /><br />
-                            </Col>
+                            
                             <Col md="4" xs="12">
                             <CardArticle>
                                     <img className="mainimg" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,f_auto,h_225,q_auto,w_576/fnbueqbbj0iutgl0expq.webp" alt="clotere" />
@@ -52,7 +20,7 @@ function Blog(args) {
                                         Si vous avez un projet d’achat immobilier, vous devez savoir que le notaire tient un rôle indispensable dans le processus d’achat.
                                         </CardText>
                                         <div className="card-blog-author">
-                                            <img alt="auteur" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
+                                            <img alt="trouver-votre-notaire" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
                                             <div class="content-author">
                                                 <p><b>Rédigé par Cécile</b></p>
                                                 <p class="read-time">Lecture : 7 min</p>
@@ -64,7 +32,7 @@ function Blog(args) {
                             </Col>
                             <Col md="4" xs="12">
                                 <CardArticle>
-                                    <img className="mainimg" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,f_auto,h_225,q_auto,w_576/fnbueqbbj0iutgl0expq.webp" alt="clotere" />
+                                    <img alt="trouver un notaire qualifié" className="mainimg" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,f_auto,h_225,q_auto,w_576/fnbueqbbj0iutgl0expq.webp"  />
 
                                     <CardBody>
                                         <CardTitle>Mais au fait les frais de notaire qu'est-ce que c'est ? </CardTitle>
@@ -73,7 +41,7 @@ function Blog(args) {
                                           
                                         </CardText>
                                         <div className="card-blog-author">
-                                            <img alt="auteur" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
+                                            <img alt="Notaire en ligne" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
                                             <div class="content-author">
                                                 <p><b>Rédigé par Robin</b></p>
                                                 <p class="read-time">Lecture : 7 min</p>
@@ -86,7 +54,7 @@ function Blog(args) {
                             
                             <Col md="4" xs="12">
                             <CardArticle>
-                                    <img alt="clotere votre notaire en ligne" className="mainimg" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,f_auto,h_225,q_auto,w_576/fnbueqbbj0iutgl0expq.webp" />
+                                    <img  alt="trouver un notaire pour votre achat immobilier" className="mainimg" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,f_auto,h_225,q_auto,w_576/fnbueqbbj0iutgl0expq.webp"/>
 
                                     <CardBody>
                                         <CardTitle>Quel est le rôle du notaire dans un achat immobilier ? </CardTitle>
@@ -95,7 +63,7 @@ function Blog(args) {
                                           
                                         </CardText>
                                         <div className="card-blog-author">
-                                            <img alt="notaire" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
+                                            <img alt="Clotere votre notaire en ligne" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
                                             <div class="content-author">
                                                 <p><b>Rédigé par Robin</b></p>
                                                 <p class="read-time">Lecture : 7 min</p>
@@ -107,11 +75,7 @@ function Blog(args) {
                             </Col>
                         </Row>
                     </Container>
-                </section>
-                <Footer />
-            </HomeS>
-        </>
     );
 }
 
-export default Blog;
+export default ArticlesSimilaires;

@@ -17,6 +17,7 @@ import DemoNotaire from './DemoNotaire';
 import CalculFraisNotaire from './blog/CalculFraisNotaire';
 import CompositionFraisNotaire from './blog/CompositionFraisNotaire';
 import Blog from './blog/Blog';
+import ArticleRoleNotaire from './blog/ArticleRoleNotaire';
 
 export const userInfoContext = createContext();
 
@@ -76,8 +77,11 @@ const App = () => {
             <Route path="demo-notaire" exact user={userInfo} element={<DemoNotaire />}  />
             {/** Articles de contenu **/}
             <Route path="/blog" exact user={userInfo} element={<Blog />}  />
+            <Route path="/achat-immobilier/role-notaire-dans-un-achat-immobilier" exact user={userInfo} element={<ArticleRoleNotaire />}  />
+            
             <Route path="/achat-immobilier/calcul-frais-de-notaire" exact user={userInfo} element={<CalculFraisNotaire />}  />
             <Route path="/achat-immobilier/de-quoi-se-compose-les-frais-de-notaire" exact user={userInfo} element={<CompositionFraisNotaire />}  />
+
             
             
             
