@@ -36,25 +36,7 @@ const ListGroupActionAmener = styled(ListGroup)`
         margin-right: 30px;
         heigth:30px;
     }
-    &.done{
-        &:before{
-            content: "✔️";
-            background-color:${props => props.theme.colors.main};
-            color:white;
-            border:0;
-        }
-    }
-    &.encours{
-        &:before{
-            content: "⏳";
-        }
-    }
-    &.avenir{
-        opacity:.5;
-        &:before{
-            content: "👉";
-        }
-    }
+   
     h4{color:#1D2B28;}
     color:#84847C;
   }
@@ -184,7 +166,7 @@ function Dashboard(args) {
                         <TitlePageApp>
                             <Col md="7">
                                 <TitlePage>Bonjour {args.user.prenom},</TitlePage>
-                                <p>Voici l'avancement de votre transaction : <b>{args.transactionName}</b> </p>
+                                <p>Voici l'avancement de votre transaction : <b>{args.transaction.nom}</b> </p>
                             </Col>
                             <Col md="5" className="text-end">
                                 <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
@@ -210,6 +192,8 @@ function Dashboard(args) {
                         : <></>
 
                         }
+
+                        <CardHelpDashboard/>
                             {args.rdv !== undefined && args.rdv.length > 0 ?
                                 <div>
                                     <TitleSection>Vos prochains rendez-vous</TitleSection>
@@ -260,84 +244,48 @@ function Dashboard(args) {
                                         ))}
                                     </div>
                                 </div>
-
                                 : <></>
 
                             }
 
-
-                            {args.evenement !== undefined && args.evenement.length > 0 ? <>
-                                <TitleSection className="mt-5">Les étapes de votre transaction</TitleSection>
+                            {args.action !== undefined && args.action.length > 0 ? <>
+                                <TitleSection className="mt-5">Vos actions à mener</TitleSection>
                                 <Panel>
                                     <ListGroupActionAmener numbered>
-                                        <ListGroupItem>
-                                            {/* Composant offre d'achat */}
-                                            {args.evenement[0].fields.etat === "pas fait" ? (
+                                        {args.action.map((col, i) => (
+                                            <>
+                                                {args.action[i].fields.nom === "Questionnaire de connaissance" ? (
+                                                    <>
+                                                        <TimelineListItem type="questionnaire" statut={args.action[i].fields.statut}  />
+                                                    </>
+                                                ) : (<>{" "}</>)}
 
-                                            <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ensavoirplusOffre"  />
-                                            ) : (<>{" "}</>)}
+                                                {args.action[i].fields.nom === "Rib" ? (
+                                                    <>
+                                                        <TimelineListItem type="rib" statut={args.action[i].fields.statut}  />
+                                                    </>
+                                                ) : (<>{" "}</>)}
 
-                                            {args.evenement[0].fields.etat === "fait" ? (
+                                                {args.action[i].fields.nom === "Ajout document" ? (
+                                                    <>
+                                                        <TimelineListItem type="document" statut={args.action[i].fields.statut}  />
+                                                    </>
+                                                ) : (<>{" "}</>)}
 
-                                                <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="telecharger" lienDoc={args.evenement[0].fields.document_from_document !== undefined && args.evenement[0].fields.document_from_document[0].url} />
-                                            ) : (<>{" "}</>)}
-                                            {args.evenement[0].fields.etat === "en cours" ? (
-                                                <TimelineListItem etat={args.evenement[0].fields.etat} type={args.evenement[0].fields.type} message={args.evenement[0].fields.message} contenu={args.evenement[0].fields.contenu} action="ajouterDoc" />
-                                            ) : (<>{" "}</>)}
-                                        </ListGroupItem>
-                                        <ListGroupItem>
-                                            {/* Composant compromis de vente */}
-                                            {args.evenement[1].fields.etat === "pas fait" ? (
-                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="ensavoirplusCompromis" />
-                                            ) : (<>{" "}</>)}
-
-                                            {/* 2 états pour en cours, un sans action et l'autre avec action "Voir et signer" + lien de signature A DÉTERMINER*/}
-                                            {args.evenement[1].fields.etat === "en cours" ? (
-                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} />
-                                            ) : (<>{" "}</>)}
-
-                                            {args.evenement[1].fields.etat === "a signer" ? (
-                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Voiretsigner" lienSignaure="#" />
-                                            ) : (<>{" "}</>)}
-
-                                            {args.evenement[1].fields.etat === "information(s) manquante(s)" ? (
-                                                <TimelineListItem etatcss="infoManquantes" etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="Contacter" />
-                                            ) : (<>{" "}</>)}
-
-                                            {args.evenement[1].fields.etat === "fait" ? (
-                                                <TimelineListItem etat={args.evenement[1].fields.etat} type={args.evenement[1].fields.type} message={args.evenement[1].fields.message} contenu={args.evenement[1].fields.contenu} action="telecharger" lienDoc={args.evenement[1].fields.document_from_document !== undefined && args.evenement[1].fields.document_from_document[0].url} />
-                                            ) : (<>{" "}</>)}
-                                        </ListGroupItem>
-                                        {/* Affichage de l'alerte du délai */}
-                                        {args.transaction.type_financement === "avec pret immobilier" ? (
-                                                <>
-                                                <AlertPret> 
-                                                    <h5><span role="image">👋</span>Information importante</h5>
-                                                    <p> Cette transaction immobilière est financée par un prêt.<br/> 
-                                                L’acquéreur dispose d’un délai généralement compris entre 45 et 90 jours pour effectuer sa demande de prêt.<br/>
-                                                Concrètement, la date de signature de l'acte de vente authentique ne pourras pas avoir lieu avant cette date, fixée dans le compromis de vente.
-                                                </p>
-                                                </AlertPret>
-                                                </>
-
-                                            ) : (<>{" "}</>)}
-                                        <ListGroupItem>
-                                            {/* Composant acte de vente */}
-                                            {args.evenement[2].fields.etat === "pas fait" ? (
-                                                <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="ensavoirplusActe" />
-                                            ) : (<>{" "}</>)}
-
-                                            {/* 2 états pour en cours, un sans action et l'autre avec action "Indiquez vos dispo" + lien doodle*/}
-                                            {args.evenement[2].fields.etat === "en cours" ? (
-                                                <TimelineListItem etat={args.evenement[2].fields.etat} type={args.evenement[2].fields.type} message={args.evenement[2].fields.message} contenu={args.evenement[2].fields.contenu} action="rdvActe" lienDoodle={args.evenement[2].fields.lien_doodle} />
-                                            ) : (<>{" "}</>)}
-                                        </ListGroupItem>
+                                                {args.action[i].fields.nom === "Organisez vos rendez-vous" ? (
+                                                    <>
+                                                        <TimelineListItem type="rdv" statut={args.action[i].fields.statut}  />
+                                                    </>
+                                                ) : (<>{" "}</>)}
+                                            </>
+                                            
+                                        ))}
                                     </ListGroupActionAmener>
                                 </Panel></> : <></>}
 
 
                             {args.activite !== undefined && args.activite.length > 0 ? <>
-                            <TitleSection className="mt-5">Où en est votre notaire ?</TitleSection>
+                            <TitleSection className="mt-5">Dernières activités de votre vente</TitleSection>
                             <Panel>
                                 <ListGroupActionAmener numbered>
                                     {args.activite.map((col, i) => (

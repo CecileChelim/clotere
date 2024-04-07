@@ -25,6 +25,7 @@ function Layout(args, props) {
     const [transaction, setTransaction] = useState(null);
     const [bien, setBien] = useState(null);
     const [evenement, setEvenement] = useState(null);
+    const [action, setAction] = useState(null);
     const [activite, setActivite] = useState(null);
     const [rdv, setRdv] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -164,6 +165,34 @@ function Layout(args, props) {
     // eslint-disable-next-line
     }, [transaction]);
 
+    //get info action
+    useEffect(() => {
+        //on recupere les action de la transaction
+        if (transaction !== null && member.metaData.airtable_id !== undefined) {
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/actions?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
+
+            fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    //console.log("all event action", res.records);
+                    const actionNonTrie = res.records;
+                    actionNonTrie.sort((a, b) => (a.fields.ordre > b.fields.ordre) ? 1 : -1);
+                    setAction(actionNonTrie);
+                })
+                .catch((error) => console.log(error));
+        }
+    // eslint-disable-next-line
+    }, [transaction]);
+
     //get info activite
     useEffect(() => {
         //on recupere les activite de la transaction
@@ -222,6 +251,7 @@ function Layout(args, props) {
     //console.log("bien", bien);
     //console.log("activite", activite);
     //console.log("rdv",rdv);
+    console.log("action",action);
 
     const fetchDataMemberstack = () => {
         setLoading(true);
@@ -237,7 +267,7 @@ function Layout(args, props) {
     };
 
 
-    if (user !== null & transaction !== null & bien !== null & evenement !== null & activite !== null  & rdv !== null ) {
+    if (user !== null & transaction !== null & bien !== null & evenement !== null & activite !== null  & rdv !== null & action !== null ) {
         return (
             <LayoutS>
                 <Row>
@@ -384,7 +414,7 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard transaction={transaction} user={user} evenement={evenement} activite={activite} rdv={rdv} />
+                                        <Dashboard transaction={transaction} user={user} evenement={evenement} activite={activite} rdv={rdv} action={action} />
                                     </Col>
                                 </Row>
                             </TabPane>
