@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import { Offcanvas, ListGroupItem } from "reactstrap";
+import { ListGroupItem } from "reactstrap";
 import { ButtonPrimarySmall } from "../style/Button";
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import AideOffre from "./AideOffre";
-import AideCompromis from "./AideCompromis";
-import AideActe from "./AideActe";
 
 function TimelineCard(args) {
-  const [canvas, setCanvas] = useState(false);
-  const toggleOffre = () => setCanvas(!canvas);
-  const toggleCompromis = () => setCanvas(!canvas);
-  const toggleActe = () => setCanvas(!canvas);
-  console.log(args)
+ 
+  //console.log(args)
 
   return (
     <>
@@ -62,7 +57,7 @@ function TimelineCard(args) {
                     <p>
                       Pour débuter les démarches, votre notaire a besoin de documents, ajoutez-les le plus tôt possible.
                     </p>
-                    <ButtonPrimarySmall color="primary" href="#" target="blank" className="mt-3 mr-3"> Ajoutez vos documents</ButtonPrimarySmall>
+                    <Link to="/app/documents"><ButtonPrimarySmall color="primary" href="#" target="blank" className="mt-3 mr-3"> Ajoutez vos documents</ButtonPrimarySmall></Link>
                   </>
                 ) : (<>{""}</>)}
                 {args.statut === "fait" ? (
@@ -221,9 +216,7 @@ function TimelineCard(args) {
         </Actions>
     </ListGroupS>
           **/}
-      <Offcanvas isOpen={canvas} toggle={toggleOffre} {...args} direction="end" scrollable><AideOffre /> </Offcanvas>
-      <Offcanvas isOpen={canvas} toggle={toggleCompromis} {...args} direction="end" scrollable><AideCompromis /> </Offcanvas>
-      <Offcanvas isOpen={canvas} toggle={toggleActe} {...args} direction="end" scrollable><AideActe /> </Offcanvas>
+     
     </>
   );
 }

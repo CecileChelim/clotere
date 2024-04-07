@@ -4,9 +4,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import {MemberstackProvider} from "@memberstack/react"; 
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {GlobalStyle} from "./style/GlobalStyle";
 import Theme from "./Theme";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const config = { publicKey: "pk_sb_e8fdd7a0fda2ede10dee" }
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -5,13 +5,14 @@ import styled from "styled-components";
 import { ButtonPrimary, LinkS } from "../style/Button";
 import imgCardHelp from "../img/img-card-help.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { faComments } from "@fortawesome/free-solid-svg-icons";
 
 
 const CardS = styled(Card)`
 border-radius:8px;
  background-color:#A7C3C5!important;
  margin-bottom:2rem;
+ margin-top:2rem;
  display:flex;
  width:100%;
  padding: 40px 20px;
@@ -51,7 +52,7 @@ function CardHelp() {
             />
             <ContenuTxt>
             <CardTitle tag="h5">
-            <FontAwesomeIcon icon={faComment} /><br/>
+            <FontAwesomeIcon icon={faComments} /><br/>
                 Besoin <span className="textHighlight">d’aide</span> ?
                 </CardTitle>
                 <CardSubtitle

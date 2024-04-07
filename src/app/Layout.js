@@ -251,7 +251,7 @@ function Layout(args, props) {
     //console.log("bien", bien);
     //console.log("activite", activite);
     //console.log("rdv",rdv);
-    console.log("action",action);
+    //console.log("action",action);
 
     const fetchDataMemberstack = () => {
         setLoading(true);

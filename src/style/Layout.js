@@ -33,7 +33,7 @@ export const TitleSection = styled.h3`
 `;
 export const Panel = styled(Card)`
   border-radius:16px;
-  padding:35px;
+  padding:25px;
   border:0;
 `;
 

@@ -71,7 +71,8 @@ h3{font-size:40px;}
 
  .offcanvas{
   padding:2rem;
-  width:600px!important;
+  width:700px!important;
+  overflow-y:scroll;
  }
 
  a{cursor:pointer;}

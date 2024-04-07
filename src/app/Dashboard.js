@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import {
-    Container, Row, Col,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody, Alert,Badge, CardBody, CardTitle
+    Container, Row, Col, Modal,
+    Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody, Alert, CardBody, CardTitle
 } from "reactstrap";
 import { Link } from 'react-router-dom';
 import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
-import moment from "moment";
-import { DropdownPrimary, ButtonPrimarySmall, LinkS } from "../style/Button";
+import { ButtonPrimarySmall, LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
+import { Viewer, Worker } from '@react-pdf-viewer/core';
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import CardHelp from '../components/CardHelp';
+import AideOffre from "../components/AideOffre";
+import AideCompromis from "../components/AideCompromis";
+import AideActe from "../components/AideActe";
 import styled from "styled-components";
 import backWelcome from "../img/back-alert-welcome.png";
-import icnRdv from "../img/icn-rdv.svg";
 import icnDocVente from "../img/icn-doc-vente.svg";
 import icnDoc from "../img/icn-doc.svg";
 import icnCalendar from "../img/icn-calendar.svg";
 import icnTuto from "../img/icn-tuto.svg";
+
 
 
 const ListGroupActionAmener = styled(ListGroup)`
@@ -46,33 +47,7 @@ const ListGroupActionAmener = styled(ListGroup)`
     color:#84847C;
   }
 `;
-const CardRdv = styled(Card)`
-padding:30px;
-border:0;
-background:${props => props.theme.colors.linearBackground};
-margin-right:2rem;
-margin-bottom:2rem;
- img{
-    width:60px;
-    height:60px;
-    margin-right: 20px;
- }
- p{
-    font-size:18px;
-    color:#1D2B28;
-    margin:0;
-    small{
-        display:block;
-        font-size:14px;
-        color:#1D2B28;
-    }
- }
- h5{
-    margin-top:30px;
-    font-size:24px;
-    font-weight:500;
- }
-`;
+
 const AlertPret = styled(Alert)`
 margin-left: 4rem !important;
 background-color: transparent;
@@ -91,11 +66,11 @@ const AlertWelcome = styled(Alert)`
 background-image:url(${backWelcome});
 background-size:cover;
 background-repeat:no-repeat;
-color: white;
-border: 0;
-border-radius:16px;
+color: white!important;
+border: 0!important;
+border-radius:16px!important;
 margin-bottom: 3rem;
-padding: 2rem;
+padding: 3rem!important;
 p{
     margin-bottom: 0;
     font-size: 18px;
@@ -171,12 +146,17 @@ const PanelDocVente = styled(Panel)`
 
 
 function Dashboard(args) {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
     const [canvas, setCanvas] = useState(false);
+    const [canvasCompromis, setCanvasCompromis] = useState(false);
+    const [canvasActe, setCanvasActe] = useState(false);
     const toggle2 = () => setCanvas(!canvas);
     const toggle3 = () => setCanvas(!canvas);
-    const toggle = () => setDropdownOpen((prevState) => !prevState);
-    console.log("event",args.evenement)
+    const toggleOffre = () => setCanvas(!canvas);
+    const toggleCompromis = () => setCanvasCompromis(!canvasCompromis);
+    const toggleActe = () => setCanvasActe(!canvasActe);
+    const [pdfName, setPdfName] = useState(null);
+    const toggleModal = () => setPdfName(null);
+    const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
     if (args.info === "newUser") {
         return (
@@ -238,24 +218,13 @@ function Dashboard(args) {
                                 <TitlePage>Bonjour {args.user.prenom},</TitlePage>
                                 <p>Voici l'avancement de votre transaction : <b>{args.transaction.nom}</b> </p>
                             </Col>
-                            <Col md="5" className="text-end">
-                                <DropdownPrimary isOpen={dropdownOpen} toggle={toggle}>
-                                    <DropdownToggle caret>Actions rapides</DropdownToggle>
-                                    <DropdownMenu >
-                                        <DropdownItem onClick={toggle2}>+ Ajouter un document</DropdownItem>
-                                        <DropdownItem>Posez une question</DropdownItem>
-                                    </DropdownMenu>
-                                </DropdownPrimary>
-                            </Col>
                         </TitlePageApp>
                         <Col md="12" className="mt-3">
-                            {args.user.statut === "new user" ?
+                            {/** on regarde si la transaction a un notaire */}
+                            {args.transaction.statut_marketplace_notaire === "en recherche de notaire" ?
                                 <>
                                     <AlertWelcome>
-                                        <p>Votre dossier va être pris en charge par un notaire Clotere. <br />
-                                            Vous pourrez programmer vos rendez-vous, suivre l'avancée et déposer vos documents en lieu sûre !
-                                            <br /><br />
-                                            Sans plus attendre complétez votre dossier en <Link to="/app/documents"> ajoutant vos documents</Link>
+                                        <p><span role="img">👋</span> Nous recherchons actuellement un notaire pour votre transaction. Cela ne prendra pas beaucoup de temps, vous serez avertie par email lorsqu'il prendra votre affaire.
                                         </p>
                                     </AlertWelcome>
                                 </>
@@ -263,8 +232,8 @@ function Dashboard(args) {
 
                             }
 
-                            <CardHelp />
-                            
+
+
                             {/** action à mener**/}
                             {args.action !== undefined && args.action.length > 0 ? <>
                                 <TitleSection className="mt-5">Vos actions à mener</TitleSection>
@@ -299,9 +268,9 @@ function Dashboard(args) {
                             {args.evenement !== undefined && args.evenement.length > 0 ? <>
                                 <TitleSection className="mt-5">Vos documents de vente</TitleSection>
                                 <Row>
-                                {args.evenement.map((col, i) => (
-                                    <>
-                                        
+                                    {args.evenement.map((col, i) => (
+                                        <>
+
                                             <Col md='6' xs='12'>
                                                 <PanelDocVente>
                                                     <div className="titre d-flex">
@@ -320,78 +289,81 @@ function Dashboard(args) {
                                                     <div className="list">
                                                         <ListGroup>
                                                             <ListGroupItem>
-                                                            <img src={icnDoc} alt="document-vente" className="mr-2" />
-                                                            <p className="flex-grow-1">
-                                                                <span>Document</span>
-                                                                {args.evenement[i].fields.etat === "pas fait" ? (<>En cours de rédaction</>) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.etat === "en cours" ? (<>En cours de rédaction</>) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.etat === "information(s) manquante(s)" ? (<>Des informations sont manquantes</>) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.etat === "fait" ? (
-                                                                <>
-                                                                Votre document est prêt 🥳 !
-                                                                <br/>
-                                                                <LinkS color="primary">Relire le document</LinkS>
-                                                                </>
-                                                                ) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.etat === "a signer" ? (<>Votre document est prêt à être signé !</>) : (<>{" "}</>)}
-                                                            </p>
+                                                                <img src={icnDoc} alt="document-vente" className="mr-2" />
+                                                                <p className="flex-grow-1">
+                                                                    <span>Document</span>
+                                                                    {args.evenement[i].fields.etat === "pas fait" ? (<>En cours de rédaction</>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.etat === "en cours" ? (<>En cours de rédaction</>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.etat === "information(s) manquante(s)" ? (<>Des informations sont manquantes</>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.etat === "fait" ? (
+                                                                        <>
+                                                                            Votre document est prêt 🥳 !
+                                                                            <br />
+                                                                            <LinkS onClick={() => { setPdfName({ "url": args.evenement[i].fields.document_from_document[0].url, "type": "application/pdf" }); }} color="primary">Relire le document</LinkS>
+                                                                        </>
+                                                                    ) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.etat === "a signer" ? (<>Votre document est prêt à être signé !</>) : (<>{" "}</>)}
+                                                                </p>
                                                             </ListGroupItem>
                                                             <ListGroupItem>
-                                                            <img src={icnCalendar} alt="rendez-vous-de-vente" className="mr-2" />
-                                                            <p>
-                                                                <span>Rendez-vous</span>
-                                                                {args.evenement[i].fields.statut_from_rdv[0] === "a programmer" ? (<>Pas prévu pour le moment</>) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.statut_from_rdv[0] === "en cours de prog" ? (
-                                                                <>
-                                                                En cours de programmation
-                                                                <br/>
-                                                                <ButtonPrimarySmall href={args.evenement[i].fields.lien_reservation_from_rdv[0]} target="blank" color="primary">Indiquez vos disponibilités</ButtonPrimarySmall>
-                                                                </>) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.statut_from_rdv[0] === "programme" ? (
-                                                                <>
-                                                                Rendez-vous prévu le : <br/>
-                                                                <div className="date">{args.evenement[i].fields.date_from_rdv[0]}</div> 
-                                                                </>) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.etat === "information(s) manquante(s)" ? (<>Des informations sont manquantes</>) : (<>{" "}</>)}
-                                                                {args.evenement[i].fields.etat === "a signer" ? (<>Votre document est prêt à être signé !</>) : (<>{" "}</>)}
-                                                            </p>
+                                                                <img src={icnCalendar} alt="rendez-vous-de-vente" className="mr-2" />
+                                                                <p>
+                                                                    <span>Rendez-vous</span>
+                                                                    {args.evenement[i].fields.statut_from_rdv[0] === "a programmer" ? (<>Pas prévu pour le moment</>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.statut_from_rdv[0] === "en cours de prog" ? (
+                                                                        <>
+                                                                            En cours de programmation
+                                                                            <br />
+                                                                            <ButtonPrimarySmall href={args.evenement[i].fields.lien_reservation_from_rdv[0]} target="blank" color="primary">Indiquez vos disponibilités</ButtonPrimarySmall>
+                                                                        </>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.statut_from_rdv[0] === "programme" ? (
+                                                                        <>
+                                                                            Rendez-vous prévu le : <br />
+                                                                            <div className="date">{args.evenement[i].fields.date_from_rdv[0]}</div>
+                                                                        </>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.etat === "information(s) manquante(s)" ? (<>Des informations sont manquantes</>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.etat === "a signer" ? (<>Votre document est prêt à être signé !</>) : (<>{" "}</>)}
+                                                                </p>
                                                             </ListGroupItem>
                                                         </ListGroup>
                                                     </div>
                                                     <div className="tuto">
                                                         <Card>
-                                                            <img src={icnTuto} alt="tuto"/>
+                                                            <img src={icnTuto} alt="tuto" />
 
                                                             <CardBody>
-                                                                    
-                                                                    {args.evenement[i].fields.type === "promesse de vente" ? (
-                                                                        <>
-                                                                            <CardTitle>La promesse de vente est un contrat qui engage l’acquéreur  et le vendeur.</CardTitle>
-                                                                            <ul>
-                                                                                <li>L’acquéreur se retrouve dans l’obligation d’acheter le bien</li>
-                                                                                <li>Le vendeur ne peut se rétracter et proposer le bien à la vente à quelqu’un d’autre</li>
-                                                                            </ul>
-                                                                            <div className="help">
+
+                                                                {args.evenement[i].fields.type === "promesse de vente" ? (
+                                                                    <>
+                                                                        <CardTitle>La promesse de vente est un contrat qui engage l’acquéreur  et le vendeur.</CardTitle>
+                                                                        <ul>
+                                                                            <li>L’acquéreur se retrouve dans l’obligation d’acheter le bien</li>
+                                                                            <li>Le vendeur ne peut se rétracter et proposer le bien à la vente à quelqu’un d’autre</li>
+                                                                        </ul>
+                                                                        <div className="help">
                                                                             <p><span role="img">👋</span> Pour bien comprendre vos obligations et vos responsabilités, suive le guide.</p>
-                                                                            <LinkS>Qu'est-ce que la promesse de vente ?</LinkS>
-                                                                            </div>
-                                                                        </>
-                                                                    ) : (<>{" "}</>)}
-                                                                    {args.evenement[i].fields.type === "acte authentique de vente" ? (
-                                                                        <>
-                                                                            <h4>Acte authentique de vente</h4>
-                                                                        </>
-                                                                    ) : (<>{" "}</>)}
+                                                                            <LinkS onClick={toggleCompromis}>Qu'est-ce que la promesse de vente ?</LinkS>
+                                                                        </div>
+                                                                    </>
+                                                                ) : (<>{" "}</>)}
+                                                                {args.evenement[i].fields.type === "acte authentique de vente" ? (
+                                                                    <>
+                                                                        <h4>Acte authentique de vente</h4>
+                                                                    </>
+                                                                ) : (<>{" "}</>)}
                                                             </CardBody>
                                                         </Card>
                                                     </div>
                                                 </PanelDocVente>
                                             </Col>
-                                    </>
-                                ))}
+                                        </>
+                                    ))}
                                 </Row>
                             </> : <></>}
 
+                            <CardHelp />
+
+                            {/** ancien composant vos activités
                             {args.activite !== undefined && args.activite.length > 0 ? <>
                                 <TitleSection className="mt-5">Dernières activités de votre vente</TitleSection>
                                 <Panel>
@@ -410,6 +382,7 @@ function Dashboard(args) {
                                     </ListGroupActionAmener>
                                 </Panel>
                             </> : <></>}
+                                        **/}
 
                             {/** ancien composant vos rdv
                             {args.rdv !== undefined && args.rdv.length > 0 ?
@@ -492,6 +465,23 @@ function Dashboard(args) {
                     </OffcanvasBody>
 
                 </Offcanvas>
+                <Offcanvas isOpen={canvas} toggle={toggleOffre} {...args} direction="end" scrollable><AideOffre /> </Offcanvas>
+                <Offcanvas isOpen={canvasCompromis} toggle={toggleCompromis} {...args} direction="end" scrollable>
+                <OffcanvasHeader toggle={toggleCompromis}>Qu'est-ce que la promesse de vente ?</OffcanvasHeader>
+                    <AideCompromis />
+                     </Offcanvas>
+                <Offcanvas isOpen={canvasActe} toggle={toggleActe} {...args} direction="end" scrollable><AideActe /> </Offcanvas>
+                <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
+
+                    {pdfName != null ? pdfName.type === "application/pdf" ? <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
+                        <Viewer fileUrl={pdfName.url}
+                            plugins={[
+                                // Register plugins
+                                defaultLayoutPluginInstance,
+                            ]}
+                        />
+                    </Worker> : <img alt="document" src={pdfName.url}></img> : <></>}
+                </Modal>
             </>
         )
     }

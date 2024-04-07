@@ -534,7 +534,7 @@ function Documents(args) {
                                             setDefaultValueType(doc.type);
                                             setValueNomDoc(doc.nom)
                                             setShowSideBar(true);
-                                            console.log(doc);
+                                            //console.log(doc);
                                          }} onDeleteDoc={(doc) => {
                                             handleDeleteDocument(doc)
                                          }} documents={data.filter(document => {
