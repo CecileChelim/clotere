@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { ListGroupItem } from "reactstrap";
+import { ListGroupItem,Offcanvas,OffcanvasHeader } from "reactstrap";
 import { ButtonPrimarySmall } from "../style/Button";
 import { Link } from 'react-router-dom';
+import QuestionnaireConnaissance from "./QuestionnaireConnaissanceClient";
 import styled from "styled-components";
 
 function TimelineCard(args) {
   const navigate = useNavigate();
+  const [canvasQuestionnaire, setCanvasQuestionnaire] = useState(false);
+  const toggleQuestionnaire = () => setCanvasQuestionnaire(!canvasQuestionnaire);
+
   function goPageDocument() {
     navigate("/app/documents");
     window.location.reload(false);
   }
  
-  //console.log(args)
+  console.log(args)
 
   return (
     <>
@@ -32,7 +36,7 @@ function TimelineCard(args) {
                     <p>
                       Le questionnaire permet de récolter toutes les informations importantes nécessaires à la rédaction de vos documents notariés.
                     </p>
-                    <ButtonPrimarySmall color="primary" href="#" target="blank" className="mt-3 mr-3"> Remplir le questionnaire</ButtonPrimarySmall>
+                    <ButtonPrimarySmall color="primary" onClick={toggleQuestionnaire} className="mt-3 mr-3"> Remplir le questionnaire</ButtonPrimarySmall>
                   </>
                 ) : (<>{""}</>)}
                 {args.statut === "fait" ? (
@@ -145,83 +149,12 @@ function TimelineCard(args) {
 
       </ListGroupItemS>
 
-      {/** 
-    <ListGroupS className={args.etat + ' ' + args.etatcss}>
-      <h4 className="mb-2 type">
-        {args.type === "questionnaire" ? (
-            <>
-              Remplissez votre questionnaire client
-            </>
-          ) : (<>{""}</>)}
-        <br/>
-      </h4>
+      <Offcanvas isOpen={canvasQuestionnaire} toggle={toggleQuestionnaire} {...args} direction="end" scrollable>
+                    <OffcanvasHeader toggle={toggleQuestionnaire}>Remplir votre questionnaire de connaissance</OffcanvasHeader>
+                    <QuestionnaireConnaissance user={args.user} />
+                </Offcanvas>
 
-        <Content className="flex-grow-1">
-
-          <h4>{args.message}</h4>
-          <div dangerouslySetInnerHTML={{__html: args.contenu}}></div>
-          
-
-          {args.action === "Voiretsigner" ? (
-            <>
-              <ButtonPrimarySmall color="primary" href="#" target="blank" className="mt-3 mr-3"> Lire et signer</ButtonPrimarySmall>
-            </>
-          ) : (<>{""}</>)}
-          
-
-          {args.action === "Contacter" ? (
-            <>
-              <ButtonPrimarySmall color="primary" href="#" className="mt-3 mr-3"> Contacter mon conseillé</ButtonPrimarySmall>
-            </>
-          ) : (<>{""}</>)}
-
-        {args.action === "rdvActe" ? (
-            <>
-              <ButtonPrimarySmall color="primary" href={args.lienDoodle} target="blank" className="mt-3 mr-3"> Indiquez vos disponibilités</ButtonPrimarySmall>
-            </>
-          ) : (<>{" "}</>)}
-
-        {args.action === "telecharger" ? (
-            <>
-              <ButtonPrimary color="primary" href={args.lienDoc}  target="_blank" className="mt-3 mr-3"> Télécharger</ButtonPrimary>
-            </>
-          ) : (<>{" "}</>)}
-
-
-
-        </Content>
-        <Actions>
-          
-          {args.action === "ajouterDoc" ? (
-            <>
-              <LinkCard href="#" className="mr-3"> Ajouter le document</LinkCard>
-            </>
-          ) : (<>{" "}</>)}
-
-
-        {args.action === "ensavoirplusOffre" ? (
-            <>
-              <LinkCard href="#" className="mr-3" onClick={toggleOffre}> Qu’est-ce que l'offre d'achat ?</LinkCard>
-            </>
-          ) : (<>{" "}</>)}
-
-          {args.action === "ensavoirplusCompromis" ? (
-            <>
-              <LinkCard href="#" className="mr-3" onClick={toggleCompromis}> Qu’est-ce que le compromis de vente ?</LinkCard>
-            </>
-          ) : (<>{" "}</>)}
-
-          {args.action === "ensavoirplusActe" ? (
-            <>
-              <LinkCard href="#" className="mr-3" onClick={toggleActe}> Qu’est-ce que l'acte de vente authentique ?</LinkCard>
-            </>
-          ) : (<>{" "}</>)}
-
-
-
-        </Actions>
-    </ListGroupS>
-          **/}
+     
      
     </>
   );
