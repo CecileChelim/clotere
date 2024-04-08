@@ -3,14 +3,12 @@ import {
     Container, Row, Col, Modal,
     Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody, Alert, CardBody, CardTitle
 } from "reactstrap";
-import { Link } from 'react-router-dom';
 import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
 import { ButtonPrimarySmall, LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import CardHelp from '../components/CardHelp';
-import AideOffre from "../components/AideOffre";
 import AideCompromis from "../components/AideCompromis";
 import AideActe from "../components/AideActe";
 import styled from "styled-components";
@@ -20,138 +18,12 @@ import icnDoc from "../img/icn-doc.svg";
 import icnCalendar from "../img/icn-calendar.svg";
 import icnTuto from "../img/icn-tuto.svg";
 
-
-
-const ListGroupActionAmener = styled(ListGroup)`
-  border-radius:0;
-  border:0;
-  .list-group-item{
-    border:0;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    margin-bottom:30px;
-    &:before{
-        content: counters(section, "") "";
-        counter-increment: section;
-        display: inline;
-        border: 1px solid #ddd;
-        font-weight:500;
-        border-radius: 100px;
-        padding: 10px 17px;
-        margin-right: 30px;
-        heigth:30px;
-    }
-   
-    h4{color:#1D2B28;}
-    color:#84847C;
-  }
-`;
-
-const AlertPret = styled(Alert)`
-margin-left: 4rem !important;
-background-color: transparent;
-border: 2px solid #e0eeee;
-margin: 0;
-p{
-    margin-bottom: 0;
-    font-size: 14px;
-}
-h5{
-    color: #006855;
-}
-`;
-
-const AlertWelcome = styled(Alert)`
-background-image:url(${backWelcome});
-background-size:cover;
-background-repeat:no-repeat;
-color: white!important;
-border: 0!important;
-border-radius:16px!important;
-margin-bottom: 3rem;
-padding: 3rem!important;
-p{
-    margin-bottom: 0;
-    font-size: 18px;
-}
-a{color:white!important;}
-`;
-
-const PanelDocVente = styled(Panel)`
-
-.titre{
-    align-items:center;
-    img{margin-right:8px;}
-    h4{font-size:22px}
-}
-.list{
-    margin-top:1rem;
-    margin-left:1rem;
-    .list-group{
-        border:0;
-        .list-group-item{
-            border:0;
-            display:flex;
-            flex-direction:row;
-            align-items:flex-start;
-            img{margin-right:1rem;}
-            p{
-                span{opacity:.5;display:block;}
-            }
-            .date{
-                background:${props => props.theme.colors.linearBackground};
-                padding:8px;
-                text-align:center;
-                font-weight:600;
-                border-radius:8px;
-            }
-        }
-    }
-}
-.tuto{
-    .card{
-        position:relative;
-        padding:16px;
-        border:0;
-        border-radius:16px;
-        background:${props => props.theme.colors.linearBackground};
-        margin-right:2rem;
-        margin-bottom:2rem;
-        img{
-            position: absolute;
-            right: 20px;
-            top: -25px;
-            width: 50px;
-        }
-        .card-title{
-            font-size:16px;
-            color:${props => props.theme.colors.mainDark};
-            font-weight:600;
-        }
-        ul{
-            font-size:16px;
-            color:#636060;
-            li::marker {
-                color: ${props => props.theme.colors.main};
-                font-size:2rem;
-        }
-    }
-}
-
-`;
-
-
-
-
-
 function Dashboard(args) {
     const [canvas, setCanvas] = useState(false);
     const [canvasCompromis, setCanvasCompromis] = useState(false);
     const [canvasActe, setCanvasActe] = useState(false);
     const toggle2 = () => setCanvas(!canvas);
     const toggle3 = () => setCanvas(!canvas);
-    const toggleOffre = () => setCanvas(!canvas);
     const toggleCompromis = () => setCanvasCompromis(!canvasCompromis);
     const toggleActe = () => setCanvasActe(!canvasActe);
     const [pdfName, setPdfName] = useState(null);
@@ -341,14 +213,23 @@ function Dashboard(args) {
                                                                             <li>Le vendeur ne peut se rétracter et proposer le bien à la vente à quelqu’un d’autre</li>
                                                                         </ul>
                                                                         <div className="help">
-                                                                            <p><span role="img">👋</span> Pour bien comprendre vos obligations et vos responsabilités, suive le guide.</p>
+                                                                            <p><span role="img">👋</span> Pour bien comprendre vos obligations et vos responsabilités, suivez le guide.</p>
                                                                             <LinkS onClick={toggleCompromis}>Qu'est-ce que la promesse de vente ?</LinkS>
                                                                         </div>
                                                                     </>
                                                                 ) : (<>{" "}</>)}
                                                                 {args.evenement[i].fields.type === "acte authentique de vente" ? (
                                                                     <>
-                                                                        <h4>Acte authentique de vente</h4>
+                                                                        <CardTitle>Il s'agit du document officiel rédigé par un notaire, qui d'officialise la vente du bien immobilier</CardTitle>
+                                                                        <ul>
+                                                                            <li>A lieu dans un délai de 2 à 3 mois suivant la signature de la promesse de vente</li>
+                                                                            <li>Il est obligatoire de faire établir et de signer l’acte de vente devant un notaire</li>
+                                                                        </ul>
+                                                                        <div className="help">
+                                                                            <p><span role="img">👋</span> Pour bien comprendre ce document crucial, suivez le guide.</p>
+                                                                            <LinkS onClick={toggleActe}>Qu'est-ce que l'acte authentique de vente ?</LinkS>
+                                                                        </div>
+
                                                                     </>
                                                                 ) : (<>{" "}</>)}
                                                             </CardBody>
@@ -465,12 +346,14 @@ function Dashboard(args) {
                     </OffcanvasBody>
 
                 </Offcanvas>
-                <Offcanvas isOpen={canvas} toggle={toggleOffre} {...args} direction="end" scrollable><AideOffre /> </Offcanvas>
                 <Offcanvas isOpen={canvasCompromis} toggle={toggleCompromis} {...args} direction="end" scrollable>
-                <OffcanvasHeader toggle={toggleCompromis}>Qu'est-ce que la promesse de vente ?</OffcanvasHeader>
+                    <OffcanvasHeader toggle={toggleCompromis}>Qu'est-ce que la promesse de vente ?</OffcanvasHeader>
                     <AideCompromis />
-                     </Offcanvas>
-                <Offcanvas isOpen={canvasActe} toggle={toggleActe} {...args} direction="end" scrollable><AideActe /> </Offcanvas>
+                </Offcanvas>
+                <Offcanvas isOpen={canvasActe} toggle={toggleActe} {...args} direction="end" scrollable>
+                    <OffcanvasHeader toggle={toggleActe}>Qu'est-ce que l'acte authentique de vente ?</OffcanvasHeader>
+                    <AideActe />
+                </Offcanvas>
                 <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
 
                     {pdfName != null ? pdfName.type === "application/pdf" ? <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
@@ -486,5 +369,125 @@ function Dashboard(args) {
         )
     }
 }
+
+const ListGroupActionAmener = styled(ListGroup)`
+  border-radius:0;
+  border:0;
+  .list-group-item{
+    border:0;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-bottom:30px;
+    &:before{
+        content: counters(section, "") "";
+        counter-increment: section;
+        display: inline;
+        border: 1px solid #ddd;
+        font-weight:500;
+        border-radius: 100px;
+        padding: 10px 17px;
+        margin-right: 30px;
+        heigth:30px;
+    }
+   
+    h4{color:#1D2B28;}
+    color:#84847C;
+  }
+`;
+
+const AlertPret = styled(Alert)`
+margin-left: 4rem !important;
+background-color: transparent;
+border: 2px solid #e0eeee;
+margin: 0;
+p{
+    margin-bottom: 0;
+    font-size: 14px;
+}
+h5{
+    color: #006855;
+}
+`;
+
+const AlertWelcome = styled(Alert)`
+background-image:url(${backWelcome});
+background-size:cover;
+background-repeat:no-repeat;
+color: white!important;
+border: 0!important;
+border-radius:16px!important;
+margin-bottom: 3rem;
+padding: 3rem!important;
+p{
+    margin-bottom: 0;
+    font-size: 18px;
+}
+a{color:white!important;}
+`;
+
+const PanelDocVente = styled(Panel)`
+
+.titre{
+    align-items:center;
+    img{margin-right:8px;}
+    h4{font-size:22px}
+}
+.list{
+    margin-top:1rem;
+    margin-left:1rem;
+    .list-group{
+        border:0;
+        .list-group-item{
+            border:0;
+            display:flex;
+            flex-direction:row;
+            align-items:flex-start;
+            img{margin-right:1rem;}
+            p{
+                span{opacity:.5;display:block;}
+            }
+            .date{
+                background:${props => props.theme.colors.linearBackground};
+                padding:8px;
+                text-align:center;
+                font-weight:600;
+                border-radius:8px;
+            }
+        }
+    }
+}
+.tuto{
+    .card{
+        position:relative;
+        padding:16px;
+        border:0;
+        border-radius:16px;
+        background:${props => props.theme.colors.linearBackground};
+        margin-right:2rem;
+        margin-bottom:2rem;
+        img{
+            position: absolute;
+            right: 20px;
+            top: -25px;
+            width: 50px;
+        }
+        .card-title{
+            font-size:16px;
+            color:${props => props.theme.colors.mainDark};
+            font-weight:600;
+        }
+        ul{
+            font-size:16px;
+            color:#636060;
+            li::marker {
+                color: ${props => props.theme.colors.main};
+                font-size:2rem;
+        }
+    }
+}
+
+`;
+
 
 export default Dashboard;

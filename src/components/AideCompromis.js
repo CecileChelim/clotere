@@ -1,26 +1,52 @@
 import React from "react";
 import {Alert} from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { faExclamationTriangle, faFileAlt, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { LinkS } from "../style/Button";
 
+
+export const AideContent = styled.div`
+p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 2rem;
+    color:#094c40;
+}
+svg.iconflex{
+    margin-right:2rem;
+    margin-left:2rem;
+    color:${props => props.theme.colors.main};
+}
+.alert{
+    background-color: #1af46c2b !important;
+    border: 0;
+}
+li::marker {
+    color: ${props => props.theme.colors.main};
+}
+`;
 
 function AideCompromis() {
     return (
-        <div>
+        <AideContent>
             <p>
+                <div className="d-flex">
+                <FontAwesomeIcon icon={faFileAlt} className="fa-3x iconflex" />
                 La promesse est un pré contrat permettant de formaliser les accords entre le(s) vendeur(s) et l'acheteur(s).
-
+                </div>
                 <br/><br/>
                 La promesse de vente engage : <br/>
                 <ul>
-                    <li> Le vendeur à :<span className="textHighlight"> réserver le bien à l’attention exclusive d'un futur acquéreur</span> à un prix spécifié dans le contrat et pour une durée limitée.</li>
-                    <li> L’acquéreur à <span className="textHighlight">verser une indemnité d’immobilisation du bien, qui correspond normalement à 10 % du montant total de la vente</span>.</li>
+                    <li> Le vendeur à :<b> réserver le bien à l’attention exclusive d'un futur acquéreur</b> à un prix spécifié dans le contrat et pour une durée limitée.</li>
+                    <li> L’acquéreur à <b>verser une indemnité d’immobilisation du bien, qui correspond normalement à 10 % du montant total de la vente</b>.</li>
                 </ul>
                 <br/>
                 <b>Quels sont les possibilités et délais de rétractation ?</b>
                 <br/>
-                <Alert color="success">
-                <FontAwesomeIcon icon={faExclamationTriangle} /><br/>
+                <Alert>
+                <FontAwesomeIcon icon={faExclamationTriangle} /><b> A savoir </b><br/>
                 L'acquéreur dispose d'un délai de 10 jours à compter de la date de signature de la promesse de vente. Passé ce délai, si il veut se rétracter il perd son indeminité d'immobilisation !
                 </Alert>
                 <ul>
@@ -28,10 +54,10 @@ function AideCompromis() {
                     <br/>Si le désistement à lieu après ce délai de rétractation il perd son indemnité d’immobilisation qui reste acquise au vendeur.<br/>
                     Toutefois, si le désistement est dû à la réalisation de l’une des clauses suspensives de la promesse de vente (impossibilité de trouver un prêt immobilier par exemple), l'acquéreur peut se désengager tout en étant remboursé de son indemnité d’immobilisation.
                     </li>
-                    <li><span className="textHighlight"> Le vendeur reste libre d’annuler la transaction tant que l’acheteur n’a pas levé l’option... mais cela peut lui coûter cher !</span> En plus de perdre l’indemnité d’immobilisation, il risque d'être condamné à payer des dommages et intérêts pouvant s'élever à 20 % du prix du bien ! Si le vendeur souhaite se rétracter après la levée d’option d'achat, l’acquéreur peut choisir d'être indemnisé comme précédemment expliqué ou alors procéder à une vente forcée du bien immobilier en saisissant le tribunal de grande instance.</li>
+                    <li><b> Le vendeur reste libre d’annuler la transaction tant que l’acheteur n’a pas levé l’option... mais cela peut lui coûter cher !</b> En plus de perdre l’indemnité d’immobilisation, il risque d'être condamné à payer des dommages et intérêts pouvant s'élever à 20 % du prix du bien ! Si le vendeur souhaite se rétracter après la levée d’option d'achat, l’acquéreur peut choisir d'être indemnisé comme précédemment expliqué ou alors procéder à une vente forcée du bien immobilier en saisissant le tribunal de grande instance.</li>
                 </ul>
-                <br/><br/>
-                <b>Quelles et informations doit contenur la promesse de vente ? </b>
+                <br/>
+                <b>Quelles informations doit contenir la promesse de vente ? </b>
                 <br/>
                 La rédaction de cet avant-contrat, ne s’improvise pas. Ce contrat doit contenir certaines mentions légales pour être valable. 
                 <br/>
@@ -49,11 +75,17 @@ function AideCompromis() {
                  Si ces conditions ont lieu, le contrat est annulé de plein droit et l’acquéreur récupère alors les frais d’immobilisation ou dépôt de garantie qu’il a dû verser au moment de la signature de l’avant-contrat.</li>
                 </ul>
 
+                <Alert>
+                <FontAwesomeIcon icon={faQuestionCircle} /><b> Il vous manque une information ? </b><br/>
+                N'hésitez pas à contacter votre conseillé, il saura vous apportez une réponse complète.
+                <br/><Link to="/app/contacter-mon-conseille"><LinkS>Contacter mon conseillé</LinkS></Link>
+                </Alert>
+
                
                 
                 
             </p>    
-        </div>
+        </AideContent>
     );
 }
 

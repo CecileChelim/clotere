@@ -73,6 +73,11 @@ h3{font-size:40px;}
   padding:2rem;
   width:700px!important;
   overflow-y:scroll;
+  .offcanvas-header{
+    align-items: start;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #DDD;
+  }
  }
 
  a{cursor:pointer;}
