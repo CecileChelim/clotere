@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFileAlt, faInfoCircle, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import {Alert} from "reactstrap";
-import { Link } from "react-router-dom";
-import { LinkS } from "../style/Button";
 
 export const AideContent = styled.div`
 p{
@@ -30,8 +28,9 @@ li::marker {
 }
 `;
 
-function AideActe() {
+function AideActe(arg) {
     return (
+        <>
         <AideContent>
             <p>
                 <div className="d-flex">
@@ -69,10 +68,10 @@ C’est ce dernier document qui a la valeur de titre de propriété définitif.
 <Alert>
                 <FontAwesomeIcon icon={faQuestionCircle} /><b> Il vous manque une information ? </b><br/>
                 N'hésitez pas à contacter votre conseillé, il saura vous apportez une réponse complète.
-                <br/><Link to="/app/contacter-mon-conseille"><LinkS>Contacter mon conseillé</LinkS></Link>
                 </Alert>
                 </p>
         </AideContent>
+        </>
     );
 }
 

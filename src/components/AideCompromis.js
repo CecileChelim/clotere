@@ -3,8 +3,6 @@ import {Alert} from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle, faFileAlt, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { LinkS } from "../style/Button";
 
 
 export const AideContent = styled.div`
@@ -78,7 +76,6 @@ function AideCompromis() {
                 <Alert>
                 <FontAwesomeIcon icon={faQuestionCircle} /><b> Il vous manque une information ? </b><br/>
                 N'hésitez pas à contacter votre conseillé, il saura vous apportez une réponse complète.
-                <br/><Link to="/app/contacter-mon-conseille"><LinkS>Contacter mon conseillé</LinkS></Link>
                 </Alert>
 
                

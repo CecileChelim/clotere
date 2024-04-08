@@ -72,7 +72,6 @@ const App = () => {
             <Route path="app/documents" exact user={userInfo} element={<Layout />}  />
             <Route path="app/transaction" exact user={userInfo} element={<Layout />}  />
             <Route path="app/profil" exact user={userInfo} element={<Layout />}  />
-            <Route path="app/contacter-mon-conseille" exact user={userInfo} element={<Layout />}  />
             <Route path="mentions-legales" exact user={userInfo} element={<Mentionslegales />}  />
             <Route path="cgv" exact user={userInfo} element={<Cgv />}  />
             <Route path="demo-notaire" exact user={userInfo} element={<DemoNotaire />}  />

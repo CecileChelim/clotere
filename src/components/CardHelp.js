@@ -1,11 +1,12 @@
-import React from "react";
-import { Card, CardTitle,CardSubtitle} from "reactstrap";
+import React, { useState } from "react";
+import { Card, CardTitle, CardSubtitle, Offcanvas, OffcanvasHeader } from "reactstrap";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { ButtonPrimary, LinkS } from "../style/Button";
 import imgCardHelp from "../img/img-card-help.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments } from "@fortawesome/free-solid-svg-icons";
+import FormulaireContactConseille from "./FormulaireContactConseille";
 
 
 const CardS = styled(Card)`
@@ -43,35 +44,42 @@ a{margin-bottom:.5rem;}
 `;
 
 
-function CardHelp() {
+function CardHelp(args) {
+    const [canvas, setCanvas] = useState(false);
+    const toggle = () => setCanvas(!canvas);
     return (
-        <CardS className="d-flex flex-row">
-            <img
-                alt="Besoin d'aide ?"
-                src={imgCardHelp}
-            />
-            <ContenuTxt>
-            <CardTitle tag="h5">
-            <FontAwesomeIcon icon={faComments} /><br/>
-                Besoin <span className="textHighlight">d’aide</span> ?
-                </CardTitle>
-                <CardSubtitle
-                    className="mb-2 text-muted"
-                    tag="h6"
-                >
-                    Votre conseillé est disponible pour répondre à toutes vos questions, alors n'hésitez pas écrivez lui.
-                </CardSubtitle>
-            </ContenuTxt>
-            <ContenuAction>
-            
-            <Link to="/rendez-vous-conseillé">
-                            <ButtonPrimary color="primary">Contacter mon conseillé</ButtonPrimary>
-                        </Link>
-                        <Link to="/onboard">
-                            <LinkS>Lisez le guide de la transaction</LinkS>
-                        </Link>
-            </ContenuAction>
-        </CardS>
+        <>
+            <CardS className="d-flex flex-row">
+                <img
+                    alt="Besoin d'aide ?"
+                    src={imgCardHelp}
+                />
+                <ContenuTxt>
+                    <CardTitle tag="h5">
+                        <FontAwesomeIcon icon={faComments} /><br />
+                        Besoin <span className="textHighlight">d’aide</span> ?
+                    </CardTitle>
+                    <CardSubtitle
+                        className="mb-2 text-muted"
+                        tag="h6"
+                    >
+                        Votre conseillé est disponible pour répondre à toutes vos questions, alors n'hésitez pas écrivez lui.
+                    </CardSubtitle>
+                </ContenuTxt>
+                <ContenuAction>
+                    <ButtonPrimary color="primary" onClick={toggle}>Contacter mon conseillé</ButtonPrimary>
+
+                    <Link to="/onboard">
+                        <LinkS>Lisez le guide de la transaction</LinkS>
+                    </Link>
+                </ContenuAction>
+            </CardS>
+            <Offcanvas isOpen={canvas} toggle={toggle} {...args} direction="end" scrollable>
+                <OffcanvasHeader toggle={toggle}>Contactez votre conseillé</OffcanvasHeader>
+                <FormulaireContactConseille email={args.email} />
+            </Offcanvas>
+        </>
+
     );
 }
 

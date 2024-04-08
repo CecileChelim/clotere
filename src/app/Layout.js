@@ -45,8 +45,7 @@ function Layout(args, props) {
             setCurrentActiveTab("3")
         } else if (window.location.pathname === "/app/documents") {
             setCurrentActiveTab("4")
-        }
-        else if (window.location.pathname === "/app/profil") {
+        }else if (window.location.pathname === "/app/profil") {
             setCurrentActiveTab("5")
         } else {
             setCurrentActiveTab("1")

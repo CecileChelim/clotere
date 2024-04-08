@@ -11,6 +11,8 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import CardHelp from '../components/CardHelp';
 import AideCompromis from "../components/AideCompromis";
 import AideActe from "../components/AideActe";
+
+
 import styled from "styled-components";
 import backWelcome from "../img/back-alert-welcome.png";
 import icnDocVente from "../img/icn-doc-vente.svg";
@@ -29,6 +31,7 @@ function Dashboard(args) {
     const [pdfName, setPdfName] = useState(null);
     const toggleModal = () => setPdfName(null);
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    console.log("user dash",args.user);
 
     if (args.info === "newUser") {
         return (
@@ -242,7 +245,7 @@ function Dashboard(args) {
                                 </Row>
                             </> : <></>}
 
-                            <CardHelp />
+                            <CardHelp email={args.user.email} />
 
                             {/** ancien composant vos activités
                             {args.activite !== undefined && args.activite.length > 0 ? <>
@@ -354,6 +357,7 @@ function Dashboard(args) {
                     <OffcanvasHeader toggle={toggleActe}>Qu'est-ce que l'acte authentique de vente ?</OffcanvasHeader>
                     <AideActe />
                 </Offcanvas>
+                
                 <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
 
                     {pdfName != null ? pdfName.type === "application/pdf" ? <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
