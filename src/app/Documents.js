@@ -522,7 +522,7 @@ function Documents(args) {
 
                         </Nav>
                         </Col>
-                        <Col md="8" xs="12">
+                        <Col md="12" xs="12">
 
                         <TabContent className="mt-3" activeTab={currentActiveTab}>
                             {listTabs.map((item, index) => (

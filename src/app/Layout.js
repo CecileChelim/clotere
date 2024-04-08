@@ -32,7 +32,6 @@ function Layout(args, props) {
     const [currentActiveTab, setCurrentActiveTab] = useState('1');
     const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
     const [collapsed, setCollapsed] = useState(true);
-
     const toggleNavbar = () => setCollapsed(!collapsed);
 
     //active tabs with route
@@ -167,9 +166,11 @@ function Layout(args, props) {
     //get info action
     useEffect(() => {
         //on recupere les action de la transaction
+
         if (transaction !== null && member.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/actions?filterByFormula=SEARCH("${transaction.id}",{transaction})`;
-
+            //const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/actions?filterByFormula=SEARCH("${transaction.id}",{transaction},"${user.role}",{acteur})`;
+            
             fetch(
                 URL,
                 {
@@ -185,7 +186,30 @@ function Layout(args, props) {
                     //console.log("all event action", res.records);
                     const actionNonTrie = res.records;
                     actionNonTrie.sort((a, b) => (a.fields.ordre > b.fields.ordre) ? 1 : -1);
-                    setAction(actionNonTrie);
+                    
+
+                    const actionVendeur = [];
+                    const actionAcheteur = [];
+                    for (let i = 0; i < actionNonTrie.length; i++) {
+                        if (actionNonTrie[i].fields.acteur === "vendeur") {
+                            actionVendeur.push({
+                            nom: actionNonTrie[i].fields.nom,
+                            statut: actionNonTrie[i].fields.statut,
+                        });
+                        } else if (actionNonTrie[i].fields.acteur === "acheteur") {
+                            actionAcheteur.push({
+                                nom: actionNonTrie[i].fields.nom,
+                                statut: actionNonTrie[i].fields.statut,
+                        });
+                        }
+                    }
+                    //console.log("action vendeur ", actionVendeur);
+                    //console.log("action acheteur ", actionAcheteur);
+                    if(user.role === "vendeur")
+                    {setAction(actionVendeur);}
+                    else if(user.role === "acheteur")
+                    {setAction(actionAcheteur);}
+                    
                 })
                 .catch((error) => console.log(error));
         }
@@ -413,7 +437,7 @@ function Layout(args, props) {
                             <TabPane tabId="1">
                                 <Row>
                                     <Col sm="12">
-                                        <Dashboard transaction={transaction} user={user} evenement={evenement} activite={activite} rdv={rdv} action={action} />
+                                        <Dashboard transaction={transaction} user={user} evenement={evenement} activite={activite} rdv={rdv} action={action}/>
                                     </Col>
                                 </Row>
                             </TabPane>

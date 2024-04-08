@@ -31,7 +31,6 @@ function Dashboard(args) {
     const [pdfName, setPdfName] = useState(null);
     const toggleModal = () => setPdfName(null);
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    console.log("user dash",args.user);
 
     if (args.info === "newUser") {
         return (
@@ -83,7 +82,7 @@ function Dashboard(args) {
 
             </>
         )
-    } else {
+    } else if (args !== null)  {
         return (
             <>
                 <Container>
@@ -112,25 +111,26 @@ function Dashboard(args) {
                             {/** action à mener**/}
                             {args.action !== undefined && args.action.length > 0 ? <>
                                 <TitleSection className="mt-5">Vos actions à mener</TitleSection>
+                                
                                 <Panel>
                                     <ListGroupActionAmener numbered>
                                         {args.action.map((col, i) => (
                                             <>
-                                                {args.action[i].fields.nom === "Questionnaire de connaissance" ? (
+                                                {args.action[i].nom === "Questionnaire de connaissance" ? (
                                                     <>
-                                                        <TimelineListItem type="questionnaire" statut={args.action[i].fields.statut} />
+                                                        <TimelineListItem type="questionnaire" statut={args.action[i].statut} />
                                                     </>
                                                 ) : (<>{" "}</>)}
 
-                                                {args.action[i].fields.nom === "Rib" ? (
+                                                {args.action[i].nom === "Rib" ? (
                                                     <>
-                                                        <TimelineListItem type="rib" statut={args.action[i].fields.statut} />
+                                                        <TimelineListItem type="rib" statut={args.action[i].statut} />
                                                     </>
                                                 ) : (<>{" "}</>)}
 
-                                                {args.action[i].fields.nom === "Ajout document" ? (
+                                                {args.action[i].nom === "Ajout document" ? (
                                                     <>
-                                                        <TimelineListItem type="document" statut={args.action[i].fields.statut} />
+                                                        <TimelineListItem type="document" statut={args.action[i].statut} />
                                                     </>
                                                 ) : (<>{" "}</>)}
                                             </>

@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { ListGroupItem } from "reactstrap";
 import { ButtonPrimarySmall } from "../style/Button";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
 function TimelineCard(args) {
+  const navigate = useNavigate();
+  function goPageDocument() {
+    navigate("/app/documents");
+    window.location.reload(false);
+  }
  
   //console.log(args)
 
@@ -57,7 +63,7 @@ function TimelineCard(args) {
                     <p>
                       Pour débuter les démarches, votre notaire a besoin de documents, ajoutez-les le plus tôt possible.
                     </p>
-                    <Link to="/app/documents"><ButtonPrimarySmall color="primary" href="#" target="blank" className="mt-3 mr-3"> Ajoutez vos documents</ButtonPrimarySmall></Link>
+                    <Link to="/app/documents" onClick={goPageDocument}><ButtonPrimarySmall  color="primary" className="mt-3 mr-3"> Ajoutez vos documents</ButtonPrimarySmall></Link>
                   </>
                 ) : (<>{""}</>)}
                 {args.statut === "fait" ? (
