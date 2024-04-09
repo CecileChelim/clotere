@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 /** composants **/
 import { Alert, Form, Input, FormGroup, Label, Row, Col } from "reactstrap";
 import { ButtonPrimary } from "../style/Button";
@@ -12,6 +12,7 @@ function QuestionnaireConnaissanceClient(args) {
     const [formError, setFormError] = useState(false);
     const [formErrorMessage, setFormErrorMessage] = useState("");
     const [situation, setSituation] = useState(null);
+    //console.log(args);
 
     const handleChangeSelect = (e) => {
         //console.log(e.target.value);
@@ -21,14 +22,31 @@ function QuestionnaireConnaissanceClient(args) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
-        const message = event.target.message.value;
+        const prenom = event.target.prenom.value;
+        const nom = event.target.nom.value;
+        const ddn = event.target.ddn.value;
+        const villenaissance = event.target.villenaissance.value;
+        const nationalite = event.target.nationalite.value;
+        const profession = event.target.profession.value;
+        const adresse = event.target.adresse.value;
+        const ville = event.target.ville.value;
+        const cp = event.target.cp.value;
+        const tel = event.target.tel.value;
+        const situation = event.target.situation.value;
+        const usage = event.target.usage.value;
+        const premieracquisition = event.target.premieracquisition.value;
+        const emprunt = event.target.emprunt.value;
 
-        const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/message-conseille`;
+        //const details_sitation = "mariage :" + event.target.datemariage.value + " " + event.target.communemariage.value + " " + event.target.cpmariage.value+"divorce :" + event.target.tribunaldivorce.value + " " + event.target.datedivorce.value;
+        
+
+
+        const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${args.user.airtable_id}`;
 
         fetch(
             URL,
             {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                     "Accept": "application/json",
@@ -37,14 +55,27 @@ function QuestionnaireConnaissanceClient(args) {
                 body: JSON.stringify({
                     "fields": {
                         "email": email,
-                        "message": message,
+                        "prenom": prenom,
+                        "nom": nom,
+                        "date_de_naissance": ddn,
+                        "ville_naissance": villenaissance,
+                        "nationalite": nationalite,
+                        "profession": profession,
+                        "adresse": adresse,
+                        "ville": ville,
+                        "code_postal": cp,
+                        "telephone": tel,
+                        "situation": situation,
+                        "usage": usage,
+                        "acquereur_premier_achat": premieracquisition,
+                        "acquereur_emprunt": emprunt
                     }
                 })
-            }).then((res) => res.json())
+            })
             .then((res) => {
                 console.log(res);
                 setFormSuccess(true);
-                setFormSuccessMessage("👌 Votre message a bien été envoyé. On vous réponds rapidement ");
+                setFormSuccessMessage("👌 Vos informations on bien été ajoutées.");
                 setTimeout(() => {
                     setFormSuccess(false);
                 }, 3000);
@@ -84,31 +115,31 @@ function QuestionnaireConnaissanceClient(args) {
                         <Col md={6}>
                             <FormGroup>
                                 <Label>Prénom</Label>
-                                <Input type="text" name="prenom" value={args.user.prenom} required />
+                                <Input type="text" name="prenom" defaultValue={args.user.prenom} />
                             </FormGroup>
                         </Col>
                         <Col md={6}>
                             <FormGroup>
                                 <Label>Nom</Label>
-                                <Input type="text" name="nom" value={args.user.nom} required />
+                                <Input type="text" name="nom" defaultValue={args.user.nom} />
                             </FormGroup>
                         </Col>
                     </Row>
                     <FormGroup>
                         <Label>Date de naissance</Label>
-                        <Input type="date" name="ddn" value={args.user.date_de_naissance} required />
+                        <Input type="date" name="ddn" defaultValue={args.user.date_de_naissance} />
                     </FormGroup>
                     <FormGroup>
                         <Label>Ville de naissance</Label>
-                        <Input type="text" name="villenaissance" value={args.user.ville_naissance} required />
+                        <Input type="text" name="villenaissance" defaultValue={args.user.ville_naissance} />
                     </FormGroup>
                     <FormGroup>
                         <Label>Nationalité</Label>
-                        <Input type="text" name="nationalite" value={args.user.nationalite} required />
+                        <Input type="text" name="nationalite" defaultValue={args.user.nationalite} />
                     </FormGroup>
                     <FormGroup>
                         <Label>Profession</Label>
-                        <Input type="text" name="profession" value={args.user.profession} required />
+                        <Input type="text" name="profession" defaultValue={args.user.profession} />
                     </FormGroup>
                 </Panel>
                 <br /><br />
@@ -116,81 +147,84 @@ function QuestionnaireConnaissanceClient(args) {
                 <Panel>
                     <FormGroup>
                         <Label>Adresse </Label>
-                        <Input type="text" name="adresse" value={args.user.adresse} required />
+                        <Input type="text" name="adresse" defaultValue={args.user.adresse} />
                     </FormGroup>
                     <Row>
                         <Col md={8}>
                             <FormGroup>
                                 <Label>Ville</Label>
-                                <Input type="text" name="ville" value={args.user.ville} required />
+                                <Input type="text" name="ville" defaultValue={args.user.ville} />
                             </FormGroup>
                         </Col>
                         <Col md={4}>
                             <FormGroup>
                                 <Label>Code postal</Label>
-                                <Input type="text" name="cp" value={args.user.code_postal} required />
+                                <Input type="text" name="cp" defaultValue={args.user.code_postal} />
                             </FormGroup>
                         </Col>
                     </Row>
                     <FormGroup>
                         <Label>Email </Label>
-                        <Input type="text" name="email" value={args.user.email} required />
+                        <Input type="text" name="email" defaultValue={args.user.email} disabled />
                     </FormGroup>
                     <FormGroup>
                         <Label>Téléphone </Label>
-                        <Input type="text" name="tel" value={args.user.telephone} required />
+                        <Input type="text" name="tel" defaultValue={args.user.telephone} />
                     </FormGroup>
                 </Panel>
                 <br /><br />
                 <h6><span className="textHighlight">Votre situation</span></h6>
                 <Panel>
-                    
+
                     <FormGroup>
                         <Label>Situation </Label>
                         <Input
-                                        id="exampleSelect"
-                                        name="select"
-                                        type="select"
-                                        onChange={handleChangeSelect}
-                                    >
-                                        <option key="null" value="null">Sélectionner</option>
-                                        <option key="ad" value="celibataire">Célibataire</option>
-                                        <option key="redac" value="marie">Marié</option>
-                                        <option key="copro" value="divorce">Divorcé</option>
-                                        <option key="cadastre" value="eninstancededivorce">En instance de divorce</option>
-                                        <option key="depot" value="pacs">PACS encore en vigueur</option>
-                                        <option key="autre" value="pluspacs">PACS plus en vigueur</option>
-                                    </Input>
-                                    <br/>
-
-                                    {situation === "marie" &&
-                                        <>
-                                            <FormGroup>
-                                                <Label>Date du mariage </Label>
-                                                <Input type="date" name="datemariage"   />
-                                            </FormGroup>
-                                            <FormGroup>
-                                                <Label>Commune du mariage </Label>
-                                                <Input type="text" name="communemariage"   />
-                                            </FormGroup>
-                                            <FormGroup>
-                                                <Label>Code postal du mariage </Label>
-                                                <Input type="text" name="cpmariage"   />
-                                            </FormGroup>
-                                        </>
-                                    }
-                                    {situation === "divorce" &&
-                                        <>
-                                            <FormGroup>
-                                                <Label>Par jugement du tribunal de : </Label>
-                                                <Input type="text" name="tribunaldivorce"   />
-                                            </FormGroup>
-                                            <FormGroup>
-                                                <Label>En date du </Label>
-                                                <Input type="date" name="datedivorce"   />
-                                            </FormGroup>
-                                        </>
-                                    }
+                            id="situation"
+                            name="situation"
+                            type="select"
+                            onChange={handleChangeSelect}
+                            defaultValue={args.user.situation}
+                        >
+                            <option key="1" value="Null">Sélectionner</option>
+                            <option key="2" value="Célibataire">Célibataire</option>
+                            <option key="3" value="Marié">Marié</option>
+                            <option key="4" value="Divorcé">Divorcé</option>
+                            <option key="5" value="En instance de divorce">En instance de divorce</option>
+                            <option key="6" value="Pacsé">PACS encore en vigueur</option>
+                            <option key="7" value="Dépacsé">PACS plus en vigueur</option>
+                            <option key="8" value="Veuf(ve)">Veuf(ve)</option>
+                        </Input>
+                        <br />
+                        {/**
+                        {situation === "Marié" &&
+                            <>
+                                <FormGroup>
+                                    <Label>Date du mariage </Label>
+                                    <Input type="date" name="datemariage" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Commune du mariage </Label>
+                                    <Input type="text" name="communemariage" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Code postal du mariage </Label>
+                                    <Input type="text" name="cpmariage" />
+                                </FormGroup>
+                            </>
+                        }
+                        {situation === "Divorcé" &&
+                            <>
+                                <FormGroup>
+                                    <Label>Par jugement du tribunal de : </Label>
+                                    <Input type="text" name="tribunaldivorce" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>En date du </Label>
+                                    <Input type="date" name="datedivorce" />
+                                </FormGroup>
+                            </>
+                        }
+                         */}
                     </FormGroup>
                 </Panel>
                 {args.user.role === "acheteur" ? (
@@ -204,6 +238,9 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="usage"
                                         type="radio"
+                                        value="Résidence principale"
+                                        defaultChecked={args.user.usage === "Résidence principale"}
+                                        required
                                     />
                                     {' '}
                                     <Label check>
@@ -214,6 +251,8 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="usage"
                                         type="radio"
+                                        value="Résidence secondaire"
+                                        defaultChecked={args.user.usage === "Résidence secondaire"}
                                     />
                                     {' '}
                                     <Label check>
@@ -224,6 +263,8 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="usage"
                                         type="radio"
+                                        value="Locatif"
+                                        defaultChecked={args.user.usage === "Locatif"}
                                     />
                                     {' '}
                                     <Label check>
@@ -234,6 +275,8 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="usage"
                                         type="radio"
+                                        value="Professionnel"
+                                        defaultChecked={args.user.usage === "Professionnel"}
                                     />
                                     {' '}
                                     <Label check>
@@ -248,6 +291,9 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="premieracquisition"
                                         type="radio"
+                                        value="oui"
+                                        defaultChecked={args.user.acquereur_premier_achat === "oui"}
+                                        required
                                     />
                                     {' '}
                                     <Label check>
@@ -258,6 +304,8 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="premieracquisition"
                                         type="radio"
+                                        value="non"
+                                        defaultChecked={args.user.acquereur_premier_achat === "non"}
                                     />
                                     {' '}
                                     <Label check>
@@ -271,6 +319,9 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="emprunt"
                                         type="radio"
+                                        value="oui"
+                                        defaultChecked={args.user.acquereur_emprunt === "oui"}
+                                        required
                                     />
                                     {' '}
                                     <Label check>
@@ -281,6 +332,8 @@ function QuestionnaireConnaissanceClient(args) {
                                     <Input
                                         name="emprunt"
                                         type="radio"
+                                        value="non"
+                                        defaultChecked={args.user.acquereur_emprunt === "non"}
                                     />
                                     {' '}
                                     <Label check>

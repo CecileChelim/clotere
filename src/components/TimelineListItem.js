@@ -10,13 +10,13 @@ function TimelineCard(args) {
   const navigate = useNavigate();
   const [canvasQuestionnaire, setCanvasQuestionnaire] = useState(false);
   const toggleQuestionnaire = () => setCanvasQuestionnaire(!canvasQuestionnaire);
-
+  
   function goPageDocument() {
     navigate("/app/documents");
     window.location.reload(false);
   }
  
-  console.log(args)
+  //console.log(args)
 
   return (
     <>
