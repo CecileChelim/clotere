@@ -82,9 +82,6 @@ const App = () => {
             <Route path="/achat-immobilier/calcul-frais-de-notaire" exact user={userInfo} element={<CalculFraisNotaire />}  />
             <Route path="/achat-immobilier/de-quoi-se-compose-les-frais-de-notaire" exact user={userInfo} element={<CompositionFraisNotaire />}  />
 
-            
-            
-            
           </Routes>
         </userInfoContext.Provider>
       </Router>

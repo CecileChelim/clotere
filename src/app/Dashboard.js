@@ -65,13 +65,13 @@ function Dashboard(args) {
                                     </ListGroupItem>
                                     <ListGroupItem className="avenir">
                                         <div className="d-flex flex-column">
-                                            <h4>Ouvertures des accès aux utilisateurs (acheteur(s), vendeur(s), agent, notaire)</h4>
+                                            <h4>Ouvertures des accès aux utilisateurs (acheteur(s), vendeur(s), agent immobilier)</h4>
                                             <p>A venir</p>
                                         </div>
                                     </ListGroupItem>
                                     <ListGroupItem className="avenir">
                                         <div className="d-flex flex-column">
-                                            <h4>Attribution de votre notaire</h4>
+                                            <h4>Prise en charge de l'affaire par votre notaire</h4>
                                             <p>A venir</p>
                                         </div>
                                     </ListGroupItem>
@@ -311,6 +311,11 @@ const ListGroupActionAmener = styled(ListGroup)`
         padding: 10px 17px;
         margin-right: 30px;
         heigth:30px;
+    }
+    &.done{
+        &:before{
+            content: "✔️";
+        }  
     }
    
     h4{color:#1D2B28;}

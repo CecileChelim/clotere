@@ -67,7 +67,7 @@ C’est ce dernier document qui a la valeur de titre de propriété définitif.
 <br/>
 <Alert>
                 <FontAwesomeIcon icon={faQuestionCircle} /><b> Il vous manque une information ? </b><br/>
-                N'hésitez pas à contacter votre conseillé, il saura vous apportez une réponse complète.
+                N'hésitez pas à contacter votre conseiller, il saura vous apportez une réponse complète.
                 </Alert>
                 </p>
         </AideContent>

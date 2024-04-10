@@ -33,14 +33,9 @@ function QuestionnaireConnaissanceClient(args) {
         const cp = event.target.cp.value;
         const tel = event.target.tel.value;
         const situation = event.target.situation.value;
-        const usage = event.target.usage.value;
-        const premieracquisition = event.target.premieracquisition.value;
-        const emprunt = event.target.emprunt.value;
-
-        //const details_sitation = "mariage :" + event.target.datemariage.value + " " + event.target.communemariage.value + " " + event.target.cpmariage.value+"divorce :" + event.target.tribunaldivorce.value + " " + event.target.datedivorce.value;
         
 
-
+        //const details_sitation = "mariage :" + event.target.datemariage.value + " " + event.target.communemariage.value + " " + event.target.cpmariage.value+"divorce :" + event.target.tribunaldivorce.value + " " + event.target.datedivorce.value;
         const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${args.user.airtable_id}`;
 
         fetch(
@@ -66,19 +61,43 @@ function QuestionnaireConnaissanceClient(args) {
                         "code_postal": cp,
                         "telephone": tel,
                         "situation": situation,
-                        "usage": usage,
-                        "acquereur_premier_achat": premieracquisition,
-                        "acquereur_emprunt": emprunt
+                        "usage": "null",
+                        "acquereur_premier_achat": "null",
+                        "acquereur_emprunt": "null"
                     }
                 })
             })
             .then((res) => {
+                /**ajout des informations acquéreur si acquéreur  */
+                if(args.user.role === "acheteur"){
+                    const usage = event.target.usage.value;
+                    const premieracquisition = event.target.premieracquisition.value;
+                    const emprunt = event.target.emprunt.value;
+                    fetch(
+                        URL,
+                        {
+                            method: "PATCH",
+                            headers: {
+                                Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                                "Accept": "application/json",
+                                'content-type': "application/json"
+                            },
+                            body: JSON.stringify({
+                                "fields": {
+                                    "usage": usage,
+                                    "acquereur_premier_achat": premieracquisition,
+                                    "acquereur_emprunt": emprunt
+                                }
+                            })
+                        })
+                }
                 console.log(res);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 setFormSuccess(true);
                 setFormSuccessMessage("👌 Vos informations on bien été ajoutées.");
-                setTimeout(() => {
+                /**setTimeout(() => {
                     setFormSuccess(false);
-                }, 3000);
+                }, 3000);**/
             }).catch((error) => {
                 console.log(error);
                 setFormError(true);

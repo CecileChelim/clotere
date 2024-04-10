@@ -63,11 +63,11 @@ function CardHelp(args) {
                         className="mb-2 text-muted"
                         tag="h6"
                     >
-                        Votre conseillé est disponible pour répondre à toutes vos questions, alors n'hésitez pas écrivez lui.
+                        Votre conseiller est disponible pour répondre à toutes vos questions, alors n'hésitez pas écrivez lui.
                     </CardSubtitle>
                 </ContenuTxt>
                 <ContenuAction>
-                    <ButtonPrimary color="primary" onClick={toggle}>Contacter mon conseillé</ButtonPrimary>
+                    <ButtonPrimary color="primary" onClick={toggle}>Contacter mon conseiller</ButtonPrimary>
 
                     <Link to="/onboard">
                         <LinkS>Lisez le guide de la transaction</LinkS>
@@ -75,7 +75,7 @@ function CardHelp(args) {
                 </ContenuAction>
             </CardS>
             <Offcanvas isOpen={canvas} toggle={toggle} {...args} direction="end" scrollable>
-                <OffcanvasHeader toggle={toggle}>Contactez votre conseillé</OffcanvasHeader>
+                <OffcanvasHeader toggle={toggle}>Contactez votre conseiller</OffcanvasHeader>
                 <FormulaireContactConseille email={args.email} />
             </Offcanvas>
         </>

@@ -53,7 +53,7 @@ function DemoNotaire(args) {
             <Col md='1'></Col>
                 <Col md='5'>
                 <p className="text-lead">Voyons-nous !</p>
-                        <h3>Découvrez <span className="textHighlight">la plateforme notaire</span> en live avec un conseillé</h3>
+                        <h3>Découvrez <span className="textHighlight">la plateforme notaire</span> en live avec un conseiller</h3>
                         <ListGroup>
                             <ListGroupItem>
                                ✔️ Présentation des fonctionnalitées
