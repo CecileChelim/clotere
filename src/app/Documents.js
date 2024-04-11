@@ -402,9 +402,9 @@ function Documents(args) {
     }
 
     const stackSelected = (
-        <DragAndDropContainer>
+        <DragAndDropContainer style={{ width: "100%!important"}}>
             <img alt="IconPDF" style={{ height: "60px", marginBottom: "10px" }} src={IconPDF} />
-            <div className="subtitle">Fichier acceptés : PDF/JPG/PNG</div>
+            <div className="subtitle">Fichiers acceptés : PDF/JPG/PNG</div>
             <div className="subtitle">Taille maximum : 40MB</div>
             <br />
             <div style={{ display: "inline-flex" }}>
@@ -415,11 +415,11 @@ function Documents(args) {
     );
 
     const stackNotSelected = (
-        <DragAndDropContainer>
+        <DragAndDropContainer  style={{ width: "100%!important"}}>
             <img style={{ height: "60px", marginBottom: "10px" }} alt="drop" src={IconPDF} />
             <p style={{ fontWeight: "500" }}>Déposez votre document ici ou</p>
             <p className="title-underline">Sélectionnez un document</p>
-            <div className="subtitle">Fichier acceptés : PDF/JPG/PNG</div>
+            <div className="subtitle">Fichiers acceptés : PDF/JPG/PNG</div>
             <div className="subtitle">Taille maximum : 40MB</div>
         </DragAndDropContainer>
     );
@@ -436,15 +436,15 @@ function Documents(args) {
                 </OffcanvasHeader>
                 <OffcanvasBody>
                     {
-                        loadingUpload ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                        loadingUpload ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%',width: '100%!important' }}>
                         <Spinner style={{ width: '5rem', height: '5rem' }} color="primary" />
-                      </div> : <Form style={{ width: '100%' }}>
+                      </div> : <Form style={{ width: '100%!important' }}>
                         <FormGroup>
-                            <FileUploader disabled={file != null} handleChange={handleChange} name="file" types={fileTypes} children={file != null ? stackSelected : stackNotSelected}>
+                            <FileUploader style={{ width: '100%!important' }} disabled={file != null} handleChange={handleChange} name="file" types={fileTypes} children={file != null ? stackSelected : stackNotSelected}>
                             </FileUploader>
                         </FormGroup>
                         <FormGroup>
-                            <Label style={{ width: '100%' }} for="exampleEmail">
+                            <Label for="exampleEmail">
                                 De quel document s'agit-il ?
                             </Label>
 
@@ -564,8 +564,6 @@ a.nav-link::first-letter {text-transform: uppercase}
 
 
 const DragAndDropContainer = styled.div`
-width: 100%; /* Largeur de la container */
-    height: 100vh; /* Hauteur de la container */
     display: flex;
     justify-content: center; /* Centre les éléments horizontalement */
     align-items: center; /* Centre les éléments verticalement */
@@ -573,7 +571,7 @@ width: 100%; /* Largeur de la container */
     border-color: #c3dbf7;
     border-width: 2px;
     border-radius:5px; 
-    width: 100%; 
+    width: 100%!important; 
     height:250px;
     background-color: #eef6ff;
     flex-direction: column;

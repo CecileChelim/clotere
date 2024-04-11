@@ -3,7 +3,7 @@ import { Card, CardTitle, CardSubtitle, Offcanvas, OffcanvasHeader } from "react
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { ButtonPrimary, LinkS } from "../style/Button";
-import imgCardHelp from "../img/img-card-help.png";
+import imgCardHelp from "../img/homme_question.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import FormulaireContactConseille from "./FormulaireContactConseille";
@@ -23,14 +23,14 @@ border-radius:8px;
     position:absolute;
     bottom: 0;
     left: 0;
-    width:15%;
+    width:20%;
  }
  .card-title{font-size:20px;font-weight:600;margin-bottom:1rem;}
  .card-subtitle{font-size:16px;font-weight:400;margin-bottom:1rem;}
 `;
 
 const ContenuTxt = styled.div`
-margin-left:15%;
+margin-left:20%;
 width: 70%;
 `;
 const ContenuAction = styled.div`
@@ -40,7 +40,7 @@ text-align: center;
 justify-content: center;
 align-items: center;
 width: 50%;
-a{margin-bottom:.5rem;}
+.btn{margin-bottom:1rem;}
 `;
 
 

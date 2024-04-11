@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import Bien from './Bien';
 import Interlocuteurs from './Interlocuteurs';
 import Documents from './Documents';
+import Profil from './Profil';
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 
@@ -340,16 +341,15 @@ function Layout(args, props) {
                                     <img src={icnDoc} alt="tableau de bord"/> Documents
                                 </Link>
                             </NavItem>
-                            {/**
-                            <NavItem>
+                            
+                            <NavItem className='profil'>
                                 <Link
-                                    to="/app/transaction"
-                                    className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
-                                    onClick={() => { toggle('5'); }} >
-                                    <img src={icnTransac} alt="tableau de bord"/>Transactions
+                                    to="/app/profil"
+                                    className={`nav-link  ${window.location.pathname === "/app/profil" ? "active" : ""}`}
+                                    onClick={() => { toggle('5'); }} >Profil
                                 </Link>
                             </NavItem>
-                             */}
+                             
                             <NavItem className='logout'>
                                 <Link
                                 className="nav-link"
@@ -465,7 +465,7 @@ function Layout(args, props) {
                             <TabPane tabId="5">
                                 <Row>
                                     <Col sm="12">
-                                        <h5>Transactions</h5>
+                                    <Profil user={user} />
                                     </Col>
                                 </Row>
                             </TabPane>
@@ -525,16 +525,7 @@ function Layout(args, props) {
                                     <img src={icnDoc} alt="documents"/> Documents
                                 </Link>
                             </NavItem>
-                            {/**
-                            <NavItem>
-                                <Link
-                                    to="/app/transaction"
-                                    className={`nav-link  ${window.location.pathname === "/app/transaction" ? "active" : ""}`}
-                                    onClick={() => { toggle('5'); }} >
-                                    <img src={icnTransac} alt="tableau de bord"/>Transactions
-                                </Link>
-                            </NavItem>
-                             */}
+                             
                             <NavItem className='logout'>
                                 <Link
                                 className="nav-link"

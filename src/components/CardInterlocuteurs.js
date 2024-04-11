@@ -25,7 +25,7 @@ const ListGroupItemCarac = styled(ListGroupItem)`
 background-color:transparent;
 margin:20px 0;
 border:0;
-display:flex;
+
 align-items:baseline;
 padding-left: 0;
 svg{margin-right:.5rem;}

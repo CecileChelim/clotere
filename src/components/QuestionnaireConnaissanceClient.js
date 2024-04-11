@@ -94,14 +94,14 @@ function QuestionnaireConnaissanceClient(args) {
                 console.log(res);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setFormSuccess(true);
-                setFormSuccessMessage("👌 Vos informations on bien été ajoutées.");
+                setFormSuccessMessage("👌 Vos informations ont bien été ajoutées.");
                 /**setTimeout(() => {
                     setFormSuccess(false);
                 }, 3000);**/
             }).catch((error) => {
                 console.log(error);
                 setFormError(true);
-                setFormErrorMessage("Un problème est survenu. Veillez recommencer.");
+                setFormErrorMessage("Un problème est survenu. Veuillez recommencer.");
             });
 
 
@@ -146,7 +146,7 @@ function QuestionnaireConnaissanceClient(args) {
                     </Row>
                     <FormGroup>
                         <Label>Date de naissance</Label>
-                        <Input type="date" name="ddn" defaultValue={args.user.date_de_naissance} />
+                        <Input type="date" name="ddn" defaultValue={args.user.date_de_naissance}/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Ville de naissance</Label>

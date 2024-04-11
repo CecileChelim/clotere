@@ -164,7 +164,8 @@ h3{font-size:40px;}
     width:100%;
    }
  
-    
+   /** upload de doc **/
+    label[for=file]{width:100%!important;}
     `
   ;
 
