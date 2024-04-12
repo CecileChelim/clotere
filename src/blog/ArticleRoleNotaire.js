@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import { HomeS } from '../Home';
 import { ArticleContent } from "../style/Blog";
 import CardClotere1 from "./CardClotere1";
+import CardClotere2 from "./CardClotere2";
 import CardSimulateurFrais from "./CardSimulateurFrais";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 import BlocCta from "../components/BlocCta";
@@ -163,7 +164,9 @@ function ArticleRoleNotaire(args) {
                                     </ListGroup>
                                     <CardSimulateurFrais/>
                                 </Col>
-                                <Col md='3'></Col>
+                                <Col md='3'>
+                                <CardClotere2/>
+                                </Col>
                             </Row>
                         </Container>
                     </section>

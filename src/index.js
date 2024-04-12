@@ -7,13 +7,11 @@ import reportWebVitals from './reportWebVitals';
 
 import {GlobalStyle} from "./style/GlobalStyle";
 import Theme from "./Theme";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const config = { publicKey: "pk_sb_e8fdd7a0fda2ede10dee" }
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
-
 
 root.render(
   <Theme>

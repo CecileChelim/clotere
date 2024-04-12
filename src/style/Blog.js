@@ -73,7 +73,7 @@ ol.breadcrumb{
 }
 section{
     background-color:white;
-    padding: 80px 0;
+    padding: 40px 0;
     a{
         font-weight: 600;
         color: ${props => props.theme.colors.greenDark};

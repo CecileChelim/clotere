@@ -67,10 +67,8 @@ function Blog(args) {
                                     <img className="mainimg" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,f_auto,h_225,q_auto,w_576/fnbueqbbj0iutgl0expq.webp" alt="clotere" />
 
                                     <CardBody>
-                                        <CardTitle>Mais au fait les frais de notaire qu'est-ce que c'est ? </CardTitle>
-                                        <CardText>
-                                            Les frais de notaire viennent s'ajouter à votre prix d'acquisition. Pour y voir plus claire on vous détaille les différents postes de ces frais :
-                                          
+                                        <CardTitle>Comment choisir son notaire pour son achat immobilier ?</CardTitle>
+                                        <CardText>Acquérir un bien immobilier requiert toujours l’intervention d’un notaire, au moins pour réaliser l’acte de vente. Comment faire le choix d’un notaire pour un achat immobilier ? Découvrez nos conseils.
                                         </CardText>
                                         <div className="card-blog-author">
                                             <img alt="auteur" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
@@ -79,7 +77,7 @@ function Blog(args) {
                                                 <p class="read-time">Lecture : 7 min</p>
                                             </div>
                                         </div>
-                                        <Link to="/achat-immobilier/de-quoi-se-compose-les-frais-de-notaire">Lire l'article</Link>
+                                        <Link to="/achat-immobilier/comment-choisir-son-notaire">Lire l'article</Link>
                                     </CardBody>
                                 </CardArticle>
                             </Col>
@@ -89,10 +87,9 @@ function Blog(args) {
                                     <img alt="clotere votre notaire en ligne" className="mainimg" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,f_auto,h_225,q_auto,w_576/fnbueqbbj0iutgl0expq.webp" />
 
                                     <CardBody>
-                                        <CardTitle>Quel est le rôle du notaire dans un achat immobilier ? </CardTitle>
+                                        <CardTitle>Quels sont les documents de vente chez le notaire pour un achat immobilier ? </CardTitle>
                                         <CardText>
-                                            Les frais de notaire viennent s'ajouter à votre prix d'acquisition. Pour y voir plus claire on vous détaille les différents postes de ces frais :
-                                          
+                                        Vous projetez un achat immobilier. Durant la négociation, vous aurez à signer plusieurs documents actant la vente de ce bien immobilier à votre profit. Quels sont ces documents ? À quoi servent-ils ? Dans quelles conditions les signe-t-on ? On vous en dit plus.
                                         </CardText>
                                         <div className="card-blog-author">
                                             <img alt="notaire" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
@@ -101,7 +98,7 @@ function Blog(args) {
                                                 <p class="read-time">Lecture : 7 min</p>
                                             </div>
                                         </div>
-                                        <Link to="/achat-immobilier/de-quoi-se-compose-les-frais-de-notaire">Lire l'article</Link>
+                                        <Link to="/achat-immobilier/documents-de-vente-chez-le-notaire" onClick={window.scrollTo(0, 0)}>Lire l'article</Link>
                                     </CardBody>
                                 </CardArticle>
                             </Col>
