@@ -4,32 +4,52 @@ import {
 } from "reactstrap";
 import { TitlePageBig,Panel } from "../style/Layout";
 import { ButtonPrimary } from "../style/Button";
+import { useMemberstack } from "@memberstack/react";
 
 function Profil(args) {
     //console.log("arg  bien",args.bien)
     const [currentActiveTab, setCurrentActiveTab] = useState('informations');
     const [errorPassword, setErrorPassword] = useState(null);
     const [successPassword, setSuccessPassword] = useState(null);
+
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+
+    const memberstack = useMemberstack();
     
     const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
     const [popupName, setPopupName] = useState(null);
-   
+   const [fields, setFields] = useState(null) 
+   const [userID, setUserID] = useState(null) 
     var dataToSend = {};
 
     useEffect(() => {
+        console.log(args.user);
+        
         if(args.user != null){
+
+            setUserID(args.user.airtable_id);
+            
                // eslint-disable-next-line
             dataToSend = {
                 "nom": args.user.nom,
                 "prenom": args.user.prenom,
                 "telephone": args.user.telephone,
             }
+
+            setFields(dataToSend);
         }
 
     }, [args.user])
 
+    useEffect(() => {
+        console.log(fields);
+    }, [fields])
+
     const modifUserInfo = async () =>{
-        const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${args.user.id}`;
+       
+        const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${userID}`;
 
         var response = await fetch(
             URL,
@@ -40,7 +60,7 @@ function Profil(args) {
                     "Accept": "application/json",
                     'content-type':"application/json"
                 },
-                body:  JSON.stringify({dataToSend})
+                body:  JSON.stringify({fields})
                 
             });
 
@@ -54,6 +74,41 @@ function Profil(args) {
                 setPopupName(null);
               }, 5000);
     }
+
+    const updatePassword = async () => {
+        try{
+            if(newPassword === newPasswordConfirm){
+                var response =  await memberstack.updateMemberAuth({
+                    oldPassword: oldPassword,
+                    newPassword: newPassword
+                 })
+
+                 if(response.data !== undefined && response.data !== null){
+                    setSuccessPassword("Mot de passe modifié avec succès !")
+                 }
+            }else{
+                setErrorPassword("Mots de passe non identiques.")
+            }
+
+             console.log(response);
+        }catch(e){
+            if(e.code === "invalid-password"){
+                setErrorPassword("Ancien mot de passe saisi incorrect.")
+            }else if (e.code === "invalid-password-to-short"){
+                setErrorPassword("Mot de passe trop court.")
+            } else{
+                setErrorPassword("Erreur lors de la modification du mot de passe.")
+            }
+            
+            console.log(e)
+        }
+
+        setTimeout(() => {
+            setErrorPassword(null);
+            setSuccessPassword(null);
+          }, 5000);
+    }
+
 
     return (
         <>
@@ -95,6 +150,10 @@ function Profil(args) {
                                                         <Input
                                                             id=""
                                                             defaultValue={args.user.nom != null ? args.user.nom : ""}
+                                                            onChange={(val) => {
+                                                                dataToSend = { ...fields, "nom":  val.target.value };
+                                                                setFields(dataToSend);
+                                                            }}
                                                             name=""
                                                             type="text"
                                                         />
@@ -110,7 +169,8 @@ function Profil(args) {
                                                         defaultValue={args.user.prenom != null ? args.user.prenom : ""}
                                                         name=""
                                                         onChange={(val) => {
-                                                            dataToSend = { ...dataToSend, "prenom":  val.target.value };
+                                                            dataToSend = { ...fields, "prenom":  val.target.value };
+                                                            setFields(dataToSend);
                                                         }}
                                                         type="text"
                                                     />
@@ -140,6 +200,10 @@ function Profil(args) {
                                                             id=""
                                                             name=""
                                                             defaultValue={args.user.telephone != null ? args.user.telephone : ""}
+                                                            onChange={(val) => {
+                                                                dataToSend = { ...fields, "telephone":  val.target.value };
+                                                                setFields(dataToSend);
+                                                            }}
                                                             type="text"
                                                         />
                                                     </FormGroup>
@@ -185,9 +249,9 @@ function Profil(args) {
                                                 id=""
                                                 name=""
                                                 type="password"
-                                                /*onChange={(val) => {
+                                                onChange={(val) => {
                                                     setOldPassword(val.target.value);  
-                                                }}*/
+                                                }}
                                             />
                                         </FormGroup>
                                         <FormGroup>
@@ -196,9 +260,9 @@ function Profil(args) {
                                                 id=""
                                                 name=""
                                                 type="password"
-                                                /*onChange={(val) => {
+                                                onChange={(val) => {
                                                     setNewPassword(val.target.value);  
-                                                }}*/
+                                                }}
                                             />
                                         </FormGroup>
                                         <FormGroup>
@@ -207,13 +271,13 @@ function Profil(args) {
                                                 id=""
                                                 name=""
                                                 type="password"
-                                                /*onChange={(val) => {
+                                                onChange={(val) => {
                                                     setNewPasswordConfirm(val.target.value);  
-                                                }}*/
+                                                }}
                                             />
                                         </FormGroup>
                                         <FormGroup>
-                                                        <ButtonPrimary  color="primary">Modifier</ButtonPrimary>
+                                                        <ButtonPrimary onClick={updatePassword}  color="primary">Modifier</ButtonPrimary>
                                                     </FormGroup>
                                     </Form>
                                 </Panel>

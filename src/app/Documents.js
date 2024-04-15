@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
     Container, Row, Col,
-    Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody, FormGroup, Form, Label, Input, Spinner, Button, Alert
+    Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody, FormGroup, Form, Label, Input, Spinner, Button, Alert,
+    Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap";
 import { TitlePageBig, TitlePageApp } from "../style/Layout";
 import { LinkS } from "../style/Button";
@@ -33,6 +34,12 @@ function Documents(args) {
         setValueNomDoc(null)
     }
 
+    const [modalConfirm, setModalConfirm] = useState(false);
+
+    const [docToDelete, setDocToDelete] = useState(null);
+
+  const toggleModalConfirm = () => setModalConfirm(!modalConfirm);
+
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
@@ -48,6 +55,8 @@ function Documents(args) {
         setFile(file);
         console.log(file);
     };
+
+
 
     const fileTypes = ["PDF", "PNG", "JPG"];
 
@@ -179,6 +188,7 @@ function Documents(args) {
       };
 
       const handleDeleteDocument = async (doc) => {
+        toggleModalConfirm();
         const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document/${doc.id}`;
 
         if(doc.type === "autre"){
@@ -212,6 +222,8 @@ function Documents(args) {
         }
 
             await getUserDocuments();
+
+
 
             setSuccess("Document supprimé avec succès !")
 
@@ -409,7 +421,7 @@ function Documents(args) {
             <br />
             <div style={{ display: "inline-flex" }}>
                 <div className="file-name">{file !== undefined && file !== null && file.name}</div>
-                <div onClick={handleDelete} style={{ textDecoration: "underline" }}>Supprimer</div>
+                <div onClick={toggleModalConfirm} style={{ textDecoration: "underline" }}>Supprimer</div>
             </div>
         </DragAndDropContainer>
     );
@@ -426,6 +438,19 @@ function Documents(args) {
 
     return (
         <>
+        <Modal isOpen={modalConfirm} toggle={toggleModalConfirm} {...args}>
+        <ModalBody>
+          Voulez vous vraiment supprimer ce document ?
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => handleDeleteDocument(docToDelete)}>
+            Confirmer
+          </Button>{' '}
+          <Button color="secondary" onClick={toggleModalConfirm}>
+            Annuler
+          </Button>
+        </ModalFooter>
+      </Modal>
          <Offcanvas  
             isOpen={showSideBar}
             toggle={toggleSideBar}
@@ -534,7 +559,8 @@ function Documents(args) {
                                             setShowSideBar(true);
                                             //console.log(doc);
                                          }} onDeleteDoc={(doc) => {
-                                            handleDeleteDocument(doc)
+                                            setDocToDelete(doc);
+                                            toggleModalConfirm();
                                          }} documents={data.filter(document => {
                                             if(document.type === item || item === "tous les documents"){
                                                 return true
