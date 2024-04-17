@@ -14,7 +14,7 @@ import ClotereLogo from "../img/logo-clotere.svg";
 
 const NavS = styled(Navbar)`
   background-color:transparent;
-  padding:2rem 3rem 4rem 3rem;
+  padding:2rem 3rem 2rem 3rem;
     margin-right: auto;
     margin-left: auto;
     transition : all ease .5s;

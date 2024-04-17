@@ -191,7 +191,7 @@ function ArticleDocumentsNotaries(args) {
                         </Container>
                     </section>
                 </ArticleContent>
-                <ArticlesSimilaires />
+                <ArticlesSimilaires title="Articles similaires" />
                 <BlocCta />
                 <Footer />
             </HomeS >

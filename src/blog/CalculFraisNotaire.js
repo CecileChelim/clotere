@@ -14,6 +14,7 @@ import Background from "../img/back-clotere.png"
 import { ButtonPrimarySmall, LinkCard } from "../style/Button";
 import { CardArticle } from "../style/Blog";
 import { Link } from "react-router-dom";
+import ArticlesSimilaires from "./ArticlesSimilaires";
 
 
 
@@ -398,54 +399,8 @@ function CalculFraisNotaire(args) {
                             </>
                         }
                     </Row>
-
-                    <Row className="d-flex align-items-center justify-content-center mt-3">
-                        <Col md='12' align="center">
-                            <br /><br /><br />
-                            <h3>Tous nos articles sur les notaires, leurs rôles et leurs frais.</h3>
-                        </Col>
-                        <Col md="4" xs="12">
-                            <CardArticle>
-                                <CardBody>
-                                    <CardTitle>Mais au fait les frais de notaire qu'est-ce que c'est ? </CardTitle>
-                                    <CardText>
-                                        Les frais de notaire viennent s'ajouter à votre prix d'acquisition. Pour y voir plus claire on vous détaille les différents postes de ces frais :
-                                        <ul>
-                                            <li>
-                                                Les impôts et les taxes
-                                            </li>
-                                            <li> Les frais de débours</li>
-                                            <li>Les émoluments du notaire
-                                            </li>
-                                        </ul>
-                                    </CardText>
-                                    <Link to="/achat-immobilier/de-quoi-se-compose-les-frais-de-notaire">Lire l'article</Link>
-                                </CardBody>
-                            </CardArticle>
-                        </Col>
-                        <Col md="4" xs="12">
-                            <CardArticle>
-                                <CardBody>
-                                    <CardTitle>Quel est le rôle du notaire dans un achat immobilier ?</CardTitle>
-                                    <CardText>
-                                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                                    </CardText>
-                                    <LinkCard to="/">En savoir plus</LinkCard>
-                                </CardBody>
-                            </CardArticle>
-                        </Col>
-                        <Col md="4" xs="12">
-                            <CardArticle>
-                                <CardBody>
-                                    <CardTitle>Quel est le rôle du notaire dans un achat immobilier ?</CardTitle>
-                                    <CardText>
-                                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                                    </CardText>
-                                    <LinkCard to="/">En savoir plus</LinkCard>
-                                </CardBody>
-                            </CardArticle>
-                        </Col>
-                    </Row>
+                        <br/><br/><br/>
+                    <ArticlesSimilaires title="Tous nos articles sur les notaires, leurs rôles et leurs frais."/>
 
                 </ContainerS>
                 <Footer />

@@ -171,7 +171,7 @@ function ArticleRoleNotaire(args) {
                         </Container>
                     </section>
                 </ArticleContent>
-                <ArticlesSimilaires/>
+                <ArticlesSimilaires title="Articles similaires" />
                 <BlocCta/>
                 <Footer />
             </HomeS >

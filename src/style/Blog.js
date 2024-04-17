@@ -6,6 +6,8 @@ import {
 export const CardArticle = styled(Card)`
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 border-radius:1rem;
+min-height:530px;
+overflow:hidden;
 a{
     font-weight: 600;
     color: ${props => props.theme.colors.greenDark};
@@ -37,6 +39,13 @@ img.mainimg{
     color: ${props => props.theme.colors.main};
     }
 }
+.EndBloc{
+    position:absolute;
+    bottom:0;
+}
+@media all and (max-width: 768px) {
+    margin-bottom:2rem;
+  }
 `;
 
 export const ArticleContent = styled.div`
