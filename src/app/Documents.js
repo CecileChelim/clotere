@@ -5,7 +5,7 @@ import {
     Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap";
 import { TitlePageBig, TitlePageApp } from "../style/Layout";
-import { LinkS } from "../style/Button";
+import { ButtonPrimary, LinkS } from "../style/Button";
 import CardDoc from "../components/CardDocument";
 import IconPDF from '../img/icon-pdf.png';
 import { FileUploader } from "react-drag-drop-files";
@@ -440,15 +440,16 @@ function Documents(args) {
         <>
         <Modal isOpen={modalConfirm} toggle={toggleModalConfirm} {...args}>
         <ModalBody>
-          Voulez vous vraiment supprimer ce document ?
+          Voulez-vous vraiment supprimer ce document ?
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => handleDeleteDocument(docToDelete)}>
-            Confirmer
-          </Button>{' '}
-          <Button color="secondary" onClick={toggleModalConfirm}>
-            Annuler
+        <Button color="light" onClick={toggleModalConfirm}>
+            Ne pas supprimer
           </Button>
+          <ButtonPrimary color="primary" onClick={() => handleDeleteDocument(docToDelete)}>
+            Confirmer
+          </ButtonPrimary>{' '}
+          
         </ModalFooter>
       </Modal>
          <Offcanvas  
