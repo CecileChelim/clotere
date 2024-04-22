@@ -10,7 +10,7 @@ import ListGroupItemInterlocuteur from "../components/CardInterlocuteurs";
 
 const ListGroupS = styled(ListGroup)`
 display: flex!important;
-flex-direction: row!important;
+flex-direction: column!important;
 gap: 2%!important;
 flex-wrap: wrap!important;
 align-items: flex-start!important;

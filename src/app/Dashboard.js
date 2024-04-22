@@ -168,7 +168,7 @@ function Dashboard(args) {
                                                                 <img src={icnDoc} alt="document-vente" className="mr-2" />
                                                                 <p className="flex-grow-1">
                                                                     <span>Document</span>
-                                                                    {args.evenement[i].fields.etat === "pas fait" ? (<>En cours de rédaction</>) : (<>{" "}</>)}
+                                                                    {args.evenement[i].fields.etat === "pas fait" ? (<>Non débuté</>) : (<>{" "}</>)}
                                                                     {args.evenement[i].fields.etat === "en cours" ? (<>En cours de rédaction</>) : (<>{" "}</>)}
                                                                     {args.evenement[i].fields.etat === "information(s) manquante(s)" ? (<>Des informations sont manquantes</>) : (<>{" "}</>)}
                                                                     {args.evenement[i].fields.etat === "fait" ? (
@@ -317,25 +317,11 @@ const ListGroupActionAmener = styled(ListGroup)`
             content: "✔️";
         }  
     }
-   
     h4{color:#1D2B28;}
     color:#84847C;
   }
 `;
 
-const AlertPret = styled(Alert)`
-margin-left: 4rem !important;
-background-color: transparent;
-border: 2px solid #e0eeee;
-margin: 0;
-p{
-    margin-bottom: 0;
-    font-size: 14px;
-}
-h5{
-    color: #006855;
-}
-`;
 
 const AlertWelcome = styled(Alert)`
 background-image:url(${backWelcome});
