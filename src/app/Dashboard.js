@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
     Container, Row, Col, Modal,
     Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody, Alert, CardBody, CardTitle
 } from "reactstrap";
 import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
-import { ButtonPrimarySmall, LinkS } from "../style/Button";
+import { ButtonPrimarySmall,ButtonPrimary, LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import CardHelp from '../components/CardHelp';
 import AideCompromis from "../components/AideCompromis";
 import AideActe from "../components/AideActe";
+import ChoisirNotaire from "../components/ChoisirNotaire";
 
-
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle, faLink, faMap } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import backWelcome from "../img/back-alert-welcome.png";
 import icnDocVente from "../img/icn-doc-vente.svg";
@@ -21,19 +22,53 @@ import icnDoc from "../img/icn-doc.svg";
 import icnCalendar from "../img/icn-calendar.svg";
 import icnTuto from "../img/icn-tuto.svg";
 
+
 function Dashboard(args) {
     const [canvas, setCanvas] = useState(false);
     const [canvasCompromis, setCanvasCompromis] = useState(false);
     const [canvasActe, setCanvasActe] = useState(false);
-  
+    const [canvasChoisirNotaire, setCanvasChoisirNotaire] = useState(false);
+    const [candidatures, setCandidatures] = useState(undefined);
+
+
     const toggle3 = () => setCanvas(!canvas);
     const toggleCompromis = () => setCanvasCompromis(!canvasCompromis);
     const toggleActe = () => setCanvasActe(!canvasActe);
+    const toggleChoisirNotaire = () => setCanvasChoisirNotaire(!canvasChoisirNotaire);
     
+
     const [pdfName, setPdfName] = useState(null);
     const toggleModal = () => setPdfName(null);
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    console.log("args dahboasrd",args)
+    console.log("args dahboasrd", args);
+
+    //get info candidature
+    useEffect(() => {
+        //on recupere les candidatures de la transaction
+        if (args.transaction !== null) {
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/candidatures_notaire?filterByFormula=SEARCH("${args.transaction.id}",{transaction})`;
+
+            fetch(
+                URL,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                        'content-type': 'application/x-www-form-urlencoded',
+                        "Accept": "application/json, text/plain, /"
+                    },
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log("all candidature transaction", res.records);
+                    setCandidatures(res.records);
+                })
+                .catch((error) => console.log(error));
+        }
+        // eslint-disable-next-line
+    }, [args.transaction]);
+
+
 
     if (args.info === "newUser") {
         return (
@@ -85,7 +120,7 @@ function Dashboard(args) {
 
             </>
         )
-    } else if (args !== null)  {
+    } else if (args !== null & candidatures !== undefined) {
         return (
             <>
                 <Container>
@@ -96,23 +131,52 @@ function Dashboard(args) {
                                 <p>Voici l'avancement de votre transaction : <b>{args.transaction.nom}</b> </p>
                             </Col>
                         </TitlePageApp>
+
+
                         <Col md="12" className="mt-3">
                             {/** on regarde si la transaction a un notaire */}
-                            {args.transaction.statut_marketplace_notaire === "en recherche de notaire" ?
+                            {args.transaction.statut_marketplace_notaire === "en recherche de notaire" ? (
                                 <>
-                                    <AlertWelcome>
-                                        <p><span role="img">👋</span> Nous recherchons actuellement un notaire pour votre transaction. Cela ne prendra pas beaucoup de temps, vous serez avertie par email lorsqu'il prendra votre affaire.
-                                        </p>
-                                    </AlertWelcome>
-                                </>
-                                : <></>
+                                    {candidatures !== null ? (
+                                        <>
+                                        <TitleSection><span role="img">👋</span> Bonne nouvelle ! Un notaire est disponible pour prendre en charge votre dossier.</TitleSection>
+                                          
+                                            {candidatures.map((i) => (
+                                                <>
+                                                    <Col md='4' key={i}>
+                                                        <Panel>
+                                                                <h5>Maître {" "} {i.fields.nom_from_notaire} {" "} {i.fields.prenom_from_notaire}</h5>
+                                                                <p><FontAwesomeIcon icon={faInfoCircle} className='mr-3' /> <small>Etude</small><br /> <b>{i.fields.etude_from_info_notaire}</b></p>
+                                                                <p><FontAwesomeIcon icon={faMap} className='mr-3' /> <small>Adresse :</small> <br /> {i.fields.adresse_from_info_notaire} {" "} <br /> {i.fields.code_postal_from_info_notaire} {" "} {i.fields.ville_from_info_notaire} </p>
+                                                                <p><FontAwesomeIcon icon={faLink} className='mr-3' />  <a href={i.fields.lien_notaire_de_france_from_info_notaire} target="blank">Consulter la fiche Notaire de france  </a></p>
+                                                                <Message>
+                                                                    <p>
+                                                                        {i.fields.message}
+                                                                    </p>
+                                                                </Message>
+                                                                <ButtonPrimary color="primary" onClick={toggleChoisirNotaire}>Choisir ce notaire</ButtonPrimary>
+                                                        </Panel>
+                                                    </Col>
+                                                </>
+                                            ))}
+                                        </>
+                                    ) : (<>
+                                        <Col md='12' align="left">
+                                            <AlertWelcome>
+                                                <p><span role="img">👋</span>Nous recherchons actuellement un notaire pour votre transaction. Cela ne prendra pas beaucoup de temps, vous serez avertie par email lorsqu'il prendra votre affaire.
+                                                </p>
+                                            </AlertWelcome>
+                                        </Col>
+                                    </>)}
 
-                            }
+                                </>
+                            ) : (<></>)}
+
 
                             {/** action à mener**/}
                             {args.action !== undefined && args.action.length > 0 ? <>
                                 <TitleSection className="mt-5">Vos actions à mener</TitleSection>
-                                
+
                                 <Panel>
                                     <ListGroupActionAmener numbered>
                                         {args.action.map((col, i) => (
@@ -274,8 +338,12 @@ function Dashboard(args) {
                     <OffcanvasHeader toggle={toggleActe}>Qu'est-ce que l'acte authentique de vente ?</OffcanvasHeader>
                     <AideActe />
                 </Offcanvas>
-                
-                
+                <Offcanvas isOpen={canvasChoisirNotaire} toggle={toggleChoisirNotaire} {...args} direction="end" scrollable>
+                <OffcanvasHeader toggle={toggleChoisirNotaire}>Choisir ce notaire</OffcanvasHeader>
+                <ChoisirNotaire/>
+            </Offcanvas>
+
+
                 <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
 
                     {pdfName != null ? pdfName.type === "application/pdf" ? <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
@@ -400,6 +468,11 @@ const PanelDocVente = styled(Panel)`
     }
 }
 
+`;
+const Message = styled.div`
+  padding:1rem;
+  background:${props => props.theme.colors.linearBackground};
+  text-align:center;
 `;
 
 

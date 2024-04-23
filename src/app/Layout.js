@@ -269,6 +269,8 @@ function Layout(args, props) {
     // eslint-disable-next-line
     }, [transaction]);
 
+   
+
     //console.log("member", member);
     //console.log("user", user);
     //console.log("transaction", transaction);
