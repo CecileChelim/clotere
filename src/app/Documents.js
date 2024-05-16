@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
     Container, Row, Col,
     Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody, FormGroup, Form, Label, Input, Spinner, Button, Alert,
-    Modal, ModalHeader, ModalBody, ModalFooter
+    Modal, ModalBody, ModalFooter
 } from "reactstrap";
 import { TitlePageBig, TitlePageApp } from "../style/Layout";
 import { ButtonPrimary, LinkS } from "../style/Button";
@@ -522,15 +522,11 @@ function Documents(args) {
                             <LinkS onClick={()  => {setShowSideBar(true)}}>+ Ajouter un document</LinkS>
                         </Col>
                     </TitlePageApp>
-                    {error == null ? <></> :
-                <Alert color="danger">
-                    {error}
-                </Alert> }
-                {success == null ? <></>:
-                <Alert color="success">
-                    {success}
-                </Alert> }
-                    <Col md="12">
+                    {/**Si erreur upload */}
+                    {error == null ? <></> : <Alert color="danger">{error} </Alert> }
+                    {/**Si succès upload */}
+                    {success == null ? <></>:<Alert color="success"> {success} </Alert> }
+                    <ColTabsDoc md="12" xs="12">
                         <Nav pills>
                         { listTabs.map((item, index) => (
                                     <NavItemNameCategorie key={index}>
@@ -545,7 +541,7 @@ function Documents(args) {
                                     ))}
 
                         </Nav>
-                        </Col>
+                        </ColTabsDoc>
                         <Col md="12" xs="12">
 
                         <TabContent className="mt-3" activeTab={currentActiveTab}>
@@ -588,6 +584,15 @@ const NavItemNameCategorie = styled(NavItem)`
 a.nav-link {text-transform: lowercase}
 a.nav-link::first-letter {text-transform: uppercase}
 `;
+const ColTabsDoc = styled(Col)`
+@media all and (max-width: 768px) {
+    ul.nav-pills{
+        display:flex;
+        justify-content: space-between;
+    }
+ }
+`;
+
 
 
 const DragAndDropContainer = styled.div`

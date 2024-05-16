@@ -41,6 +41,7 @@ h3{font-size:40px;}
     font-size:30px!important;
   }
 }
+p{font-size:16px;}
 
 .navbar-collapse{
   background-color: white;
@@ -151,7 +152,7 @@ h3{font-size:40px;}
     }
 
     /** card **/
-    .card{border:0;}
+    .card{border:0!important;border-radius:16px!important}
 
     .background-linear{
       background-color:${props => props.theme.colors.linearBackground}!important;

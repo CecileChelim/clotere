@@ -12,9 +12,6 @@ import CardHelp from '../components/CardHelp';
 import AideCompromis from "../components/AideCompromis";
 import AideActe from "../components/AideActe";
 import ChoisirNotaire from "../components/ChoisirNotaire";
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle, faLink, faMap } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import backWelcome from "../img/back-alert-welcome.png";
 import icnDocVente from "../img/icn-doc-vente.svg";
@@ -22,14 +19,12 @@ import icnDoc from "../img/icn-doc.svg";
 import icnCalendar from "../img/icn-calendar.svg";
 import icnTuto from "../img/icn-tuto.svg";
 
-
 function Dashboard(args) {
     const [canvas, setCanvas] = useState(false);
     const [canvasCompromis, setCanvasCompromis] = useState(false);
     const [canvasActe, setCanvasActe] = useState(false);
     const [canvasChoisirNotaire, setCanvasChoisirNotaire] = useState(false);
     const [candidatures, setCandidatures] = useState(undefined);
-
 
     const toggle3 = () => setCanvas(!canvas);
     const toggleCompromis = () => setCanvasCompromis(!canvasCompromis);
@@ -140,15 +135,15 @@ function Dashboard(args) {
                                     {candidatures !== null ? (
                                         <>
                                         <TitleSection><span role="img">👋</span> Bonne nouvelle ! Un notaire est disponible pour prendre en charge votre dossier.</TitleSection>
-                                          
+                                          <RowCandidatureNotaire>
                                             {candidatures.map((i) => (
                                                 <>
-                                                    <Col md='4' key={i}>
+                                                    <Col md='4' key={i} className='flex'>
                                                         <Panel>
                                                                 <h5>Maître {" "} {i.fields.nom_from_notaire} {" "} {i.fields.prenom_from_notaire}</h5>
-                                                                <p><FontAwesomeIcon icon={faInfoCircle} className='mr-3' /> <small>Etude</small><br /> <b>{i.fields.etude_from_info_notaire}</b></p>
-                                                                <p><FontAwesomeIcon icon={faMap} className='mr-3' /> <small>Adresse :</small> <br /> {i.fields.adresse_from_info_notaire} {" "} <br /> {i.fields.code_postal_from_info_notaire} {" "} {i.fields.ville_from_info_notaire} </p>
-                                                                <p><FontAwesomeIcon icon={faLink} className='mr-3' />  <a href={i.fields.lien_notaire_de_france_from_info_notaire} target="blank">Consulter la fiche Notaire de france  </a></p>
+                                                                <p className='m-0'>{i.fields.etude_from_info_notaire}</p>
+                                                                <p>{i.fields.adresse_from_info_notaire} {" "} {i.fields.code_postal_from_info_notaire} {" "} {i.fields.ville_from_info_notaire} </p>
+                                                                <p><a href={i.fields.lien_notaire_de_france_from_info_notaire} target="blank">Consulter la fiche Notaire de france  </a></p>
                                                                 <Message>
                                                                     <p>
                                                                         {i.fields.message}
@@ -159,6 +154,7 @@ function Dashboard(args) {
                                                     </Col>
                                                 </>
                                             ))}
+                                            </RowCandidatureNotaire>
                                         </>
                                     ) : (<>
                                         <Col md='12' align="left">
@@ -378,7 +374,6 @@ const ListGroupActionAmener = styled(ListGroup)`
         border-radius: 100px;
         padding: 10px 17px;
         margin-right: 30px;
-        heigth:30px;
     }
     &.done{
         &:before{
@@ -387,6 +382,14 @@ const ListGroupActionAmener = styled(ListGroup)`
     }
     h4{color:#1D2B28;}
     color:#84847C;
+  }
+  @media all and (max-width: 768px) {
+    .list-group-item{
+        flex-direction:column;
+        &:before{
+            margin-bottom:1rem;
+        }
+    }
   }
 `;
 
@@ -465,6 +468,13 @@ const PanelDocVente = styled(Panel)`
                 color: ${props => props.theme.colors.main};
                 font-size:2rem;
         }
+        @media all and (max-width: 768px) {
+            margin-bottom:1.5rem;
+        }
+    }
+    @media all and (max-width: 768px) {
+        margin-right:0;
+        margin-left:0;
     }
 }
 
@@ -473,7 +483,27 @@ const Message = styled.div`
   padding:1rem;
   background:${props => props.theme.colors.linearBackground};
   text-align:center;
+  border-radius:6px;
 `;
+
+const RowCandidatureNotaire = styled(Row)`
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: stretch;
+.card{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    border:0;
+}
+@media all and (max-width: 768px) {
+    flex-direction: column;
+    margin-bottom:1rem;
+  }
+`;
+
+
 
 
 export default Dashboard;

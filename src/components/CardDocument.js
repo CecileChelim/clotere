@@ -30,11 +30,11 @@ function CardDocument(args) {
          </Modal>
       {args.documents.map((item, index) => (
         
-          item.etat === "ajouté" ?  <CardS key={index} className="d-flex flex-row align-items-center doc-ajoute">
+          item.etat === "ajouté" ?  <CardS key={index} className="d-flex flex-row doc-ajoute">
           <Icon>
             <FontAwesomeIcon icon={faCheck} />
           </Icon>
-          <CardBody className=" d-flex justify-content-between align-items-center">
+          <CardBody className=" d-flex justify-content-between ">
             <div>
               <CardTitle tag="h5">
                 {item.nom}
@@ -51,11 +51,11 @@ function CardDocument(args) {
               <LinkCard onClick={() => {args.onDeleteDoc(item);}} className="mr-3"> Supprimer</LinkCard>
             </Details>
           </CardBody>
-        </CardS> : <CardS key={index} className="d-flex flex-row align-items-center doc-non-ajoute">
+        </CardS> : <CardS key={index} className="d-flex flex-row doc-non-ajoute">
         <Icon>
           <FontAwesomeIcon icon={faFile} />
         </Icon>
-        <CardBody className=" d-flex justify-content-between align-items-center">
+        <CardBody className=" d-flex justify-content-between">
           <div>
             <CardTitle tag="h5">
               {item.nom}
@@ -132,9 +132,11 @@ function CardDocument(args) {
 const CardS = styled(Card)`
 border:0;
 margin-bottom:1rem;
+align-items:center;
 .card-body{
     display;flex!important;
     flex-direction:row!important;
+    align-items:center;
 }
 &.doc-ajoute{
   background-color: rgba(0, 104, 85, 0.1);
@@ -145,15 +147,26 @@ margin-bottom:1rem;
 &.doc-anomalie{
   background-color: rgba(247, 138, 2, 0.5);
 }
+@media all and (max-width: 768px) {
+  flex-direction:column!important;
+}
 `;
 const Icon = styled.div`
 margin: 1rem 2rem;
+align-items:center;
 .svg-inline--fa{
     color:#006855;
     height: 2em;
   }
+  @media all and (max-width: 768px) {
+    margin: 1rem;
+    .svg-inline--fa{
+      height: 1em;
+    }
+  }
 `;
 const Details = styled.div`
+align-items:center;
   p{
     color:#636060;
     font-size:14px;

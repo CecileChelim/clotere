@@ -434,7 +434,7 @@ function Layout(args, props) {
                         </Navbar>
 
                     </ColMenu>
-                    <ColContent md="10">
+                    <ColContent md="9">
                         <TabContent activeTab={currentActiveTab}>
                             <TabPane tabId="1">
                                 <Row>
@@ -666,5 +666,5 @@ const ColMenu = styled(Col)`
 `;
 
 const ColContent = styled(Col)`
-    padding : 3rem 2rem;
+    padding : 3rem 5rem;
 `;

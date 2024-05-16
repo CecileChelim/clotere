@@ -19,6 +19,7 @@ border-radius:8px;
  padding: 40px 20px;
  border:0!important;
  overflow:hidden;
+ flex-direction:row;
  img{
     position:absolute;
     bottom: 0;
@@ -27,11 +28,21 @@ border-radius:8px;
  }
  .card-title{font-size:20px;font-weight:600;margin-bottom:1rem;}
  .card-subtitle{font-size:16px;font-weight:400;margin-bottom:1rem;}
+ @media all and (max-width: 768px) {
+    flex-direction:column;
+    img{
+        display:none;
+    }
+}
 `;
 
 const ContenuTxt = styled.div`
 margin-left:20%;
 width: 70%;
+@media all and (max-width: 768px) {
+   margin:0;
+   width:100%;
+}
 `;
 const ContenuAction = styled.div`
 display: flex;
@@ -41,6 +52,10 @@ justify-content: center;
 align-items: center;
 width: 50%;
 .btn{margin-bottom:1rem;}
+@media all and (max-width: 768px) {
+    width:100%;
+    .btn{width:100%;}
+ }
 `;
 
 
@@ -49,7 +64,7 @@ function CardHelp(args) {
     const toggle = () => setCanvas(!canvas);
     return (
         <>
-            <CardS className="d-flex flex-row">
+            <CardS className="d-flex">
                 <img
                     alt="Besoin d'aide ?"
                     src={imgCardHelp}
