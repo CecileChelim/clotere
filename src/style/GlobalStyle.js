@@ -100,8 +100,8 @@ p{font-size:16px;}
       border: 0;
       background-color: #004f4717;
       border-bottom: 2px solid green;
-      border-radius: 0;
-      padding: 0.5rem;
+      padding:1rem;
+    border-radius: 1rem;
     }
    }
    select{

@@ -34,9 +34,9 @@ function Mentionslegales(args) {
 
                         <br/> Cofidelity, SAS au capital de 1 500,00 euros, immatriculée au registre du commerce et des sociétés de Paris sous le numéro 834 239 501.
 
-                        <br/><br/>Siège social : 90 rue Ardoin, 93400 SAINT-OUEN.
+                        <br/><br/>Siège social : 99 rue Ardoin, 93400 SAINT-OUEN.
 
-                        <br/><br/>Le Directrice de clotere.fr est Mdame Cécile CHELIM.
+                        <br/><br/>La responsable de publication de clotere.fr est Madame Cécile CHELIM.
 
                         <br/><br/><b>Le site clotere.fr est hébergé par :</b>
 

@@ -8,7 +8,7 @@ import {
 import Home from './Home';
 import HomeNotaire from './HomeNotaire';
 import Inscription from './Inscription';
-import Invitation from './Invitation';
+import Invitation from './ConnexionLink';
 import Layout from './app/Layout';
 import Questionnaire from './app/Questionnaire';
 import Mentionslegales from './Mentionslegales';
