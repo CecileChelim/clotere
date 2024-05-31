@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useMemberstack, } from "@memberstack/react";
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, FormGroup, Form, Label, Input, Alert, FormText, ListGroup, ListGroupItem } from "reactstrap";
+import { Container, Row, Col, FormGroup, Form, Label, Input, Alert, ListGroup, ListGroupItem,Offcanvas,OffcanvasHeader, OffcanvasBody, } from "reactstrap";
 import { ButtonPrimary } from "./style/Button";
 import { HomeS } from "./Home"
 import styled from "styled-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import logoClotere from "./img/logo-clotere.svg";
 
 const Logo = styled.img`
@@ -51,6 +53,21 @@ li.list-group-item{
     }
 }
 `;
+const InfoMdp = styled.div`
+display:flex;
+flex-direction:row;
+align-items:center;
+justify-content:center;
+gap:20px;
+font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    opacity:.7;
+svg{font-size: 1.5em!important;}
+
+`;
+
+
 
 function ConnexionLink(args, props) {
     const memberstack = useMemberstack();
@@ -60,6 +77,9 @@ function ConnexionLink(args, props) {
     const [member, setMember] = useState(null);
     const [emailSent, setEmailSent] = useState(null);
     const navigate = useNavigate();
+    const [canvas, setCanvas] = useState(false);
+    
+    const toggleEnSavoirPlus = () => setCanvas(!canvas);
 
     //redirect if already logged
     useEffect(() => {
@@ -116,6 +136,7 @@ function ConnexionLink(args, props) {
     return (
         <>
             {!member && (
+                <div>
                 <HomeS2>
                     <Row>
                         <Col md="5" className="avantage">
@@ -135,10 +156,7 @@ function ConnexionLink(args, props) {
                                         <span>🔥</span> Suivre l'avancement de vos documents notariés
                                     </ListGroupItem>
                                     <ListGroupItem>
-                                        <span>📆</span> Fixer vos rendez-vous avec votre notaire
-                                    </ListGroupItem>
-                                    <ListGroupItem>
-                                        <span>📨</span> Réalisez vos signatures d'acte en ligne de manière sécurisée
+                                        <span>📆</span> Fixer vos rendez-vous simplement avec votre notaire
                                     </ListGroupItem>
                                 </ListGroupAvantages>
                             </Container>
@@ -173,6 +191,11 @@ function ConnexionLink(args, props) {
                                             <FormGroup>
                                             <ButtonPrimary color="primary" type="submit" data-ms-passwordless-button="Confirm & Signup">Obtenir mon code de connexion</ButtonPrimary>
                                             </FormGroup>
+                                            <InfoMdp>
+                                            <FontAwesomeIcon icon={faInfoCircle} className="fa-3x iconflex" />
+                                            <div>Pour votre sécurité, Clotere n’utilise pas de mot de passe. <br/>Vous recevrez un lien de connexion par email (<a onClick={toggleEnSavoirPlus}>en savoir plus</a>).
+                                            </div>
+                                            </InfoMdp>
                                         </Form>
                                     </>
                                 ) : (<>
@@ -224,6 +247,36 @@ function ConnexionLink(args, props) {
                         </Col>
                     </Row>
                 </HomeS2>
+                <Offcanvas
+                isOpen={canvas}
+                toggle={toggleEnSavoirPlus}
+                {...args}
+                direction="end"
+                scrollable>
+                <OffcanvasHeader toggle={toggleEnSavoirPlus}>
+                Pourquoi n'ai-je pas de mot de passe Clotere ?
+                </OffcanvasHeader>
+                <OffcanvasBody>
+                <p>Clotere est une entreprise où la sécurité et la vie privée de nos utilisateurs est prise extrêmement au sérieux. 
+                    Nous savons que vous nous faites confiance en nous confiant des données personnelles et sensibles, et nous mettons tout en œuvre pour les protéger</p>
+                
+
+                <p>
+                    <b>L'objectif principal est qu'il soit impossible pour un intrus de se connecter à votre place</b> !
+                    </p>
+                    <p>
+                    Pour nous en assurer, nous avons choisi de ne pas utiliser de mot de passe pour vous authentifier. Voici pourquoi :
+                    </p>
+​                  <p>
+    <b>Les mots de passe sont un des plus gros risque de sécurité sur internet</b>, car vous êtes nombreux à les réutiliser sur plusieurs sites. On vous comprend : difficile de tous les retenir ! Mais il suffit qu'un seul de ces sites ait été hacké pour que votre précieux mot de passe soit connu de pirates.
+    </p>
+            <p>
+                Nous utilisons donc une solution passwordless, qui vous impose de cliquer sur un lien "magique" que nous vous envoyons par email à chaque connexion sur un nouvel appareil ou après 30 jours sur vos appareils déjà connus.
+                </p>
+                </OffcanvasBody>
+
+            </Offcanvas>
+            </div>
             )}
         </>
     );
