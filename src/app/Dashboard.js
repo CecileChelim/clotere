@@ -3,15 +3,15 @@ import {
     Container, Row, Col, Modal,
     Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody, Alert, CardBody, CardTitle
 } from "reactstrap";
+import { Link } from 'react-router-dom';
 import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
-import { ButtonPrimarySmall,ButtonPrimary, LinkS } from "../style/Button";
+import { ButtonPrimarySmall, ButtonPrimary, LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import CardHelp from '../components/CardHelp';
 import AideCompromis from "../components/AideCompromis";
 import AideActe from "../components/AideActe";
-import ChoisirNotaire from "../components/ChoisirNotaire";
 import styled from "styled-components";
 import backWelcome from "../img/back-alert-welcome.png";
 import icnDocVente from "../img/icn-doc-vente.svg";
@@ -23,19 +23,20 @@ function Dashboard(args) {
     const [canvas, setCanvas] = useState(false);
     const [canvasCompromis, setCanvasCompromis] = useState(false);
     const [canvasActe, setCanvasActe] = useState(false);
-    const [canvasChoisirNotaire, setCanvasChoisirNotaire] = useState(false);
+    const [canvasCandidatureNotaire, setCanvasCandidatureNotaire] = useState(false);
+
     const [candidatures, setCandidatures] = useState(undefined);
 
     const toggle3 = () => setCanvas(!canvas);
     const toggleCompromis = () => setCanvasCompromis(!canvasCompromis);
     const toggleActe = () => setCanvasActe(!canvasActe);
-    const toggleChoisirNotaire = () => setCanvasChoisirNotaire(!canvasChoisirNotaire);
-    
+    const toggleCandidatureNotaire = () => setCanvasCandidatureNotaire(!canvasCandidatureNotaire);
+
 
     const [pdfName, setPdfName] = useState(null);
     const toggleModal = () => setPdfName(null);
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    console.log("args dahboasrd", args);
+    //console.log("args dahboasrd", args);
 
     //get info candidature
     useEffect(() => {
@@ -134,27 +135,11 @@ function Dashboard(args) {
                                 <>
                                     {candidatures !== null ? (
                                         <>
-                                        <TitleSection><span role="img">👋</span> Bonne nouvelle ! Un notaire est disponible pour prendre en charge votre dossier.</TitleSection>
-                                          <RowCandidatureNotaire>
-                                            {candidatures.map((i) => (
-                                                <>
-                                                    <Col md='4' key={i} className='flex'>
-                                                        <Panel>
-                                                                <h5>Maître {" "} {i.fields.nom_from_notaire} {" "} {i.fields.prenom_from_notaire}</h5>
-                                                                <p className='m-0'>{i.fields.etude_from_info_notaire}</p>
-                                                                <p>{i.fields.adresse_from_info_notaire} {" "} {i.fields.code_postal_from_info_notaire} {" "} {i.fields.ville_from_info_notaire} </p>
-                                                                <p><a href={i.fields.lien_notaire_de_france_from_info_notaire} target="blank">Consulter la fiche Notaire de france  </a></p>
-                                                                <Message>
-                                                                    <p>
-                                                                        {i.fields.message}
-                                                                    </p>
-                                                                </Message>
-                                                                <ButtonPrimary color="primary" onClick={toggleChoisirNotaire}>Choisir ce notaire</ButtonPrimary>
-                                                        </Panel>
-                                                    </Col>
-                                                </>
-                                            ))}
-                                            </RowCandidatureNotaire>
+
+                                            <PanelCandidature>
+                                                <h5><span role="img">👋</span> Bonne nouvelle ! <br />Un notaire est disponible pour prendre en charge votre dossier.</h5>
+                                                <ButtonPrimarySmall color="primary" onClick={toggleCandidatureNotaire}> Voir les notaires</ButtonPrimarySmall>
+                                            </PanelCandidature>
                                         </>
                                     ) : (<>
                                         <Col md='12' align="left">
@@ -334,10 +319,38 @@ function Dashboard(args) {
                     <OffcanvasHeader toggle={toggleActe}>Qu'est-ce que l'acte authentique de vente ?</OffcanvasHeader>
                     <AideActe />
                 </Offcanvas>
-                <Offcanvas isOpen={canvasChoisirNotaire} toggle={toggleChoisirNotaire} {...args} direction="end" scrollable>
-                <OffcanvasHeader toggle={toggleChoisirNotaire}>Choisir ce notaire</OffcanvasHeader>
-                <ChoisirNotaire/>
-            </Offcanvas>
+                <Offcanvas isOpen={canvasCandidatureNotaire} toggle={toggleCandidatureNotaire} {...args} direction="end" scrollable>
+                    <OffcanvasHeader toggle={toggleCandidatureNotaire}>Voici les notaires disponibles pour votre transaction</OffcanvasHeader>
+                    <OffcanvasBody>
+                            {candidatures !== null ? (
+                                <>
+                                <RowCandidatureNotaire>
+                                    {candidatures.map((i) => (
+                                        <>
+                                            <Col key={i} className='flex'>
+                                                <Panel>
+                                                    <h5>Maître {" "} {i.fields.nom_from_notaire} {" "} {i.fields.prenom_from_notaire}</h5>
+                                                    <p className='m-0'>{i.fields.etude_from_info_notaire}</p>
+                                                    <p>{i.fields.adresse_from_info_notaire} {" "} {i.fields.code_postal_from_info_notaire} {" "} {i.fields.ville_from_info_notaire} </p>
+                                                    <p><a href={i.fields.lien_notaire_de_france_from_info_notaire} target="blank">Consulter la fiche Notaire de france  </a></p>
+                                                    <Message>
+                                                        <p>
+                                                            {i.fields.message}
+                                                        </p>
+                                                    </Message>
+                                                    <Link to={`/app/choisir-notaire/${i.id}`}>
+                                                    <ButtonPrimary color="primary">Choisir ce notaire</ButtonPrimary>
+                                                    </Link>
+                                                </Panel>
+                                            </Col>
+                                        </>
+                                    ))}
+                                    </RowCandidatureNotaire>
+                                </>
+                            ) : (<></>
+                            )}
+                    </OffcanvasBody>
+                </Offcanvas>
 
 
                 <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>
@@ -479,29 +492,49 @@ const PanelDocVente = styled(Panel)`
 }
 
 `;
-const Message = styled.div`
+export const Message = styled.div`
   padding:1rem;
   background:${props => props.theme.colors.linearBackground};
   text-align:center;
   border-radius:6px;
 `;
 
-const RowCandidatureNotaire = styled(Row)`
+export const RowCandidatureNotaire = styled(Row)`
 display: flex;
-flex-direction: row;
+flex-direction: column;
 justify-content: flex-start;
 align-items: stretch;
 .card{
     height: 100%;
     display: flex;
     justify-content: space-between;
-    border:0;
+    border:1px solid #ddd!important;
+    width:100%;
+    margin-bottom:1rem;
 }
 @media all and (max-width: 768px) {
     flex-direction: column;
     margin-bottom:1rem;
   }
 `;
+
+const PanelCandidature = styled(Panel)`
+display: flex;
+    flex-direction: row!important;
+    justify-content: space-between;
+    align-items: flex-start;
+a{
+    width: fit-content;
+}
+h5{
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 400;
+    line-height:2.5rem;
+}
+`;
+
+
 
 
 

@@ -10,6 +10,8 @@ import HomeNotaire from './HomeNotaire';
 import Inscription from './Inscription';
 import Invitation from './ConnexionLink';
 import Layout from './app/Layout';
+import ChoisirNotaire from './app/ChoisirNotaire';
+
 import Questionnaire from './app/Questionnaire';
 import Mentionslegales from './Mentionslegales';
 import Cgv from './Cgv';
@@ -25,7 +27,7 @@ export const userInfoContext = createContext();
 
 const App = () => {
   const [userInfo, setUserInfo] = useState(null);
-  console.log("path", window.location.pathname );
+  //console.log("path", window.location.pathname );
 
   function getNavbar() {
     if(window.location.pathname === "/app/" ) {
@@ -73,6 +75,7 @@ const App = () => {
             <Route path="app/interlocuteurs" exact user={userInfo} element={<Layout />}  />
             <Route path="app/documents" exact user={userInfo} element={<Layout />}  />
             <Route path="app/profil" exact user={userInfo} element={<Layout />}  />
+            <Route path="app/choisir-notaire/:id" exact user={userInfo} element={<ChoisirNotaire />}  />
             <Route path="mentions-legales" exact user={userInfo} element={<Mentionslegales />}  />
             <Route path="cgv" exact user={userInfo} element={<Cgv />}  />
             <Route path="demo-notaire" exact user={userInfo} element={<DemoNotaire />}  />
