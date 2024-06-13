@@ -9,6 +9,12 @@ import { ButtonPrimary } from "../style/Button";
 
 
 const BodyParallax = styled.div`
+
+h2{
+font-size:34px;
+text-align:center;
+margin-top:4rem;
+}
 :root {
 	--card-height: 40vw;
 	--card-margin: 4vw;
@@ -146,7 +152,7 @@ border-radius:20px;
 border:0;
 min-height:420px;
 margin-bottom:2rem;
-margin-top:4rem;
+margin-top:2rem;
 .carousel{position:relative;min-height:420px;}
 .carousel-inner{
     overflow:visible;
@@ -193,6 +199,8 @@ p{
 function FeatureParallax() {
     return (
         <BodyParallax>
+
+		<h2>Comment ça marche pour votre client ?</h2>
             <main>
                 <ul id="cards">
                     <li className="card" id="card_1">
@@ -233,12 +241,14 @@ function FeatureParallax() {
                     </li>
                 </ul>
             </main>
+			{/**
 			<div className="text-center">
 			<Link to="/onboard">
                             <ButtonPrimary color="primary" >Trouvez votre notaire <img src={ArrowRight} alt=""/></ButtonPrimary>
                         </Link>
 						<br/><p className="m-0 mt-2">En 3 minutes, et gratuitement !</p>
 			</div>
+			 */}
         </BodyParallax>
     );
 }

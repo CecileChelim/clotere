@@ -75,7 +75,7 @@ const App = () => {
             <Route path="app/interlocuteurs" exact user={userInfo} element={<Layout />}  />
             <Route path="app/documents" exact user={userInfo} element={<Layout />}  />
             <Route path="app/profil" exact user={userInfo} element={<Layout />}  />
-            <Route path="app/choisir-notaire/:id" exact user={userInfo} element={<ChoisirNotaire />}  />
+            <Route path="app/choisir-notaire/:id/:transaction" exact user={userInfo} element={<ChoisirNotaire />}  />
             <Route path="mentions-legales" exact user={userInfo} element={<Mentionslegales />}  />
             <Route path="cgv" exact user={userInfo} element={<Cgv />}  />
             <Route path="demo-notaire" exact user={userInfo} element={<DemoNotaire />}  />

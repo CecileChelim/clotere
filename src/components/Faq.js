@@ -72,11 +72,11 @@ function Faq() {
                                 <FontAwesomeIcon icon={faAngleDown} />
                             </ListGroupItem>
                             <Collapse isOpen={isOpen}>
-                                <p>La plateforme Clotere est totalement gratuite pour l’acheteur, le vendeur et l’agent immobilier.<br />
+                                <p>La plateforme Clotere est totalement gratuite pour l’acheteur et le vendeur.<br />
                                     Une seule de nos prestations est payante : la rédaction du compromis de vente.</p>
                             </Collapse>
                             <ListGroupItem onClick={toggle1} >
-                                Pourquoi Clotere est plus rapide qu’un notaire physique ?
+                                Pourquoi Clotere est plus rapide ?
                                 <FontAwesomeIcon icon={faAngleDown} />
                             </ListGroupItem>
                             <Collapse isOpen={isOpen1}>
@@ -91,7 +91,7 @@ function Faq() {
                             </ListGroupItem>
                             <Collapse isOpen={isOpen2}>
                                 <p>
-                                    Non ! Clotere est une plateforme de mise en relation entre des acheteurs, des vendeurs et des notaires faisant partie de la chambre des notaires de France.
+                                    Non ! Clotere est une plateforme de mise en relation entre des acheteurs, des vendeurs et des notaires.
                                 </p>
                             </Collapse>
                             <ListGroupItem onClick={toggle3} >

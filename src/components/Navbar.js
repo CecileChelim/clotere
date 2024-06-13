@@ -46,24 +46,30 @@ const NavS = styled(Navbar)`
   padding:1rem 3rem 1rem 3rem;
   z-index: 9999;
 }
+  .linkcenter{
+  display:flex;
+  flex-direction:row;
+    align-items: center;
+    gap: 2rem;
+    justify-content: center;
+  a{
+  transition:all ease .5s;
+text-decoration:none;
+font-size: 18px;
+font-weight: 300;
+color: #000000;
+margin-top: .8rem;
+&:hover{
+  color:${props => props.theme.colors.main};
+}
+  }
 `;
 
 const LinkEspaceClient = styled.a`
 font-weight: 500;
     background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
 `;
-const LinkNotaire = styled.a`
-transition:all ease .5s;
-text-decoration:none;
-padding: 0.5rem;
-font-size: 18px;
-font-weight: 300;
-color: #000000;
-&:hover{
-  color:${props => props.theme.colors.main};
-}
 
-`;
 
 
 const NavMobileS = styled(Navbar)`
@@ -122,19 +128,20 @@ function Navigation(args, props) {
 
       {window.innerWidth >= 768 ? 
       <NavS className={`d-flex fixed flex-wrap align-items-center justify-content-center justify-content-md-betweennavbar ${stickyClass}`}>
-        <Col md="3" className="mb-2 mb-md-0 text-start">
+        <Col md="4" className="mb-2 mb-md-0 text-start">
           <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">
             <img src={ClotereLogo} width="150px" alt="Clotere" />
           </Link>
         </Col>
-        {/**
-        <Col md="4" align="center">
-        <Link to="/achat-immobilier/calcul-frais-de-notaire">Calculer vos frais de notaire</Link>
+        
+        <Col md="4" align="center" className="linkcenter">
+        <a href="https://agent.clotere.fr?utm_source=wwww" target="blank" className="mr-3">Agent immobilier </a>
+        <a href="https://notaire.clotere.fr?utm_source=wwww" target="blank">Notaires </a>
         </Col>
-      **/}
+      
 
-        <Col md="5" className="d-flex  justify-content-end">
-        <LinkNotaire href="https://notaire.clotere.fr" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</LinkNotaire>
+        <Col md="4" className="d-flex  justify-content-end">
+        
           <div className="d-flex p-2">
             {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggle caret>{member.auth.email}</DropdownToggle>
@@ -183,7 +190,12 @@ function Navigation(args, props) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <List className="nav d-flex flex-column justify-content-center mb-md-0">
-              <li><LinkNotaire href="https://clotere-notaire.netlify.app/" target="blank" className="nav-link px-2">Vous êtes notaire ? Par ici</LinkNotaire></li>
+              <li className="mb-3">
+              <a href="https://agent.clotere.fr?utm_source=wwww" target="blank" className="mr-3">Agent immobilier </a>
+              </li>
+              <li>
+              <a href="https://notaire.clotere.fr?utm_source=wwww" target="blank">Notaires </a>
+              </li>
             </List>
             {member && (
               <>
@@ -217,14 +229,14 @@ function Navigation(args, props) {
                     openModal({
                       type: "LOGIN"
                     }).then(({ data, type }) => {
-                      console.log('data', data);
-                      console.log('type: ', type);
+                      //console.log('data', data);
+                      //console.log('type: ', type);
                       if (type === "LOGIN") {
-                        console.log("login");
+                        //console.log("login");
                         setMember(member);
                         navigate("/app");
                       } else if (type === "REGISTER") {
-                        console.log("REGISTER");
+                        //console.log("REGISTER");
                         navigate("/onboard");
                       }
                       memberstack.hideModal();

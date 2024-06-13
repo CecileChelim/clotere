@@ -30,9 +30,12 @@ export const ButtonPrimary = styled(Button)`
   }
 }
 &.btn-white{
-  background-color: ${props => props.theme.colors.white};
-  color:${props => props.theme.colors.black};
-  
+  background-color: ${props => props.theme.colors.white}!important;
+  color:${props => props.theme.colors.black}!important;
+}
+  &.btn-dark{
+  background-color: ${props => props.theme.colors.mainDark}!important;
+  color:${props => props.theme.colors.white}!important;
 }
   
   

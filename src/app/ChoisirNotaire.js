@@ -4,24 +4,27 @@ import Background from "../img/back-clotere.png";
 /** composants **/
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle, faUser,faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faUser,faEnvelope,faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { Alert } from "reactstrap";
-import { RowCandidatureNotaire, Message } from "./Dashboard"
+import { Message } from "./Dashboard"
 import { Panel } from "../style/Layout";
 import { ButtonPrimary } from "../style/Button";
+import { Link } from 'react-router-dom';
+import Loading from '../components/Loading';
+import axios from "axios";
+import qs from "qs";
 
 
 const HomeS = styled.div`
 background-image: url(${Background});
 background-position:top center;
 background-size:cover;
-padding:3rem 15rem;
+padding:3rem 12rem;
 @media all and (max-width: 768px) {
     padding:1rem;
 }
 `;
-
 const InfoNotaire = styled.div`
 display:flex;
 flex-direction:row;
@@ -40,13 +43,21 @@ h5,a{
     gap: .5rem;
 }
 `;
+const PanelNotaire = styled(Panel)`
+width:70%;
+margin:0 auto;
+`;
 const NameNotaire = styled.div`
 display:flex;
 flex-direction:row;
 gap:10px;
-align-items: end;
+align-items: center;
 justify-content: center;
 margin:1rem 0;
+p{
+    font-size:2rem;
+    margin:0;
+}
 svg{
     padding:1.5rem;
     text-align:center;
@@ -55,7 +66,6 @@ svg{
     background-color:${props => props.theme.colors.main};
 }
 `;
-
 const ListGroupAvantage = styled(ListGroup)`
 p{
     margin:0;
@@ -87,10 +97,11 @@ p{
 `;
 
 
-
 function ChoisirNotaire(args) {
-    const { id} = useParams();
+    const {id,transaction} = useParams();
     const [infoCandidature, setInfoCandidature] = useState(null);
+    console.log("id candidature",id);
+    console.log("transaction",transaction);
 
     //get info candidature
     const getInfoCandidature = async () => {
@@ -125,64 +136,111 @@ function ChoisirNotaire(args) {
         getInfoCandidature();
     }, []);
 
-    const handleChoisirCeNotaire = (event) => { 
-        console.log("choisir");
+    const handleChoisirCeNotaire = async (id) => {
+        //console.log("choisir",id);
+        const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/candidatures_notaire/${id}`;
+        const URL2 = `https://api.airtable.com/v0/appD48APNaGA4GN0B/transaction/${transaction}`;
 
-        //appeler un webhook zapier qui fait
-        //retrouver la candidature et la passer à en cours d'attribution
-        //mettre toutes les autres candidature à non retenues
-        //mettre le statut de la transaction à en cours d'attribution
-        //envoyer un slack sur l'event du site
-        //créer un lien de paiement stripe
-        //envoyer un mail à la main au notaire avec le paiement stripe pour prendre l'affaire
-        //a réception du paiement
-        // attribuer l'affaire et faire un mail de confirmation notaire, agent et acheteur ou vendeur
+        //on update la candidature sur airtable
+        await fetch(
+            URL,
+            {
+                method: "PATCH",
+                headers: {
+                    Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                    "Accept": "application/json",
+                    'content-type': "application/json"
+                },
+                body: JSON.stringify({
+                    "fields": {
+                        "statut": "en cours d'attribution"
+                    }
+                })
+            }).then((res) => res.json());
 
-    }
+        //on update la transaction sur airtable
+        await fetch(
+            URL2,
+            {
+                method: "PATCH",
+                headers: {
+                    Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                    "Accept": "application/json",
+                    'content-type': "application/json"
+                },
+                body: JSON.stringify({
+                    "fields": {
+                        "statut_marketplace_notaire": "en cours d'attribution"
+                    }
+                })
+            }).then((res) => res.json());
+
+        //on appel le webhook zapier
+        const urlzapier = "https://hooks.zapier.com/hooks/catch/7206204/2o2ab99/";
+        let data = {
+            id_candidature: id,
+            id_transaction: transaction,
+        };
+        let options = {
+            method: "POST",
+            headers: { "content-type": "application/x-www-form-urlencoded" },
+            data: qs.stringify(data),
+            urlzapier
+        };
+
+    };
+
+    
+
+    if (infoCandidature !== null) {
 
     return (
         <>
             <HomeS>
                 <Container>
                     <Row>
+                        <Col md='12'>
+                        <Link to="/app/dashboard" className="back d-flex flex-row">
+                        <p className="m-0"><FontAwesomeIcon icon={faArrowLeftLong} className='mr-3' /> {"        "} Retour</p>
+                        </Link>
+                        </Col>
+                    </Row>
+                    <Row>
                         <Col align="center">
-                            <h1> Choisissez votre notaire</h1>
-                            <p>Vous êtes sur le point de confier cette affaire à</p>
+                            <h2> Vous êtes sur le point de confier cette affaire à</h2>
                         </Col>
                     </Row>
                     <Row>
                         <Col md='12' align="center">
                             <NameNotaire>
                              <FontAwesomeIcon icon={faUser} />
-                             <p>Mr Claire Bouchat</p>
+                             <p>Maître {infoCandidature.nom_from_notaire} {" "} {infoCandidature.prenom_from_notaire}</p>
                             </NameNotaire>
-                            <Panel className="mb-5">
+                            <PanelNotaire>
                                 <InfoNotaire>
                                 <div className="info">
                                     <p>Etude</p>
-                                    <h5>Etude Bouchat</h5>
+                                    <h5>{infoCandidature.etude_from_info_notaire}</h5>
                                 </div>
                                 <div className="info">
                                     <p>Adresse</p>
-                                    <h5>25 rue jules ferry <br/>95110 SANNOIS</h5>
+                                    <h5>{infoCandidature.adresse_from_info_notaire[0]} <br/>{infoCandidature.code_postal_from_info_notaire[0]} {" "} {infoCandidature.ville_from_info_notaire[0]} </h5>
                                 </div>
                                 <div className="info">
                                     <p>Informations légales</p>
-                                    <a href="#">Voir les informations officielles</a>
+                                    <a href={infoCandidature.lien_notaire_de_france_from_info_notaire[0]}>Voir les informations officielles</a>
                                 </div>
                                 </InfoNotaire>
                                 <Message className="mt-4 mb-4">
                                     <p>
-                                    Bonjour,
-                                    <br/>je suis notaire à Aubervilliers et j'ai l'habitude de traiter des affaires dans cette ville, je suis disponible pour votre affaire. Cordialement.
-                                    </p>
+                                    {infoCandidature.message}</p>
                                 </Message>
-                            </Panel>
+                            </PanelNotaire>
                         </Col>
-                        <Col md='12' align="center">
-                            <ButtonPrimary color="primary">Choisir ce notaire</ButtonPrimary>
+                        <Col md='12' align="center" className="mt-2">
+                            <ButtonPrimary color="primary" onClick={() => { handleChoisirCeNotaire(id); }} >Choisir ce notaire</ButtonPrimary>
                             <p><br/>
-                            <small>En choisissant de confiez votre affaire à ce notaire,<br/> vous acceptez <a href="#">les conditions générales d’utilisation</a> de Clotere. </small>
+                            <small>En choisissant de confier votre affaire à ce notaire,<br/> vous acceptez <a href="#">les conditions générales d’utilisation</a> de Clotere. </small>
                             </p>
                         </Col>
                     </Row>
@@ -229,6 +287,12 @@ function ChoisirNotaire(args) {
 
         </>
     );
+    }
+    return (
+        <>
+            <Loading />
+        </>
+    )
 }
 
 export default ChoisirNotaire;

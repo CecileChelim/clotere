@@ -338,7 +338,7 @@ function Dashboard(args) {
                                                             {i.fields.message}
                                                         </p>
                                                     </Message>
-                                                    <Link to={`/app/choisir-notaire/${i.id}`}>
+                                                    <Link to={`/app/choisir-notaire/${i.id}/${i.fields.transaction}`}>
                                                     <ButtonPrimary color="primary">Choisir ce notaire</ButtonPrimary>
                                                     </Link>
                                                 </Panel>

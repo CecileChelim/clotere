@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Fade from 'react-reveal/Fade';
 /** composants **/
 import Header from './components/Header';
+import HeaderNew from './components/HeaderNew';
+import Efficacite from './components/Efficacite';
 import FeatureParallax2 from './components/FeatureParallax2';
 import Engagement from './components/Engagements';
 import EnMoyenne from './components/EnMoyenne';
@@ -23,9 +25,9 @@ function Home(args) {
         <>
         <HomeS>
             <Navbar user={args.user} />
-            <Header/>
+            <Fade bottom><HeaderNew/></Fade>
+            <Fade bottom><Efficacite/></Fade>
             <Fade bottom><FeatureParallax2/></Fade>
-            <Engagement/>
             <Fade bottom><EnMoyenne/></Fade>
             <Fade bottom><Faq/></Fade>
             <Fade bottom><BlocCta/></Fade>
