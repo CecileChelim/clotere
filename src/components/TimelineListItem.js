@@ -5,6 +5,7 @@ import { ButtonPrimarySmall } from "../style/Button";
 import { Link } from 'react-router-dom';
 import QuestionnaireConnaissance from "./QuestionnaireConnaissanceClient";
 import styled from "styled-components";
+import { PopupButton } from '@typeform/embed-react'
 
 function TimelineCard(args) {
   const navigate = useNavigate();
@@ -14,6 +15,11 @@ function TimelineCard(args) {
   function goPageDocument() {
     navigate("/app/documents");
     window.location.reload(false);
+  }
+
+  const QuestionnaireAcheteurSubmit = (event) => {
+    console.log("QuestionnaireAcheteurSubmit",args.action);
+
   }
  
   //console.log(args)
@@ -30,13 +36,32 @@ function TimelineCard(args) {
                 <br />
               </h4>
               <Content className="flex-grow-1 content">
-
                 {args.statut === "à faire" ? (
                   <>
                     <p>
-                      Le questionnaire permet de récolter toutes les informations importantes nécessaires à la rédaction de vos documents notariés.
+                      Le questionnaire permet de récolter toutes les informations importantes nécessaires à la rédaction de vos documents notariés et la liste des documents à fournir.
                     </p>
-                    <ButtonPrimarySmall color="primary" onClick={toggleQuestionnaire} className="mt-3 mr-3"> Remplir le questionnaire</ButtonPrimarySmall>
+                    {args.user.role === "vendeur" ? ( <>
+                      <PopupButton 
+                        id="rvzO0MOV" 
+                        style={{ fontSize: 20 }} 
+                        className="mt-2 btn-primary"
+                        hidden={{ user_id: args.user.airtable_id }}>
+                      Remplir mon questionnaire
+                    </PopupButton>
+                            </>
+                            ) : (<>{
+                              <PopupButton 
+                              id="IZAUWQhO" 
+                              style={{ fontSize: 20 }} 
+                              className="mt-2 btn-primary"
+                              hidden={{ user_id: args.user.airtable_id }}
+                              autoClose={true}
+                              onStarted={QuestionnaireAcheteurSubmit}
+                              >
+                            Remplir mon questionnaire
+                          </PopupButton>
+                            }</>)}
                   </>
                 ) : (<>{""}</>)}
                 {args.statut === "fait" ? (

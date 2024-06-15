@@ -8,7 +8,8 @@ import '@react-pdf-viewer/core/lib/styles/index.css'; // Styles de base du PDF v
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'; // Styles de la mise en page par défaut
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faClose, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/fontawesome-free-solid";
 
 function CardDocument(args) {
   const [pdfName, setPdfName] = useState(null);
@@ -34,7 +35,7 @@ function CardDocument(args) {
           <Icon>
             <FontAwesomeIcon icon={faCheck} />
           </Icon>
-          <CardBody className=" d-flex justify-content-between ">
+          <CardBody className=" d-flex justify-content-between align-items-start">
             <div>
               <CardTitle tag="h5">
                 {item.nom}
@@ -55,8 +56,8 @@ function CardDocument(args) {
         <Icon>
           <FontAwesomeIcon icon={faFile} />
         </Icon>
-        <CardBody className=" d-flex justify-content-between">
-          <div>
+        <CardBody className=" d-flex justify-content-between  align-items-start">
+          <div style={{ width: "90%"}}>
             <CardTitle tag="h5">
               {item.nom}
             </CardTitle>
@@ -64,13 +65,14 @@ function CardDocument(args) {
               className="mb-2 text-muted"
               tag="h6"
             >
-              Non déposé
+             Non déposé
             </CardSubtitle>
+            {item.description  ? "description": <></>}
           </div>
           <Details>
             <LinkCard onClick={() => {
               args.onAddDoc(item);
-            }} className="mr-3"> Ajouter le document</LinkCard>
+            }} className="ml-3"> <FontAwesomeIcon icon={faPlusCircle} />Ajouter</LinkCard>
           </Details>
         </CardBody>
       </CardS>
@@ -137,12 +139,14 @@ align-items:center;
     display;flex!important;
     flex-direction:row!important;
     align-items:center;
+    padding-left:0;
 }
+.card-title{font-size:18px;}
 &.doc-ajoute{
   background-color: rgba(0, 104, 85, 0.1);
 }
 &.doc-non-ajoute{
-  .svg-inline--fa{color:#ddd;}
+  .fa-file {color:#e0eeee;}
 }
 &.doc-anomalie{
   background-color: rgba(247, 138, 2, 0.5);
@@ -152,11 +156,11 @@ align-items:center;
 }
 `;
 const Icon = styled.div`
-margin: 1rem 2rem;
+margin: 1rem;
 align-items:center;
 .svg-inline--fa{
     color:#006855;
-    height: 2em;
+    height: 1.5rem;
   }
   @media all and (max-width: 768px) {
     margin: 1rem;

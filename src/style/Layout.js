@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Row,Card} from "reactstrap";
+import {Row,Card,Alert} from "reactstrap";
 
 export const TitlePage = styled.h1`
   font-family:"Manrope", "sans-serif";
@@ -47,7 +47,29 @@ font-weight: 300;
 margin-bottom: 60px;
 `;
 
+export const AlertNotif = styled(Alert)`
+display:flex;
+flex-direction:row;
+align-items:center;
+gap:1rem;
+border-radius:100px;
+padding:1rem 0rem;
+background-color:transparent;
+border:0;
+p{margin:0;}
+h6{font-size:18px;margin:0;}
+span{
+background-color:${props => props.theme.colors.main};
+    padding: 1rem 1.5rem;
+    border-radius: 100px;
+}
+    img{
+    position: absolute;
+    top: -12px;
+    right: 0px;
+    }
 
+`;
 
 
 

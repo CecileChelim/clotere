@@ -4,7 +4,7 @@ import {
     Offcanvas, Nav, NavItem, NavLink, TabContent, TabPane, OffcanvasHeader, OffcanvasBody, FormGroup, Form, Label, Input, Spinner, Button, Alert,
     Modal, ModalBody, ModalFooter
 } from "reactstrap";
-import { TitlePageBig, TitlePageApp } from "../style/Layout";
+import { TitlePageBig, TitlePageApp, AlertNotif } from "../style/Layout";
 import { ButtonPrimary, LinkS } from "../style/Button";
 import CardDoc from "../components/CardDocument";
 import IconPDF from '../img/icon-pdf.png';
@@ -21,7 +21,7 @@ function Documents(args) {
     const memberstack = useMemberstack();
     const [userInfo, setUserInfo] = useState(null);
     const [valueNomDoc, setValueNomDoc] = useState(null);
-    
+
     const [idSelectedDoc, setIdSelectedDoc] = useState(null);
     const [listTabs, setListTabs] = useState([]);
 
@@ -38,14 +38,14 @@ function Documents(args) {
 
     const [docToDelete, setDocToDelete] = useState(null);
 
-  const toggleModalConfirm = () => setModalConfirm(!modalConfirm);
+    const toggleModalConfirm = () => setModalConfirm(!modalConfirm);
 
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
     //console.log("arg  bien",args.bien)
     const [currentActiveTab, setCurrentActiveTab] = useState(null);
-    const toggle = tab => {if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
+    const toggle = tab => { if (currentActiveTab !== tab) setCurrentActiveTab(tab); }
     const [storage, setStorage] = useState([]);
     const [loadingUpload, setLoadingUpload] = useState(false)
     const [defaultValueType, setDefaultValueType] = useState(null);
@@ -86,12 +86,12 @@ function Documents(args) {
     }, [])
 
     const getUserDocuments = async () => {
-        var member = await  memberstack.getCurrentMember()
+        var member = await memberstack.getCurrentMember()
 
         if (member !== null && member.data.metaData.airtable_id !== undefined) {
             const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/user/${member.data.metaData.airtable_id}`;
 
-          var userData = await fetch(
+            var userData = await fetch(
                 URL,
                 {
                     method: "GET",
@@ -104,7 +104,7 @@ function Documents(args) {
                 .then((res) => res.json())
                 .catch((error) => console.log(error));
 
-                setUserInfo(userData.fields);
+            setUserInfo(userData.fields);
         }
 
         const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document?filterByFormula=({id_from_transaction} = '${userData.fields.transaction_id}')`;
@@ -119,55 +119,54 @@ function Documents(args) {
                 },
             }).then((res) => res.json());
 
-            var dataFilterTemp = null
-            let categoriesFiltrees = null;
+        var dataFilterTemp = null
+        let categoriesFiltrees = null;
 
-            if(userData.fields.role === "acheteur"){
-                categoriesFiltrees = ["acheteur", "commun"];
-            }else if(userData.fields.role === "vendeur"){
-                categoriesFiltrees = ["vendeur", "commun"];
-            }
+        if (userData.fields.role === "acheteur") {
+            categoriesFiltrees = ["acheteur", "commun"];
+        } else if (userData.fields.role === "vendeur") {
+            categoriesFiltrees = ["vendeur", "commun"];
+        }
 
-            if(categoriesFiltrees != null){
-                dataFilterTemp = dataTemp.records.filter(objet =>
-                   {
-                     if(objet.fields.categorie != null){
-                       return categoriesFiltrees.includes(objet.fields.categorie[0])
-                     }else{
-                        return false
-                     }
+        if (categoriesFiltrees != null) {
+            dataFilterTemp = dataTemp.records.filter(objet => {
+                if (objet.fields.categorie != null) {
+                    return categoriesFiltrees.includes(objet.fields.categorie[0])
+                } else {
+                    return false
                 }
-                  );
-            }else{
-                dataFilterTemp = dataTemp.records;
             }
+            );
+        } else {
+            dataFilterTemp = dataTemp.records;
+        }
 
-            if(dataFilterTemp != null && dataFilterTemp.length > 0){
-                setData(dataFilterTemp.map(item => {
-                    const { fields } = item;
-                    if (fields.hasOwnProperty('document')) {
-                        fields.nomDocument = fields.document[0].filename
-                        fields.typeDocument = fields.document[0].type
-                        const documentUrl = fields.document[0].url;
-                        fields.document = documentUrl;
-                       
-                    }
-                    return fields;
-                }));
-            }
+        if (dataFilterTemp != null && dataFilterTemp.length > 0) {
+            setData(dataFilterTemp.map(item => {
+                const { fields } = item;
+                if (fields.hasOwnProperty('document')) {
+                    fields.nomDocument = fields.document[0].filename
+                    fields.typeDocument = fields.document[0].type
+                    const documentUrl = fields.document[0].url;
+                    fields.document = documentUrl;
+
+                }
+                return fields;
+            }));
+        }
     }
 
     useEffect(() => {
         if (data !== undefined && data !== null) {
 
-            var listTabsTemp = ["tous les documents","vente", "personnel", "copropriété", "technique et diagnostics", "autre"]
+            var listTabsTemp = ["tous les documents", "vente", "personnel", "copropriété", "technique et diagnostics", "autre"]
             var nomsDocuments = []
 
             for (let index = 0; index < data.length; index++) {
                 const element = data[index];
 
                 nomsDocuments.push(element.nom)
-                    // setDropdownCategorie(dropdownCategorie => [...dropdownCategorie, element.categorie[0]])
+                // setDropdownCategorie(dropdownCategorie => [...dropdownCategorie, element.categorie[0]])
             }
 
             setListTabs(listTabsTemp)
@@ -180,18 +179,18 @@ function Documents(args) {
     const handleChangeSelect = (e) => {
         console.log(e);
         setDefaultValueType(e.target.value);
-      };
+    };
 
-      const handleChangeNom = (e) => {
+    const handleChangeNom = (e) => {
         console.log(e);
         setValueNomDoc(e.target.value);
-      };
+    };
 
-      const handleDeleteDocument = async (doc) => {
+    const handleDeleteDocument = async (doc) => {
         toggleModalConfirm();
         const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document/${doc.id}`;
 
-        if(doc.type === "autre"){
+        if (doc.type === "autre") {
             await fetch(
                 URL,
                 {
@@ -199,10 +198,10 @@ function Documents(args) {
                     headers: {
                         Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                         "Accept": "application/json",
-                        'content-type':"application/json"
+                        'content-type': "application/json"
                     },
                 }).then((res) => res.json());
-        }else{
+        } else {
             await fetch(
                 URL,
                 {
@@ -210,26 +209,28 @@ function Documents(args) {
                     headers: {
                         Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                         "Accept": "application/json",
-                        'content-type':"application/json"
+                        'content-type': "application/json"
                     },
-                    body:  JSON.stringify({"fields": {
-                        "document": [],
-                        "etat": "non ajouté",
-                        "date_upload": "",
-                        "qui_upload": ""
-                    }})
+                    body: JSON.stringify({
+                        "fields": {
+                            "document": [],
+                            "etat": "non ajouté",
+                            "date_upload": "",
+                            "qui_upload": ""
+                        }
+                    })
                 }).then((res) => res.json());
         }
 
-            await getUserDocuments();
+        await getUserDocuments();
 
 
 
-            setSuccess("Document supprimé avec succès !")
+        setSuccess("Document supprimé avec succès !")
 
-            setTimeout(() => {
-                setSuccess(null);
-              }, 5000);
+        setTimeout(() => {
+            setSuccess(null);
+        }, 5000);
     };
 
     const handleDelete = (event) => {
@@ -243,7 +244,7 @@ function Documents(args) {
 
     const formattedDate = () => {
         var date = new Date()
-    
+
         // Obtenir le jour, le mois, l'année, l'heure et les minutes
         var jour = date.getDate();
         var mois = date.getMonth() + 1; // Ajouter 1 car les mois sont indexés à partir de 0
@@ -263,27 +264,27 @@ function Documents(args) {
         return jour + '/' + mois + '/' + annee + ' ' + heures + ':' + minutes;
     }
 
-      const handleUpload = async () => {
-        try{
+    const handleUpload = async () => {
+        try {
             setLoadingUpload(true)
-    
+
             // ---------------------- //
             // Formattage de la date  //
             // ---------------------- //
-            var date = formattedDate(); 
-    
-    
+            var date = formattedDate();
+
+
             // Upload du fichier sur firestore le temps de l'upload
-    
+
             const storageRef = ref(storage, file.name);
             await uploadBytes(storageRef, file);
-    
+
             const url = await getDownloadURL(storageRef);
-    
+
             // Requete pour upload sur airtable
-            if(defaultValueType !== "autre"){
+            if (defaultValueType !== "autre") {
                 const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document/${idSelectedDoc}`;
-        
+
                 await fetch(
                     URL,
                     {
@@ -291,22 +292,24 @@ function Documents(args) {
                         headers: {
                             Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                             "Accept": "application/json",
-                            'content-type':"application/json"
+                            'content-type': "application/json"
                         },
-                        body:  JSON.stringify({"fields": {
-                            "document": [{
-                                "url": url,
-                                "filename": file.name
-                            }],
-                            "etat": "ajouté",
-                            "date_upload": date,
-                            "qui_upload": userInfo.airtable_id
-                        }})
+                        body: JSON.stringify({
+                            "fields": {
+                                "document": [{
+                                    "url": url,
+                                    "filename": file.name
+                                }],
+                                "etat": "ajouté",
+                                "date_upload": date,
+                                "qui_upload": userInfo.airtable_id
+                            }
+                        })
                     }).then((res) => res.json());
-                    
-            }else{
+
+            } else {
                 const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document`;
-        
+
                 await fetch(
                     URL,
                     {
@@ -314,9 +317,73 @@ function Documents(args) {
                         headers: {
                             Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
                             "Accept": "application/json",
-                            'content-type':"application/json"
+                            'content-type': "application/json"
                         },
-                        body:  JSON.stringify({"fields": {
+                        body: JSON.stringify({
+                            "fields": {
+                                "document": [{
+                                    "url": url,
+                                    "filename": file.name
+                                }],
+                                "etat": "ajouté",
+                                "date_upload": date,
+                                "nom": valueNomDoc,
+                                "qui_upload": userInfo.airtable_id,
+                                "type": "autre",
+                                "categorie": [userInfo.role],
+                                "transaction": [userInfo.transaction_id]
+                            }
+                        })
+                    }).then((res) => res.json());
+            }
+
+            setSuccess("Document upload avec succès !")
+
+            setTimeout(() => {
+                setSuccess(null);
+            }, 5000);
+
+        } catch (e) {
+            console.log(e);
+            setError("Erreur lors de l'upload de votre document.")
+
+            setTimeout(() => {
+                setError(null);
+            }, 5000);
+        }
+
+        await getUserDocuments();
+        setLoadingUpload(false)
+        toggleSideBar();
+    }
+
+    const uploadWithoutPreSelection = async () => {
+        try {
+            setLoadingUpload(true);
+
+            // Upload du fichier sur firestore le temps de l'upload
+
+            const storageRef = ref(storage, file.name);
+            await uploadBytes(storageRef, file);
+
+            const url = await getDownloadURL(storageRef);
+
+            var date = formattedDate();
+
+            console.log("Date", date)
+            const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document`;
+
+            await fetch(
+                URL,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                        "Accept": "application/json",
+                        'content-type': "application/json"
+                    },
+                    body: JSON.stringify({
+                        "fields": {
                             "document": [{
                                 "url": url,
                                 "filename": file.name
@@ -325,96 +392,36 @@ function Documents(args) {
                             "date_upload": date,
                             "nom": valueNomDoc,
                             "qui_upload": userInfo.airtable_id,
-                            "type": "autre",
+                            "type": defaultValueType,
                             "categorie": [userInfo.role],
                             "transaction": [userInfo.transaction_id]
-                        }})
-                    }).then((res) => res.json());
-            }
+                        }
+                    })
+                }).then((res) => res.json());
 
             setSuccess("Document upload avec succès !")
 
             setTimeout(() => {
                 setSuccess(null);
-              }, 5000);
+            }, 5000);
 
-        }catch(e){
+
+        } catch (e) {
             console.log(e);
             setError("Erreur lors de l'upload de votre document.")
 
             setTimeout(() => {
                 setError(null);
-              }, 5000);
+            }, 5000);
         }
-        
-        await getUserDocuments();
-        setLoadingUpload(false)
-        toggleSideBar();
-    }
 
-    const uploadWithoutPreSelection = async () => {
-        try{
-            setLoadingUpload(true);
-
-            // Upload du fichier sur firestore le temps de l'upload
-      
-            const storageRef = ref(storage, file.name);
-            await uploadBytes(storageRef, file);
-    
-            const url = await getDownloadURL(storageRef);
-  
-          var date = formattedDate();
-  
-          console.log("Date", date)
-          const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/document`;
-          
-          await fetch(
-              URL,
-              {
-                  method: "POST",
-                  headers: {
-                      Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
-                      "Accept": "application/json",
-                      'content-type':"application/json"
-                  },
-                  body:  JSON.stringify({"fields": {
-                      "document": [{
-                          "url": url,
-                          "filename": file.name
-                      }],
-                      "etat": "ajouté",
-                      "date_upload": date,
-                      "nom": valueNomDoc,
-                      "qui_upload": userInfo.airtable_id,
-                      "type": defaultValueType,
-                      "categorie": [userInfo.role],
-                      "transaction": [userInfo.transaction_id]
-                  }})
-              }).then((res) => res.json());
-
-              setSuccess("Document upload avec succès !")
-
-            setTimeout(() => {
-                setSuccess(null);
-              }, 5000);
-
-              
-        }catch(e){
-            console.log(e);
-            setError("Erreur lors de l'upload de votre document.")
-
-            setTimeout(() => {
-                setError(null);
-              }, 5000);
-        }
-        
         await getUserDocuments();
         setLoadingUpload(false)
         toggleSideBar();
     }
 
     const stackSelected = (
-        <DragAndDropContainer style={{ width: "100%!important"}}>
+        <DragAndDropContainer style={{ width: "100%!important" }}>
             <img alt="IconPDF" style={{ height: "60px", marginBottom: "10px" }} src={IconPDF} />
             <div className="subtitle">Fichiers acceptés : PDF/JPG/PNG</div>
             <div className="subtitle">Taille maximum : 40MB</div>
@@ -427,7 +434,7 @@ function Documents(args) {
     );
 
     const stackNotSelected = (
-        <DragAndDropContainer  style={{ width: "100%!important"}}>
+        <DragAndDropContainer style={{ width: "100%!important" }}>
             <img style={{ height: "60px", marginBottom: "10px" }} alt="drop" src={IconPDF} />
             <p style={{ fontWeight: "500" }}>Déposez votre document ici ou</p>
             <p className="title-underline">Sélectionnez un document</p>
@@ -438,99 +445,99 @@ function Documents(args) {
 
     return (
         <>
-        <Modal isOpen={modalConfirm} toggle={toggleModalConfirm} {...args}>
-        <ModalBody>
-          Voulez-vous vraiment supprimer ce document ?
-        </ModalBody>
-        <ModalFooter>
-        <Button color="light" onClick={toggleModalConfirm}>
-            Ne pas supprimer
-          </Button>
-          <ButtonPrimary color="primary" onClick={() => handleDeleteDocument(docToDelete)}>
-            Confirmer
-          </ButtonPrimary>{' '}
-          
-        </ModalFooter>
-      </Modal>
-         <Offcanvas  
-            isOpen={showSideBar}
-            toggle={toggleSideBar}
-            direction="end"
-            scrollable> 
-              <OffcanvasHeader toggle={toggleSideBar}>
+            <Modal isOpen={modalConfirm} toggle={toggleModalConfirm} {...args}>
+                <ModalBody>
+                    Voulez-vous vraiment supprimer ce document ?
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="light" onClick={toggleModalConfirm}>
+                        Ne pas supprimer
+                    </Button>
+                    <ButtonPrimary color="primary" onClick={() => handleDeleteDocument(docToDelete)}>
+                        Confirmer
+                    </ButtonPrimary>{' '}
+
+                </ModalFooter>
+            </Modal>
+            <Offcanvas
+                isOpen={showSideBar}
+                toggle={toggleSideBar}
+                direction="end"
+                scrollable>
+                <OffcanvasHeader toggle={toggleSideBar}>
                     Ajouter un document
                 </OffcanvasHeader>
                 <OffcanvasBody>
                     {
-                        loadingUpload ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%',width: '100%!important' }}>
-                        <Spinner style={{ width: '5rem', height: '5rem' }} color="primary" />
-                      </div> : <Form style={{ width: '100%!important' }}>
-                        <FormGroup>
-                            <FileUploader style={{ width: '100%!important' }} disabled={file != null} handleChange={handleChange} name="file" types={fileTypes} children={file != null ? stackSelected : stackNotSelected}>
-                            </FileUploader>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="exampleEmail">
-                                De quel document s'agit-il ?
-                            </Label>
+                        loadingUpload ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%!important' }}>
+                            <Spinner style={{ width: '5rem', height: '5rem' }} color="primary" />
+                        </div> : <Form style={{ width: '100%!important' }}>
+                            <FormGroup>
+                                <FileUploader style={{ width: '100%!important' }} disabled={file != null} handleChange={handleChange} name="file" types={fileTypes} children={file != null ? stackSelected : stackNotSelected}>
+                                </FileUploader>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="exampleEmail">
+                                    De quel document s'agit-il ?
+                                </Label>
 
-                            <Input
-                                disabled={idSelectedDoc !== null}
-                                id="exampleSelect"
-                                name="select"
-                                type="select"
-                                value={defaultValueType}
-                                onChange={handleChangeSelect}
-                            >
-                                {listTabs !== undefined && listTabs !== null ? 
-                                    listTabs
-                                        ?.filter(tab => {  
-                                            if(tab !== "tous les documents") {
-                                                return true;
-                                            } else {
-                                                return false; // ou simplement, return tab !== "tous les documents";
-                                            }
-                                        })
-                                        .map((item, index) => (
-                                            <option key={index} value={item}>
-                                                {item}
-                                            </option>
-                                        )) 
-                                    : 
-                                    <></>
-                                }
-                            </Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Input onChange={handleChangeNom} disabled={idSelectedDoc !== null} name="nom" type="nom" value={valueNomDoc}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Button onClick={idSelectedDoc !== null ? handleUpload: uploadWithoutPreSelection} disabled={file === null || valueNomDoc === null || valueNomDoc === ""} style={{backgroundColor: "#1c6856"}}>Ajouter</Button>
-                        </FormGroup>
-                        
-                </Form>
+                                <Input
+                                    disabled={idSelectedDoc !== null}
+                                    id="exampleSelect"
+                                    name="select"
+                                    type="select"
+                                    value={defaultValueType}
+                                    onChange={handleChangeSelect}
+                                >
+                                    {listTabs !== undefined && listTabs !== null ?
+                                        listTabs
+                                            ?.filter(tab => {
+                                                if (tab !== "tous les documents") {
+                                                    return true;
+                                                } else {
+                                                    return false; // ou simplement, return tab !== "tous les documents";
+                                                }
+                                            })
+                                            .map((item, index) => (
+                                                <option key={index} value={item}>
+                                                    {item}
+                                                </option>
+                                            ))
+                                        :
+                                        <></>
+                                    }
+                                </Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Input onChange={handleChangeNom} disabled={idSelectedDoc !== null} name="nom" type="nom" value={valueNomDoc} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Button onClick={idSelectedDoc !== null ? handleUpload : uploadWithoutPreSelection} disabled={file === null || valueNomDoc === null || valueNomDoc === ""} style={{ backgroundColor: "#1c6856" }}>Ajouter</Button>
+                            </FormGroup>
+
+                        </Form>
                     }
-                    
-            </OffcanvasBody>
-        </Offcanvas>
+
+                </OffcanvasBody>
+            </Offcanvas>
             <Container>
                 <Row className="d-flex align-self-start">
 
                     <TitlePageApp>
                         <Col md="7"><TitlePageBig className="mb-4">Vos documents</TitlePageBig></Col>
                         <Col md="5" className="text-end">
-                            <LinkS onClick={()  => {setShowSideBar(true)}}>+ Ajouter un document</LinkS>
+                            <LinkS onClick={() => { setShowSideBar(true) }}>+ Ajouter un document</LinkS>
                         </Col>
                     </TitlePageApp>
                     {/**Si erreur upload */}
-                    {error == null ? <></> : <Alert color="danger">{error} </Alert> }
+                    {error == null ? <></> : <Alert color="danger">{error} </Alert>}
                     {/**Si succès upload */}
-                    {success == null ? <></>:<Alert color="success"> {success} </Alert> }
+                    {success == null ? <></> : <Alert color="success"> {success} </Alert>}
                     <ColTabsDoc md="12" xs="12">
                         <Nav pills>
-                        { listTabs.map((item, index) => (
-                                    <NavItemNameCategorie key={index}>
-                                
+                            {listTabs.map((item, index) => (
+                                <NavItemNameCategorie key={index}>
+
                                     <NavLink
                                         onClick={() => { toggle(item); }}
                                         className={`${currentActiveTab === item ? "active" : ""}`}
@@ -538,36 +545,52 @@ function Documents(args) {
                                         {item}
                                     </NavLink>
                                 </NavItemNameCategorie>
-                                    ))}
+                            ))}
 
                         </Nav>
-                        </ColTabsDoc>
-                        <Col md="12" xs="12">
+                    </ColTabsDoc>
+                    <Col md="12" xs="12">
 
                         <TabContent className="mt-3" activeTab={currentActiveTab}>
                             {listTabs.map((item, index) => (
-                                 <TabPane key={index} tabId={item}>
-                                 <Row>
-                                     <Col key={"dsjhnfsod"} sm="12">
-                                         <CardDoc onAddDoc={(doc) => {
-                                            setIdSelectedDoc(doc.id);
-                                            setDefaultValueType(doc.type);
-                                            setValueNomDoc(doc.nom)
-                                            setShowSideBar(true);
-                                            //console.log(doc);
-                                         }} onDeleteDoc={(doc) => {
-                                            setDocToDelete(doc);
-                                            toggleModalConfirm();
-                                         }} documents={data.filter(document => {
-                                            if(document.type === item || item === "tous les documents"){
-                                                return true
-                                            }else{
-                                                return false
-                                            }
-                                        })} />
-                                     </Col>
-                                 </Row>
-                             </TabPane>
+                                <TabPane key={index} tabId={item}>
+                                    {item === "vente" ?
+                                        <AlertNotif color="primary">
+                                            <span role="img">👋</span>
+                                            <div>
+                                                <h6>Il s'agit de tous les documents actant de votre propriété du bien</h6>
+                                            </div>
+                                        </AlertNotif>
+                                        : <></>}
+                                        {item === "vente" ?
+                                        <AlertNotif color="primary">
+                                            <span role="img">👋</span>
+                                            <div>
+                                                <h6>Il s'agit de tous les documents actant de votre propriété du bien</h6>
+                                            </div>
+                                        </AlertNotif>
+                                        : <></>}
+                                    <Row>
+                                        <Col key={"dsjhnfsod"} sm="12">
+                                            <CardDoc onAddDoc={(doc) => {
+                                                setIdSelectedDoc(doc.id);
+                                                setDefaultValueType(doc.type);
+                                                setValueNomDoc(doc.nom)
+                                                setShowSideBar(true);
+                                                //console.log(doc);
+                                            }} onDeleteDoc={(doc) => {
+                                                setDocToDelete(doc);
+                                                toggleModalConfirm();
+                                            }} documents={data.filter(document => {
+                                                if (document.type === item || item === "tous les documents") {
+                                                    return true
+                                                } else {
+                                                    return false
+                                                }
+                                            })} />
+                                        </Col>
+                                    </Row>
+                                </TabPane>
                             ))}
                         </TabContent>
                     </Col>

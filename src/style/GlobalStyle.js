@@ -6,6 +6,19 @@ body{
   background-color
 }
 
+.btn-primary{
+    border: 0;
+    font-size: 18px;
+    padding: 18px 24px;
+    border-radius: 8px;
+    line-height: 100%;
+    font-weight: 600;
+    transition: all 200ms ease-in-out;
+        background-color: #1DF36C !important;
+    color: #1D2B28;
+  
+  }
+
 .textHighlight{
   font-weight: 500;
 background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
@@ -97,11 +110,12 @@ p{font-size:16px;}
    /** Form **/
    input{
     &.form-control{
-      border: 0;
-      background-color: #004f4717;
-      border-bottom: 2px solid green;
-      padding:1rem;
-    border-radius: 1rem;
+    border: 0!important;
+    background-color: #f7f7f9!important;
+    border-bottom: 1px solid green!important;
+    padding: 1rem!important;
+    border-radius: .4rem!important;
+    
     }
    }
    select{
@@ -168,6 +182,7 @@ p{font-size:16px;}
    /** upload de doc **/
     label[for=file]{width:100%!important;}
     `
+    
   ;
 
 

@@ -38,7 +38,8 @@ function Dashboard(args) {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
     //console.log("args dahboasrd", args);
 
-    //get info candidature
+    /**ancien fetch de recup candidature 
+
     useEffect(() => {
         //on recupere les candidatures de la transaction
         if (args.transaction !== null) {
@@ -56,13 +57,14 @@ function Dashboard(args) {
                 })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log("all candidature transaction", res.records);
+                    //console.log("all candidature transaction", res.records);
                     setCandidatures(res.records);
                 })
                 .catch((error) => console.log(error));
         }
         // eslint-disable-next-line
     }, [args.transaction]);
+    */
 
 
 
@@ -116,7 +118,7 @@ function Dashboard(args) {
 
             </>
         )
-    } else if (args !== null & candidatures !== undefined) {
+    } else if (args !== null) {
         return (
             <>
                 <Container>
@@ -130,7 +132,7 @@ function Dashboard(args) {
 
 
                         <Col md="12" className="mt-3">
-                            {/** on regarde si la transaction a un notaire */}
+                        {/** ancien composant de notare 
                             {args.transaction.statut_marketplace_notaire === "en recherche de notaire" ? (
                                 <>
                                     {candidatures !== null ? (
@@ -152,19 +154,25 @@ function Dashboard(args) {
 
                                 </>
                             ) : (<></>)}
+                             **/}
+                            
 
 
                             {/** action à mener**/}
                             {args.action !== undefined && args.action.length > 0 ? <>
-                                <TitleSection className="mt-5">Vos actions à mener</TitleSection>
-
+                                <TitleSection>Vos actions à mener</TitleSection>
                                 <Panel>
                                     <ListGroupActionAmener numbered>
                                         {args.action.map((col, i) => (
                                             <>
+                                            {args.action[i].nom === "Ajout document" ? (
+                                                    <>
+                                                        <TimelineListItem  type="document" statut={args.action[i].statut} />
+                                                    </>
+                                                ) : (<>{" "}</>)}
                                                 {args.action[i].nom === "Questionnaire de connaissance" ? (
                                                     <>
-                                                        <TimelineListItem type="questionnaire" statut={args.action[i].statut} user={args.user} />
+                                                        <TimelineListItem user={args.user} type="questionnaire" statut={args.action[i].statut} action={args.action[i].id} />
                                                     </>
                                                 ) : (<>{" "}</>)}
 
@@ -174,11 +182,7 @@ function Dashboard(args) {
                                                     </>
                                                 ) : (<>{" "}</>)}
 
-                                                {args.action[i].nom === "Ajout document" ? (
-                                                    <>
-                                                        <TimelineListItem type="document" statut={args.action[i].statut} />
-                                                    </>
-                                                ) : (<>{" "}</>)}
+                                                
                                             </>
 
                                         ))}
@@ -209,6 +213,7 @@ function Dashboard(args) {
                                                     </div>
                                                     <div className="list">
                                                         <ListGroup>
+                                                            {/** ancien composant de rdv et état des documents avec le notaire
                                                             <ListGroupItem>
                                                                 <img src={icnDoc} alt="document-vente" className="mr-2" />
                                                                 <p className="flex-grow-1">
@@ -226,8 +231,10 @@ function Dashboard(args) {
                                                                     {args.evenement[i].fields.etat === "a signer" ? (<>Votre document est prêt à être signé !</>) : (<>{" "}</>)}
                                                                 </p>
                                                             </ListGroupItem>
+                                                            
                                                             <ListGroupItem>
                                                                 <img src={icnCalendar} alt="rendez-vous-de-vente" className="mr-2" />
+                                                                
                                                                 <p>
                                                                     <span>Rendez-vous</span>
                                                                     {args.evenement[i].fields.statut_from_rdv[0] === "a programmer" ? (<>Pas prévu pour le moment</>) : (<>{" "}</>)}
@@ -245,7 +252,9 @@ function Dashboard(args) {
                                                                     {args.evenement[i].fields.etat === "information(s) manquante(s)" ? (<>Des informations sont manquantes</>) : (<>{" "}</>)}
                                                                     {args.evenement[i].fields.etat === "a signer" ? (<>Votre document est prêt à être signé !</>) : (<>{" "}</>)}
                                                                 </p>
+                                                                
                                                             </ListGroupItem>
+                                                            **/}
                                                         </ListGroup>
                                                     </div>
                                                     <div className="tuto">
@@ -319,6 +328,7 @@ function Dashboard(args) {
                     <OffcanvasHeader toggle={toggleActe}>Qu'est-ce que l'acte authentique de vente ?</OffcanvasHeader>
                     <AideActe />
                 </Offcanvas>
+                {/** ancien composant listing des candidatures notaire
                 <Offcanvas isOpen={canvasCandidatureNotaire} toggle={toggleCandidatureNotaire} {...args} direction="end" scrollable>
                     <OffcanvasHeader toggle={toggleCandidatureNotaire}>Voici les notaires disponibles pour votre transaction</OffcanvasHeader>
                     <OffcanvasBody>
@@ -351,6 +361,7 @@ function Dashboard(args) {
                             )}
                     </OffcanvasBody>
                 </Offcanvas>
+                 */}
 
 
                 <Modal isOpen={pdfName != null} toggle={toggleModal} size="lg" centered>

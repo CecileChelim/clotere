@@ -6,7 +6,6 @@ import {
 
 //page
 import Home from './Home';
-import HomeNotaire from './HomeNotaire';
 import Inscription from './Inscription';
 import Invitation from './ConnexionLink';
 import Layout from './app/Layout';
@@ -65,7 +64,6 @@ const App = () => {
           
           <Routes>
             <Route index element={<Home />} user={userInfo} />
-            <Route path="notaire" element={<HomeNotaire />} user={userInfo} />
             <Route path="inscription" element={<Inscription />} user={userInfo} />
             <Route path="connexion" element={<Invitation />} user={userInfo} />
             <Route path="app" element={<Layout />} user={userInfo} />
