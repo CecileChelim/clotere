@@ -10,7 +10,7 @@ import Inscription from './Inscription';
 import Invitation from './ConnexionLink';
 import Layout from './app/Layout';
 import ChoisirNotaire from './app/ChoisirNotaire';
-
+import Notaires from './app/Notaires';
 import Questionnaire from './app/Questionnaire';
 import Mentionslegales from './Mentionslegales';
 import Cgv from './Cgv';
@@ -68,6 +68,7 @@ const App = () => {
             <Route path="connexion" element={<Invitation />} user={userInfo} />
             <Route path="app" element={<Layout />} user={userInfo} />
             <Route path="onboard" element={<Questionnaire />} user={userInfo} />
+            <Route path="app/notaires" exact element={<Notaires />} user={userInfo} />
             <Route path="app/dashboard" exact user={userInfo} element={<Layout />}  />
             <Route path="app/bien" exact user={userInfo} element={<Layout />}  />
             <Route path="app/interlocuteurs" exact user={userInfo} element={<Layout />}  />

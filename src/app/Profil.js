@@ -25,7 +25,7 @@ function Profil(args) {
     var dataToSend = {};
 
     useEffect(() => {
-        console.log(args.user);
+        //console.log(args.user);
         
         if(args.user != null){
 
@@ -44,7 +44,7 @@ function Profil(args) {
     }, [args.user])
 
     useEffect(() => {
-        console.log(fields);
+        //console.log(fields);
     }, [fields])
 
     const modifUserInfo = async () =>{

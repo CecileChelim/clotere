@@ -4,8 +4,8 @@ import {
     Offcanvas, Card, ListGroup, ListGroupItem, OffcanvasHeader, OffcanvasBody, Alert, CardBody, CardTitle
 } from "reactstrap";
 import { Link } from 'react-router-dom';
-import { TitlePage, TitlePageApp, TitleSection, Panel } from "../style/Layout";
-import { ButtonPrimarySmall, ButtonPrimary, LinkS } from "../style/Button";
+import { TitlePage, TitlePageApp, TitleSection, Panel, AlertNotif } from "../style/Layout";
+import { ButtonPrimarySmall, LinkCard, LinkS } from "../style/Button";
 import TimelineListItem from "../components/TimelineListItem";
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
@@ -125,8 +125,18 @@ function Dashboard(args) {
                     <Row className="d-flex align-self-start">
                         <TitlePageApp>
                             <Col md="7">
-                                <TitlePage>Bonjour {args.user.prenom},</TitlePage>
+                                <TitlePage>Bonjour {args.user.prenom} 👋</TitlePage>
                                 <p>Voici l'avancement de votre transaction : <b>{args.transaction.nom}</b> </p>
+                            </Col>
+                            <Col md="5" align="right" className='p-0'>
+                                <AlertNotif color="primary" className='justify-content-end'>
+                                            <span role="img">🤔</span>
+                                            <div>
+                                                <h6>Besoin d'un notaire ?</h6>
+                                                <Link to="/app/notaires"><LinkCard>Trouvez le rapidement</LinkCard></Link> 
+                                            </div>
+                                        </AlertNotif>
+                            
                             </Col>
                         </TitlePageApp>
 

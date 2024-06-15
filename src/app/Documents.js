@@ -558,15 +558,15 @@ function Documents(args) {
                                         <AlertNotif color="primary">
                                             <span role="img">👋</span>
                                             <div>
-                                                <h6>Il s'agit de tous les documents actant de votre propriété du bien</h6>
+                                                <h6>Il s'agit de tous les documents actant de la propriété du bien.</h6>
                                             </div>
                                         </AlertNotif>
                                         : <></>}
-                                        {item === "vente" ?
+                                        {item === "personnel" ?
                                         <AlertNotif color="primary">
                                             <span role="img">👋</span>
                                             <div>
-                                                <h6>Il s'agit de tous les documents actant de votre propriété du bien</h6>
+                                                <h6>Il s'agit de vos documents d'identité. </h6>
                                             </div>
                                         </AlertNotif>
                                         : <></>}

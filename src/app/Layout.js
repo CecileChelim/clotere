@@ -78,7 +78,7 @@ function Layout(args, props) {
                 })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log("this user info", res);
+                    //console.log("this user info", res);
                     setUser(res.fields);
                 })
                 .catch((error) => console.log(error));
@@ -104,7 +104,7 @@ function Layout(args, props) {
                 })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log("transaction info", res);
+                    //console.log("transaction info", res);
                     setTransaction(res.fields);
                 })
                 .catch((error) => console.log("transaction info error", error),);
@@ -184,7 +184,7 @@ function Layout(args, props) {
                 })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log("all event action", res.records);
+                    //console.log("all event action", res.records);
                     const actionNonTrie = res.records;
                     actionNonTrie.sort((a, b) => (a.fields.ordre > b.fields.ordre) ? 1 : -1);
                     
@@ -206,8 +206,8 @@ function Layout(args, props) {
                         });
                         }
                     }
-                    console.log("action vendeur ", actionVendeur);
-                    console.log("action acheteur ", actionAcheteur);
+                    //console.log("action vendeur ", actionVendeur);
+                    //console.log("action acheteur ", actionAcheteur);
                     if(user.role === "vendeur")
                     {setAction(actionVendeur);}
                     else if(user.role === "acheteur")
