@@ -17,10 +17,30 @@ function TimelineCard(args) {
     window.location.reload(false);
   }
 
-  const QuestionnaireAcheteurSubmit = (event) => {
-    console.log("QuestionnaireAcheteurSubmit",args.action);
-
+  const QuestionnaireConnaissanceSubmit = (event) => {
+    //console.log("QuestionnaireAcheteurSubmit",args.action);
+    const URL = `https://api.airtable.com/v0/appD48APNaGA4GN0B/actions/${args.action}`;
+      //on update le statut de l'action
+      fetch(
+        URL,
+        {
+            method: "PATCH",
+            headers: {
+                Authorization: "Bearer patfRIUbOM9xqwLV2.dfbc9a305f2124aff75634c819a8335ecd984b1d19e98f67f14013378ed6bb02",
+                "Accept": "application/json",
+                'content-type': "application/json"
+            },
+            body: JSON.stringify({
+                "fields": {
+                    "statut": "fait"
+                }
+            })
+        })
+        .then((res) => res.json())
+        .then((res) => {window.location.reload(true);})
+    
   }
+
  
   //console.log(args)
 
@@ -46,7 +66,10 @@ function TimelineCard(args) {
                         id="rvzO0MOV" 
                         style={{ fontSize: 20 }} 
                         className="mt-2 btn-primary"
-                        hidden={{ user_id: args.user.airtable_id }}>
+                        hidden={{ user_id: args.user.airtable_id }}
+                        autoClose={true}
+                        onSubmit={QuestionnaireConnaissanceSubmit}
+                        >
                       Remplir mon questionnaire
                     </PopupButton>
                             </>
@@ -57,7 +80,7 @@ function TimelineCard(args) {
                               className="mt-2 btn-primary"
                               hidden={{ user_id: args.user.airtable_id }}
                               autoClose={true}
-                              onStarted={QuestionnaireAcheteurSubmit}
+                              onSubmit={QuestionnaireConnaissanceSubmit}
                               >
                             Remplir mon questionnaire
                           </PopupButton>
@@ -67,7 +90,7 @@ function TimelineCard(args) {
                 {args.statut === "fait" ? (
                   <>
                     <p>
-                      Le questionnaire permet de récolter toutes les informations importantes nécessaires à la rédaction de vos documents notariés.
+                      C'est tout bon, merci de nous avoir communiqué vos infos 🙂
                     </p>
                   </>
                 ) : (<>{""}</>)}
@@ -193,7 +216,7 @@ const ListGroupItemS = styled(ListGroupItem)`
   border:0;
   margin-bottom:16px;
   &.fait{
-    opacity:.5;
+    opacity:.9;
     &:before{
         content: "✔️"!important;
         background-color:${props => props.theme.colors.main};

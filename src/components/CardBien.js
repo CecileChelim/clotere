@@ -24,7 +24,7 @@ function CardBien(args) {
                 <p className="mb-0"><FontAwesomeIcon icon={faMapMarked} className='mr-3' /></p>
                 <p> {args.bien.adresse} {" "} <br/>{args.bien.code_postal}{" "} {args.bien.ville}</p>
                 <Details>
-                <LinkCard onClick={toggle2} className="mr-3"> Voir les informations de votre bien</LinkCard>
+                <LinkCard onClick={toggle2} className="mr-3"> Voir plus</LinkCard>
               </Details>
               <ListGroup horizontal>
                 <ListGroupItemCarac>
