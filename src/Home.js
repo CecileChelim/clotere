@@ -4,11 +4,9 @@ import Background from "./img/back-clotere.png"
 import Navbar from './components/Navbar';
 import Fade from 'react-reveal/Fade';
 /** composants **/
-import Header from './components/Header';
 import HeaderNew from './components/HeaderNew';
 import Efficacite from './components/Efficacite';
 import FeatureParallax2 from './components/FeatureParallax2';
-import Engagement from './components/Engagements';
 import EnMoyenne from './components/EnMoyenne';
 import Faq from './components/Faq';
 import BlocCta from './components/BlocCta';
@@ -31,6 +29,7 @@ function Home(args) {
             <Fade bottom><EnMoyenne/></Fade>
             <Fade bottom><Faq/></Fade>
             <Fade bottom><BlocCta/></Fade>
+            <br/><br/><br/>
             <Fade bottom><Footer/></Fade>
         </HomeS>
         </>

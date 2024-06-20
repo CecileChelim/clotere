@@ -7,14 +7,14 @@ import ArrowRight from "../img/arrow-right.png";
 
 
 export const CardS = styled(Card)`
-background: rgb(2, 96, 105);
+background: rgb(2, 96, 105)!important;
 border-radius: 20px;
 border: 0;
 margin-bottom: 2rem;
-margin-top: 4rem;
+margin-top: 2rem;
  color:#fff;
  display:flex;
- flex-direction:column;
+ flex-direction:row;
  align-items:center;
  justify-content:space-between;
  padding: 2rem;

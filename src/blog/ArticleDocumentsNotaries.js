@@ -8,9 +8,7 @@ import Footer from '../components/Footer';
 import { HomeS } from '../Home';
 import { ArticleContent } from "../style/Blog";
 import CardClotere1 from "./CardClotere1";
-import CardClotere2 from "./CardClotere2";
 import ArticlesSimilaires from "./ArticlesSimilaires";
-import BlocCta from "../components/BlocCta";
 
 
 function ArticleDocumentsNotaries(args) {
@@ -38,33 +36,12 @@ function ArticleDocumentsNotaries(args) {
                         </Container>
                     </Breadcrumb>
 
-                    <section>
+                    <section className="content">
                         <Container>
                             <Row>
-                                <Col md='1'></Col>
-                                <Col md='8'>
+                                <Col  className="col-xl-10 offset-xl-1 col-lg-12 article">
                                     <h1>Quels sont les documents de vente chez le notaire pour un achat immobilier ?</h1>
-                                    <Row>
-                                        <Col md='8'>
-                                            <div className="card-blog-author">
-                                                <img alt="trouver votre notaire en ligne" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
-
-                                                <div class="content-author">
-                                                    <p><b>Rédigé par Cécile</b></p>
-                                                    <p class="">Responsable produit</p>
-                                                </div>
-                                                <div>
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col md='4' align="right">
-                                            <div className="card-blog-author">
-                                                <div class="content-author">
-                                                    <p class="read-time">Lecture : 7 min</p>
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
+                                   
 
                                     <p>Vous projetez un achat immobilier. Durant la négociation, vous aurez à signer plusieurs documents actant la vente de ce bien immobilier à votre profit.
                                         <br />Quels sont ces documents ? À quoi servent-ils ? Dans quelles conditions les signe-t-on ? On vous en dit plus.</p>
@@ -80,11 +57,11 @@ function ArticleDocumentsNotaries(args) {
                                                 Cette démarche permet de sécuriser votre candidature auprès du vendeur.
                                                 <br />En effet, si celui-ci y répond positivement dans le délai de validité de l’offre, vous emportez la priorité sur d’éventuels concurrents.
                                                 <br /><br />
-                                                <Alert>
-                                                    Mais attention : <b>cela vous engage alors à acheter</b>. L’offre d’achat, pour avoir une valeur juridique, doit être formulée par écrit, et envoyée sous forme d’un mail ou d’un courrier postal (de préférence en recommandé avec accusé de réception)
+                                                <blockquote className="blog-quote">
+                                                Mais attention : <b>cela vous engage alors à acheter</b>. L’offre d’achat, pour avoir une valeur juridique, doit être formulée par écrit, et envoyée sous forme d’un mail ou d’un courrier postal (de préférence en recommandé avec accusé de réception)
 
-                                                    <br /><Link to="/onboard">Faites appel à un notaire disponible et qualifié pour gérer votre achat immobilier.</Link>
-                                                </Alert>
+                                                    <br /><Link to="/fr/notaires">Faites appel à un notaire disponible et qualifié pour gérer votre achat immobilier.</Link>
+                                                </blockquote>
                                             </p>
                                         </ListGroupItem>
                                         <ListGroupItem>
@@ -122,11 +99,11 @@ function ArticleDocumentsNotaries(args) {
                                                 <br/>
                                                 Il n’est pas obligatoire de le faire établir par et de le signer devant un notaire : l’accord peut se conclure entre particuliers ou entre un particulier et une agence immobilière, sous la forme d’un document type.
                                                 <br /><br />
-                                                <Alert>
+                                                <blockquote className="blog-quote">
                                                 Toutefois, <b>l’intervention d’un professionnel qualifié et objectif comme un notaire garantira davantage la conformité du compromis de vente</b>, dans l’intérêt des deux parties. 
                                                 <br/>Le notaire veillera notamment à <b>la rédaction des conditions suspensives nécessaires à la finalisation de la vente</b> (comme l’obtention d’un prêt par l’acheteur ou encore la réalisation de diagnostics ou de travaux par le vendeur).
                                                 <br/><Link to="/onboard">Faites appel à un notaire disponible et qualifié pour gérer votre achat immobilier.</Link>
-                                                </Alert>
+                                                </blockquote>
                                             </p>
                                         </ListGroupItem>
                                         <ListGroupItem>
@@ -183,16 +160,13 @@ function ArticleDocumentsNotaries(args) {
 
                                         </ListGroupItem>
                                         </ListGroup>
-                                </Col>
-                                <Col md='3'>
-                                    <CardClotere2 />
+                                        <CardClotere1 />
                                 </Col>
                             </Row>
                         </Container>
                     </section>
                 </ArticleContent>
                 <ArticlesSimilaires title="Articles similaires" />
-                <BlocCta />
                 <Footer />
             </HomeS >
         </>

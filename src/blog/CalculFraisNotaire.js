@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
-    Container, Row, Col, FormGroup, Label, Card, CardBody, Form, Input, Alert, CardTitle, CardText, Accordion,
+    Container, Row, Col, FormGroup, Label, Card, CardBody, Form, Input, Alert, Accordion,
     AccordionBody,
     AccordionHeader,
     AccordionItem,
@@ -12,8 +12,6 @@ import Footer from '../components/Footer';
 import styled from "styled-components";
 import Background from "../img/back-clotere.png"
 import { ButtonPrimarySmall, LinkCard } from "../style/Button";
-import { CardArticle } from "../style/Blog";
-import { Link } from "react-router-dom";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 /** composants **/
 import { Alert, Form, Input, FormGroup, Label, Row, Col } from "reactstrap";
 import { ButtonPrimary } from "../style/Button";

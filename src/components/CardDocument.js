@@ -8,7 +8,7 @@ import '@react-pdf-viewer/core/lib/styles/index.css'; // Styles de base du PDF v
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'; // Styles de la mise en page par défaut
 //style & icone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faClose, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faFile } from "@fortawesome/free-solid-svg-icons";
 import { faPlusCircle } from "@fortawesome/fontawesome-free-solid";
 
 function CardDocument(args) {

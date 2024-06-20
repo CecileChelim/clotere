@@ -6,7 +6,7 @@ import ClotereLogo from "../img/logo-clotere-blanc.svg";
 
 
 const FooterS = styled.footer`
-margin-top:90px;
+//margin-top:90px;
 background-color:#004f47;
 color:#fff;
 padding: 1rem;

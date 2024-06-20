@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Container, Row, Col, FormGroup, Label, Card, CardBody, Form, Input, Alert, CardTitle, CardText, ListGroup, ListGroupItem
+    Container, Row, Col, ListGroup, ListGroupItem
 } from "reactstrap";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';

@@ -24,6 +24,17 @@ body{
 background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
 }
 
+.surligne{
+position: relative;
+    display: inline-block;
+    img{
+        left: 0;
+    bottom: -10px;
+    width: 100%;
+        position: absolute;
+    }
+    }
+
 .badge{
   font-size:18px;
   font-weight:400;

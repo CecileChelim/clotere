@@ -1,16 +1,17 @@
 import React from "react";
 import {
-    Container, Row, Col, CardBody, CardTitle, CardText
+    Container, Row, 
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import HeaderBlog from "../img/header-blog.png";
-import { ContainerS, Title, SubTitle } from '../components/Header';
-import { HomeS } from '../Home';
-import { CardArticle } from "../style/Blog";
-import ArticlesSimilaires from "./ArticlesSimilaires";
+import Surligne from '../img/deski/shape/line-shape-12.svg';
+import {HeaderBannerThree} from '../annuaire/HeaderAnnuaire2'
+import ListeArticles from "./ListeArticles";
 
+const ListeArticlesS = styled.div`
+background:linear-gradient(45deg,#fffbf2,#edfffd);
+`;
 
 
 
@@ -18,28 +19,35 @@ function Blog(args) {
 
     return (
         <>
-            <HomeS>
+            <div>
                 <Navbar user={args.user} />
-                <ContainerS className="grey-bg">
-                    <Row className="d-flex align-items-center" align="center">
-                        <Col md="7" xs="12" align="left">
-                            <Title>Le blog by <span className="textHighlight">Clotere</span></Title>
-                            <Title className="mobile">Le blog by <span className="textHighlight">Clotere</span></Title>
-                            <SubTitle>Tous savoir sur votre passage chez le notaire, lors de votre achat immobilier.</SubTitle>
+                <HeaderBannerThree className="hero-banner-three">
+                    <Container className="container">
+                        <Row>
+                            <div className="col-xl-9 col-lg-11 col-md-8 m-auto">
+                                <h1>
+                                Tout savoir sur <span className="surligne"> votre notaire<img src={Surligne} alt="shape" class="cs-screen"/></span></h1>
 
-                        </Col>
-                        <Col md="5">
-                            <img width="150%" src={HeaderBlog} alt="" />
-                        </Col>
+                            </div>
+                            {/* End .col */}
 
-
-                    </Row>
-                </ContainerS>
-                <section className="p-5">
-                    <ArticlesSimilaires title="Tous nos articles sur les notaires, leurs rôles et leurs frais."/>
-                </section>
+                            <div className="col-xl-8 col-lg-9 m-auto">
+                                <p className="sub-text font-rubik">
+                                Tout savoir sur votre passage chez le notaire, lors de votre achat immobilier.
+                                </p>
+                            </div>
+                            {/* End .col */}
+                        </Row>
+                        {/* End .row */}
+                        {/* End search-filter-from */}
+                    </Container>
+                </HeaderBannerThree>
+                
+                <ListeArticlesS className="p-5">
+                    <ListeArticles title="Tous nos articles sur les notaires, leurs rôles et leurs frais." />
+                </ListeArticlesS>
                 <Footer />
-            </HomeS>
+            </div>
         </>
     );
 }

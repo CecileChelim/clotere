@@ -147,13 +147,13 @@ function ConnexionLink(args, props) {
                                 <h5>Clotere vous facilite le passage chez le notaire</h5>
                                 <ListGroupAvantages>
                                     <ListGroupItem>
-                                        <span>🥳</span> Trouvez un notaire rapidement et disponible
+                                        <span>🥳</span> Suivez l'avancement de votre transaction immobilère simplement
                                     </ListGroupItem>
                                     <ListGroupItem>
-                                        <span>👌</span> Fini les mails ! Regroupez tous les échanges de votre transaction au même endroit.
+                                        <span>👌</span> Regroupez tous vos échanges au même endroit.
                                     </ListGroupItem>
                                     <ListGroupItem>
-                                        <span>🔥</span> Suivre l'avancement de vos documents notariés
+                                        <span>🔥</span> Trouvez un notaire plus rapidement
                                     </ListGroupItem>
                                     <ListGroupItem>
                                         <span>📆</span> Fixer vos rendez-vous simplement avec votre notaire
@@ -228,13 +228,13 @@ function ConnexionLink(args, props) {
                                 <h4>Clotere vous facilite le passage chez le notaire</h4>
                                 <ListGroupAvantages>
                                     <ListGroupItem>
-                                        <span>🥳</span> Trouvez un notaire rapidement et disponible
+                                        <span>🥳</span> Suivez votre transaction immobilière facilement
                                     </ListGroupItem>
                                     <ListGroupItem>
-                                        <span>👌</span> Fini les mails ! Regroupez tous les échanges de votre transaction au même endroit.
+                                        <span>👌</span> Regroupez tous vos échanges au même endroit
                                     </ListGroupItem>
                                     <ListGroupItem>
-                                        <span>🔥</span> Suivre l'avancement de vos documents notariés
+                                        <span>🔥</span> Trouvez un notaire rapidement
                                     </ListGroupItem>
                                     <ListGroupItem>
                                         <span>📆</span> Fixer vos rendez-vous avec votre notaire

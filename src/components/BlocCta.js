@@ -21,6 +21,7 @@ margin-top:90px;
     padding:40px 140px;
     text-align:center;
     border-radius:16px;
+    h2{line-height:1.1em}
     p.subtitle{
         font-size:22px;
         font-weight: 300;
@@ -37,7 +38,6 @@ margin-top:90px;
  }
 `;
 
-
 function BlocCta() {
     return (
         <BlocCtaS>
@@ -45,7 +45,7 @@ function BlocCta() {
                 <Row>
                     <Col md="12">
                     <Card>
-                        <h2>Faites nous confiance <br/>pour accélérez votre dossier de vente</h2>
+                        <h2>Faites nous confiance <br/>pour accélérer votre dossier de vente</h2>
                         <p className="subtitle">Créez votre dossier de transaction en quelques clics et votre expert <br/>juridique s’occupe du reste</p>
                         <Link to="/onboard">
                             <ButtonPrimary color="primary">Débuter ma transaction <img src={ArrowRight} alt=""/></ButtonPrimary>

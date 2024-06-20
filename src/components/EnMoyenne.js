@@ -36,6 +36,9 @@ font-family: "BodoniMedium", serif;
         font-size:30px;
     }  
  }
+    h4{
+    line-height:.6em;
+    }
  p{font-size:20px;margin-top:26px;}
  &.first{
     background-image:url(${Illu1}); 

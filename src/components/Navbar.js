@@ -11,10 +11,14 @@ import {
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import ClotereLogo from "../img/logo-clotere.svg";
+import { ButtonPrimary } from "../style/Button";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock} from "@fortawesome/free-solid-svg-icons";
+
 
 const NavS = styled(Navbar)`
   background-color:transparent;
-  padding:2rem 3rem 2rem 3rem;
+  padding:3rem!important;
     margin-right: auto;
     margin-left: auto;
     transition : all ease .5s;
@@ -47,30 +51,30 @@ const NavS = styled(Navbar)`
   z-index: 9999;
 }
   .linkcenter{
-  display:flex;
-  flex-direction:row;
+    display:flex;
+    flex-direction:row;
     align-items: center;
-    gap: 2rem;
+    gap: 3rem;
     justify-content: center;
   a{
-  transition:all ease .5s;
-text-decoration:none;
-font-size: 18px;
-font-weight: 300;
-color: #000000;
-margin-top: .8rem;
-&:hover{
-  color:${props => props.theme.colors.main};
-}
+    transition:all ease .5s;
+    text-decoration:none;
+    font-size: 20px;
+    font-weight: 300;
+    color: #000000;
+    
+    &:hover{
+      color:${props => props.theme.colors.main};
+    }
   }
 `;
 
 const LinkEspaceClient = styled.a`
 font-weight: 500;
-    background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #1DF36C 50%);
+font-size: 20px;
+font-weight: 300;
+svg{margin-right:.5rem;}
 `;
-
-
 
 const NavMobileS = styled(Navbar)`
 display:none!important;
@@ -140,7 +144,7 @@ function Navigation(args, props) {
         </Col>
       
 
-        <Col md="4" className="d-flex  justify-content-end">
+        <Col md="4" className="d-flex align-items-center justify-content-end">
         
           <div className="d-flex p-2">
             {member ? <Dropdown isOpen={dropdownOpen} toggle={toggle}>
@@ -177,10 +181,14 @@ function Navigation(args, props) {
                     }
                     memberstack.hideModal();
                   })
-                }><b>Espace client</b></LinkEspaceClient>
+                }>
+                  <FontAwesomeIcon icon={faLock}/><b>Espace client</b>
+                  </LinkEspaceClient>
             </>}
-
           </div>
+          <Link to="/fr/notaires">
+          {/**<ButtonPrimary color="primary">Trouvez votre notaire</ButtonPrimary>**/}
+          </Link>
         </Col>
       </NavS> : <NavMobileS className="d-flex fixed flex-wrap align-items-center  justify-content-between">
         <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none brand">

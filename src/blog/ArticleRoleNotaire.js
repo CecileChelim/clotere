@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Container, Row, Col, BreadcrumbItem,  Alert, ListGroup, ListGroupItem,  Breadcrumb
+    Container, Row, Col, BreadcrumbItem,  ListGroup, ListGroupItem,  Breadcrumb
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Navbar from '../components/Navbar';
@@ -8,10 +8,8 @@ import Footer from '../components/Footer';
 import { HomeS } from '../Home';
 import { ArticleContent } from "../style/Blog";
 import CardClotere1 from "./CardClotere1";
-import CardClotere2 from "./CardClotere2";
 import CardSimulateurFrais from "./CardSimulateurFrais";
 import ArticlesSimilaires from "./ArticlesSimilaires";
-import BlocCta from "../components/BlocCta";
 
 
 function ArticleRoleNotaire(args) {
@@ -39,38 +37,19 @@ function ArticleRoleNotaire(args) {
                         </Container>
                     </Breadcrumb>
 
-                    <section>
+                    <section  className="content">
                         <Container>
                             <Row>
-                                <Col md='1'></Col>
-                                <Col md='8'>
+                                <Col className="col-xl-10 offset-xl-1 col-lg-12 article">
                                     <h1>Quel est le rôle du notaire dans un achat immobilier ?</h1>
-                                    <Row>
-                                        <Col md='8'>
-                                            <div className="card-blog-author">
-                                                <img alt="trouver votre notaire en ligne" height="50" width="50" auto="best" class="vesta-card-blog--expert-pic" src="https://res.cloudinary.com/vesta-home/image/upload/c_fill,g_face,h_80,r_max,w_80/v1/eugene/photos_profil/robin_boursier_5c7de5b196a2f904b493.webp" />
-
-                                                <div class="content-author">
-                                                    <p><b>Rédigé par Cécile</b></p>
-                                                    <p class="">Responsable produit</p>
-                                                </div>
-                                                <div>
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col md='4' align="right">
-                                            <div className="card-blog-author">
-                                                <div class="content-author">
-                                                    <p class="read-time">Lecture : 7 min</p>
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
 
                                     <p>
                                         Si vous avez un projet d’achat immobilier, vous devez savoir que le notaire tient un rôle indispensable dans le processus d’achat, que ce soit pour établir des documents administratifs et juridiques, des signatures, mais aussi pour une mission de conseil.
                                         <br/>Voici ses différentes attributions.
                                     </p>
+                                    <blockquote className="blog-quote">
+                                    Le notaire joue un rôle crucial dans un achat immobilier en garantissant la légalité et la sécurité de la transaction, depuis la rédaction des documents jusqu'à la signature de l'acte de vente.
+                                    </blockquote>
                                     <h2>
                                         Quels sont les documents et signatures pour votre achat immobilier ?
                                     </h2>
@@ -85,11 +64,11 @@ function ArticleRoleNotaire(args) {
                                                 <br/>Ce pré-contrat engage le vendeur (pour la promesse de vente) ou le vendeur et l’acheteur (pour le compromis de vente). 
                                                 Il n’est pas obligatoire de le faire établir par et de le signer devant un notaire : l’accord peut se conclure entre particuliers ou entre un particulier et une agence immobilière, sous la forme d’un document type.
                                                 <br /><br />
-                                                <Alert>
+                                                <blockquote className="blog-quote">
                                                 Toutefois, <b>l’intervention d’un professionnel qualifié et objectif comme un notaire garantira davantage la conformité du compromis de vente</b>, dans l’intérêt des deux parties. 
                                                 <br/>Le notaire veillera notamment à <b>la rédaction des conditions suspensives nécessaires à la finalisation de la vente</b> (comme l’obtention d’un prêt par l’acheteur ou encore la réalisation de diagnostics ou de travaux par le vendeur).
-                                                <br/><Link to="/onboard">Faites appel à un notaire disponible et qualifié pour gérer votre achat immobilier.</Link>
-                                                </Alert>
+                                                <br/><Link to="/fr/notaires">Faites appel à un notaire disponible et qualifié pour gérer votre achat immobilier.</Link>
+                                                </blockquote>
                                             </p>
                                         </ListGroupItem>
                                         <ListGroupItem>
@@ -164,15 +143,11 @@ function ArticleRoleNotaire(args) {
                                     </ListGroup>
                                     <CardSimulateurFrais/>
                                 </Col>
-                                <Col md='3'>
-                                <CardClotere2/>
-                                </Col>
                             </Row>
                         </Container>
                     </section>
                 </ArticleContent>
                 <ArticlesSimilaires title="Articles similaires" />
-                <BlocCta/>
                 <Footer />
             </HomeS >
         </>

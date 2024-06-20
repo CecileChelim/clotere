@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, ListGroupItem } from "reactstrap";
+import { Container} from "reactstrap";
 import styled from "styled-components";
 import IcnLogoNoir from "../img/icn-logo-noir.svg";
 
