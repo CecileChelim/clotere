@@ -22,6 +22,7 @@ import ArticleRoleNotaire from './blog/ArticleRoleNotaire';
 import ArticleDocumentsNotaries from './blog/ArticleDocumentsNotaries';
 import ArticleChoisirNotaire from './blog/ArticleChoisirNotaire';
 //annuaire
+import Test from './annuaire/Test'
 import AllNotaires from './annuaire/HomeAnnuaire'
 import NotairesRegions from './annuaire/NotaireRegions';
 import NotaireVilleParis from './annuaire/NotaireVilleParis';
@@ -108,6 +109,7 @@ const App = () => {
             <Route path="/fr/notaires/ville/rennes" exact user={userInfo} element={<NotaireVilleParis />}  />
             <Route path="/fr/notaires/ville/toulouse" exact user={userInfo} element={<NotaireVilleParis />}  />
             <Route path="/notaire/:nom" exact user={userInfo} element={<FicheNotaire />}  />
+            <Route path="/test" exact user={userInfo} element={<Test />}  />
 
 
           </Routes>

@@ -18,7 +18,7 @@ import { faLock} from "@fortawesome/free-solid-svg-icons";
 
 const NavS = styled(Navbar)`
   background-color:transparent;
-  padding:3rem!important;
+  padding:3rem;
     margin-right: auto;
     margin-left: auto;
     transition : all ease .5s;

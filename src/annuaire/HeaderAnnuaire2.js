@@ -26,8 +26,7 @@ export const HeaderBannerThree = styled.div`
 
   padding: 60px 0 0;
   position: relative;
-
-:before {
+&:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -40,6 +39,7 @@ export const HeaderBannerThree = styled.div`
   bottom: 0;
   z-index: -1;
 }
+
 h1 {
   font-size: 85px;
   line-height: 1.05em;

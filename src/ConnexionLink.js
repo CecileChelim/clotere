@@ -259,8 +259,7 @@ function ConnexionLink(args, props) {
                 <OffcanvasBody>
                 <p>Clotere est une entreprise où la sécurité et la vie privée de nos utilisateurs est prise extrêmement au sérieux. 
                     Nous savons que vous nous faites confiance en nous confiant des données personnelles et sensibles, et nous mettons tout en œuvre pour les protéger</p>
-                
-
+    
                 <p>
                     <b>L'objectif principal est qu'il soit impossible pour un intrus de se connecter à votre place</b> !
                     </p>

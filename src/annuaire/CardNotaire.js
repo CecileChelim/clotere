@@ -86,7 +86,7 @@ function CardNotaire(args) {
                                 <>
                                 <ListGroupItem>
                                 <FontAwesomeIcon icon={faLink} className='mr-3 rounded' />
-                                <a href={`${args.site}?utm_source=clotere`} target="blank">{args.site}</a>
+                                <a href={`${args.site}?utm_source=clotere`} target="blank">Consulter le site internet</a>
                             </ListGroupItem>
                                 </>
                             }
