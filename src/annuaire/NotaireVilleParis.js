@@ -77,28 +77,72 @@ function NotairesVilleParis(args) {
     const [state, setState] = useState(false);
     const [tooltipOpen, setTooltipOpen] = useState(false);
     const toggle = () => setTooltipOpen(!tooltipOpen);
+    const [formattedData, setFormattedData] = useState([]);
+    const [data, setData] = useState([]);
 
-    useEffect(() => {
-        fetchCSVData();    // Fetch the CSV data when the component mounts
-    }, []);
+    // useEffect(() => {
+    //     fetchCSVData();    // Fetch the CSV data when the component mounts
+    // }, []);
+
+    const SPREADSHEET_ID = '1goMuEIM_a2g9k0jivUC4t0ABw5ABLaX1QSLvJwnGlgk';
+const API_KEY = 'AIzaSyDOypSeMIO3bhhlZt9-2KZ7OKpQW1n-njg';
+const RANGE = 'Ile-de-France!A1:H1000';
 
 
-    const fetchCSVData = () => {
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRTg3RI6d8QDNaIA8kPUz__DkubDkvxywZKjPQdLrwFEnBouJ4GQ6xyfKDdMlcXbXC6T8AKwotXKhsG/pub?output=csv'; // Replace with your Google Sheets CSV file URL
-       // const csvUrl = `https://sheets.googleapis.com/v4/spreadsheets/1goMuEIM_a2g9k0jivUC4t0ABw5ABLaX1QSLvJwnGlgk/values:batchGet?ranges=$'Auvergne-rhone-alpes'`;
+useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`
+        );
+        const rows = response.data.values;
+        console.log(rows);
+        setData(rows);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    };
 
-        axios.get(csvUrl)    // Use Axios to fetch the CSV data
-            .then((response) => {
-                const parsedCsvData = parseCSV(response.data);  
-                const filtered = parsedCsvData.filter(parsedCsvData => parsedCsvData.ville.includes("PARIS"));      // Parse the CSV data into an array of objects
-                setNotaires(filtered);       // Set the fetched data in the component's state
-                console.log(parsedCsvData);        // Now you can work with 'csvData' in your component's state.
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error fetching CSV data:', error);
-            });
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data.length > 1) {
+      const headers = data[0];
+      const rows = data.slice(1);
+      const formatted = rows.map(row => {
+        const obj = {};
+        headers.forEach((header, index) => {
+          obj[header] = row[index] || '';
+        });
+        return obj;
+      });
+      setNotaires(formatted);
+      setLoading(false);
+
+
+      console.log(formattedData);
     }
+  }, [data]);
+
+    // const fetchCSVData = () => {
+
+
+    // //     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRTg3RI6d8QDNaIA8kPUz__DkubDkvxywZKjPQdLrwFEnBouJ4GQ6xyfKDdMlcXbXC6T8AKwotXKhsG/pub?output=csv'; // Replace with your Google Sheets CSV file URL
+    // //    // const csvUrl = `https://sheets.googleapis.com/v4/spreadsheets/1goMuEIM_a2g9k0jivUC4t0ABw5ABLaX1QSLvJwnGlgk/values:batchGet?ranges=$'Auvergne-rhone-alpes'`;
+
+    // //     axios.get(csvUrl)    // Use Axios to fetch the CSV data
+    // //         .then((response) => {
+    // //             const parsedCsvData = parseCSV(response.data);  
+    // //             const filtered = parsedCsvData.filter(parsedCsvData => parsedCsvData.ville.includes("PARIS"));      // Parse the CSV data into an array of objects
+    // //             setNotaires(filtered);       // Set the fetched data in the component's state
+    // //             console.log(parsedCsvData);        // Now you can work with 'csvData' in your component's state.
+    // //             setLoading(false);
+    // //         })
+    // //         .catch((error) => {
+    // //             console.error('Error fetching CSV data:', error);
+    // //         });
+    // }
 
 
     if (isLoading) {
