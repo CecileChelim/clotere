@@ -55,8 +55,33 @@ const FormS = styled(Form)`
     }
 `;
 
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 
+  button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
 
+    &:hover {
+      background-color: #f1f1f1;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #ddd;
+    }
+  }
+
+  span {
+    margin: 0 10px;
+  }
+`;
 
 const RowFiltres = styled(Row)`
 padding:2rem 4rem;
@@ -77,53 +102,93 @@ function NotairesVilleParis(args) {
     const [state, setState] = useState(false);
     const [tooltipOpen, setTooltipOpen] = useState(false);
     const toggle = () => setTooltipOpen(!tooltipOpen);
-    const [formattedData, setFormattedData] = useState([]);
     const [data, setData] = useState([]);
+    const [itemsPage, setItemsPage] = useState([]);
 
-    // useEffect(() => {
-    //     fetchCSVData();    // Fetch the CSV data when the component mounts
-    // }, []);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 30;
 
-    const SPREADSHEET_ID = '1goMuEIM_a2g9k0jivUC4t0ABw5ABLaX1QSLvJwnGlgk';
-const API_KEY = 'AIzaSyDOypSeMIO3bhhlZt9-2KZ7OKpQW1n-njg';
-const RANGE = 'Ile-de-France!A1:H1000';
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = notaires?.slice(indexOfFirstItem, indexOfLastItem);
 
+    const totalPages = Math.ceil(notaires?.length / itemsPerPage);
 
-useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`
-        );
-        const rows = response.data.values;
-        console.log(rows);
-        setData(rows);
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      }
+    const handleNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
     };
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (data.length > 1) {
-      const headers = data[0];
-      const rows = data.slice(1);
-      const formatted = rows.map(row => {
-        const obj = {};
-        headers.forEach((header, index) => {
-          obj[header] = row[index] || '';
-        });
-        return obj;
-      });
-      setNotaires(formatted);
-      setLoading(false);
+    const handlePrevious = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            setItemsPage(notaires?.slice(indexOfFirstItem, indexOfLastItem));
+        }
+    };
+    
+    const SPREADSHEET_ID = '1goMuEIM_a2g9k0jivUC4t0ABw5ABLaX1QSLvJwnGlgk';
+    const API_KEY = 'AIzaSyDOypSeMIO3bhhlZt9-2KZ7OKpQW1n-njg';
+    const RANGE = 'Ile-de-France!A1:H10000';
 
 
-      console.log(formattedData);
-    }
-  }, [data]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`
+                );
+                const rows = response.data.values;
+                console.log(rows);
+                setData(rows);
+            } catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (data.length > 1) {
+            const headers = data[0];
+            const rows = data.slice(1);
+            const formatted = rows.map(row => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index] || '';
+                });
+                return obj;
+            });
+
+
+            if (formatted != null) {
+                var filteredData = formatted.filter(item => item.ville === "PARIS");
+
+                setNotaires(filteredData);
+
+                setLoading(false);
+            }
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if(notaires != null){
+            setItemsPage(notaires?.slice(indexOfFirstItem, indexOfLastItem))
+        }
+        
+    }, [notaires]);
+
+    useEffect(() => {
+        if(notaires != null){
+            var newItems = notaires?.slice(indexOfFirstItem, indexOfLastItem)
+            console.log(newItems);
+            setItemsPage(newItems);
+        }
+        
+    }, [currentPage]);
+       
+  
 
     // const fetchCSVData = () => {
 
@@ -213,19 +278,29 @@ useEffect(() => {
                                 </Tooltip>
                             </Col>
                         </RowFiltres>
-                        <Row>
 
-                            <ColNotaire>
+                        <ColNotaire>
 
-                            {notaires.map((col, i) => (
-                                    <>
-                                        <CardNotaire fiche={notaires[i].lien_fiche} key={i} nom={notaires[i].nom} adresse={notaires[i].adresse} cp={notaires[i].code_postal} ville={notaires[i].ville} site={notaires[i].site} />
+                            {itemsPage.map((col, i) => (
+                                <>
+                                    <CardNotaire fiche={itemsPage[i].lien_fiche} key={i} nom={itemsPage[i].nom} adresse={itemsPage[i].adresse} cp={itemsPage[i].code_postal} ville={itemsPage[i].ville} site={itemsPage[i].site} />
 
-                                    </>
-                                ))}
-                                
-                            </ColNotaire>
-                        </Row>
+                                </>
+                            ))}
+
+                        </ColNotaire>
+
+                        <Pagination>
+                            <button onClick={() => handlePrevious()} disabled={currentPage === 1}>
+                                &lt; Précédent
+                            </button>
+                            <span>
+                                Page {currentPage} sur {totalPages}
+                            </span>
+                            <button onClick={() => handleNext()} disabled={currentPage === totalPages}>
+                                Suivant &gt;
+                            </button>
+                        </Pagination>
 
                         <RechercheParVille />
                         <FindePage ville="Paris" />
@@ -240,5 +315,7 @@ useEffect(() => {
 
     );
 }
+
+
 
 export default NotairesVilleParis;
