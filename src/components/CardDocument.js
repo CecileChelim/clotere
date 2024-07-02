@@ -90,6 +90,7 @@ function CardDocument(args) {
 
 
       ))}
+      {/**
       <Offcanvas
         isOpen={canvas}
         toggle={toggleExplicationDocument}
@@ -104,6 +105,7 @@ function CardDocument(args) {
         </OffcanvasBody>
 
       </Offcanvas>
+       */}
     </div>
   );
 }
