@@ -103,14 +103,17 @@ function NotairesVilleParis(args) {
     const [tooltipOpen, setTooltipOpen] = useState(false);
     const toggle = () => setTooltipOpen(!tooltipOpen);
     const [data, setData] = useState([]);
+    const [dataNotaires, setDataNotaires] = useState([]);
     const [itemsPage, setItemsPage] = useState([]);
 
+    const namePage = "Paris"
+
     const [currentPage, setCurrentPage] = useState(1);
+    
     const itemsPerPage = 30;
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = notaires?.slice(indexOfFirstItem, indexOfLastItem);
 
     const totalPages = Math.ceil(notaires?.length / itemsPerPage);
 
@@ -163,9 +166,10 @@ function NotairesVilleParis(args) {
 
 
             if (formatted != null) {
-                var filteredData = formatted.filter(item => item.ville === "PARIS");
+                var filteredData = formatted.filter(item => item.ville === namePage.toUpperCase());
 
                 setNotaires(filteredData);
+                setDataNotaires(filteredData);
 
                 setLoading(false);
             }
@@ -187,7 +191,22 @@ function NotairesVilleParis(args) {
         }
         
     }, [currentPage]);
-       
+
+    useEffect(() => {
+        console.log(dataNotaires);
+        if(state == true){
+            var filteredData = dataNotaires.filter(item => item.utilise_clotere === "oui");
+            console.log(filteredData);
+            setNotaires(filteredData)
+        }else{
+            var filteredData = dataNotaires.filter(item => item.ville === namePage.toUpperCase());
+            console.log(filteredData);
+            setNotaires(filteredData);
+        }
+
+        console.log("HERE");
+        
+    },[state])
   
 
     // const fetchCSVData = () => {
@@ -232,14 +251,14 @@ function NotairesVilleParis(args) {
                                     </Link>
                                 </BreadcrumbItem>
                                 <BreadcrumbItem active>
-                                    Notaire à Paris
+                                    Notaire à {namePage}
                                 </BreadcrumbItem>
                             </BreadcrumbS>
                         </Col>
                         <Col md="12" xs="12" align="center">
-                            <h1>Trouvez  <span className="surligne"> votre notaire<img src={Surligne} alt="shape" class="cs-screen" /></span> à Paris</h1>
+                            <h1>Trouvez  <span className="surligne"> votre notaire<img src={Surligne} alt="shape" class="cs-screen" /></span> à {namePage}</h1>
                             <SubTitle>
-                                Retrouvez dans l'annuaire des notaires de Paris, le notaire idéal pour vous accompagner dans vos démarches.
+                                Retrouvez dans l'annuaire des notaires de {namePage}, le notaire idéal pour vous accompagner dans vos démarches.
                                 <br />
                             </SubTitle>
                         </Col>
@@ -251,7 +270,7 @@ function NotairesVilleParis(args) {
 
                         <RowFiltres>
                             <Col md="6" align="left">
-                                <h3><small>{notaires.length} notaires à <span className="textHighlight">Paris</span></small></h3>
+                                <h3><small>{notaires.length} notaires à <span className="textHighlight">{namePage}</span></small></h3>
                             </Col>
                             <Col md="6" align="right">
                                 <FormS>
@@ -303,7 +322,7 @@ function NotairesVilleParis(args) {
                         </Pagination>
 
                         <RechercheParVille />
-                        <FindePage ville="Paris" />
+                        <FindePage ville={namePage} />
 
                     </Container>
                     <CtaNotaire />
